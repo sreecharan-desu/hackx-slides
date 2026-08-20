@@ -156,6 +156,60 @@ body {
   margin: 1rem 0;
 }
 
+.classic-prose .table-wrap {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.classic-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.classic-prose thead th {
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--foreground) 4%, var(--surface));
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.classic-prose tbody td {
+  padding: 0.95rem 1.1rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  color: color-mix(in srgb, var(--foreground) 92%, transparent);
+}
+
+.classic-prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.classic-prose tbody td:first-child {
+  font-weight: 500;
+  color: var(--foreground);
+  width: 42%;
+}
+
+.classic-prose tbody td:last-child {
+  color: var(--muted);
+}
+
+.classic-prose tbody td :not(pre) > code,
+.classic-prose tbody td code {
+  font-size: 0.86em;
+}
+
 .classic-prose .mermaid-diagram {
   margin: 1.5rem 0;
 }

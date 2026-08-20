@@ -17,32 +17,25 @@ flowchart TB
   F --> G[Check Billing → Cost Explorer]
 ```
 
+| Step | Command / action |
+| --- | --- |
+| 1 · Elastic IP | `disassociate-address` then `release-address` |
+| 2 · Instance | `terminate-instances` |
+| 3 · DynamoDB | `delete-table` for users + tokens |
+| 4 · SES SMTP user | `iam delete-user` |
+| 5 · Key pair | `delete-key-pair` + drop local `.pem` |
+| 6 · DNS | remove `api` A record |
+| 7 · Billing | Cost Explorer + $5 budget alarm |
+
 ```bash
-# 1) Elastic IP — release AFTER disassociate
 aws ec2 describe-addresses --region ap-south-1
 aws ec2 disassociate-address --association-id assoc-…
 aws ec2 release-address --allocation-id eipalloc-…
 
-# 2) Instance
 aws ec2 terminate-instances --instance-ids i-… --region ap-south-1
 
-# 3) DynamoDB
 aws dynamodb delete-table --table-name club-portal-users --region ap-south-1
 aws dynamodb delete-table --table-name club-portal-tokens --region ap-south-1
-
-# 4) SES SMTP user (IAM)
-aws iam delete-user --user-name ses-smtp-user-…
-
-# 5) Optional: delete key pair from AWS (local .pem too)
-aws ec2 delete-key-pair --key-name club-portal
 ```
 
-Also:
-
-- Remove `api` A record (or point it nowhere)
-- Delete unused security groups
-- Confirm Certbot renew cron is gone with the instance
-- Billing console → confirm forecast drops over 24–48h
-- Set a **budget alarm** once: Billing → Budgets → $5 email alert
-
-Free tier ends. Idle Elastic IPs charge. DynamoDB on-demand is cheap until you forget tables exist — delete them.
+Free tier ends. Idle Elastic IPs charge. On-demand DynamoDB is cheap until you forget the tables — delete them.

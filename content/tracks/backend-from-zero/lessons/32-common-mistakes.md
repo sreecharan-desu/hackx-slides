@@ -5,10 +5,12 @@ order: 32
 
 # Failure modes
 
-- `.env` committed
-- plaintext passwords
-- listening on `127.0.0.1` when the LAN needs you
-- DynamoDB region mismatch with the SDK
-- SES From unverified
-- SG missing 80/443/22
-- leaving EC2 + Elastic IP + tables running after the talk
+| Mistake | Fix |
+| --- | --- |
+| `.env` in git | gitignore + rotate secrets |
+| Plaintext passwords | bcrypt only |
+| Bind `127.0.0.1` | listen `0.0.0.0` |
+| Wrong DynamoDB region | match `AWS_REGION` to tables |
+| SES From unverified | verify identity first |
+| SG missing 80 / 443 / 22 | open what you need |
+| Idle EC2 + Elastic IP + tables | run teardown before you leave |

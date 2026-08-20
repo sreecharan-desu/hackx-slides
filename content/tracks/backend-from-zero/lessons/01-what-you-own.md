@@ -28,4 +28,7 @@ flowchart TB
 | Members-only chat | Auth middleware |
 | Who is logged in | `GET /me` |
 
-Local demo satisfies the brief. We still ship to EC2 — lived AWS story, not slides alone.
+| Demo bar | What we still ship |
+| --- | --- |
+| Local demo | Enough for the brief |
+| Live AWS | Bonus — EC2 + domain so the story is lived |
