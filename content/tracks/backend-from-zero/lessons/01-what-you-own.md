@@ -23,7 +23,7 @@ Postgres   FastAPI RAG  ← Anand
 | Requirement | Your job |
 | --- | --- |
 | Sign up + login | Auth APIs |
-| Forgot password | Token + email |
+| Forgot password | Token + email via Nodemailer → **Amazon SES** |
 | Chat is members-only | Auth middleware |
 | Never log passwords | Security habit |
 
