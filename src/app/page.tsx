@@ -32,26 +32,30 @@ export default function HomePage() {
           Classic, readable lessons. Pick a track to start.
         </p>
 
-        <ul className="space-y-1">
-          {tracks.map((track) => (
-            <li key={track.id}>
-              <Link
-                href={`/tracks/${track.id}`}
-                className="group flex items-start gap-3 rounded-md px-2 py-3 hover:bg-surface"
-              >
-                <FileText className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
-                <div className="min-w-0">
-                  <div className="font-medium underline decoration-foreground/40 underline-offset-4 group-hover:decoration-foreground">
-                    {track.title}
+        {tracks.length === 0 ? (
+          <p className="text-center text-muted">No tracks yet.</p>
+        ) : (
+          <ul className="space-y-1">
+            {tracks.map((track) => (
+              <li key={track.id}>
+                <Link
+                  href={`/tracks/${track.id}`}
+                  className="group flex items-start gap-3 rounded-md px-2 py-3 hover:bg-surface"
+                >
+                  <FileText className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
+                  <div className="min-w-0">
+                    <div className="font-medium underline decoration-foreground/40 underline-offset-4 group-hover:decoration-foreground">
+                      {track.title}
+                    </div>
+                    <div className="mt-0.5 text-sm text-muted">
+                      {track.chapters} chapters · {track.description}
+                    </div>
                   </div>
-                  <div className="mt-0.5 text-sm text-muted">
-                    {track.chapters} chapters · {track.description}
-                  </div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </main>
     </div>
   );

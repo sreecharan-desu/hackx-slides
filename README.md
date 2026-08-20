@@ -13,7 +13,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Content
 
-Add tracks under `content/tracks/<track-id>/`:
+No tracks yet. Add them under `content/tracks/<track-id>/`:
 
 - `meta.json` — title + description
 - `lessons/*.md` — markdown with frontmatter (`title`, `order`)
