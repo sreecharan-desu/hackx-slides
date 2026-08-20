@@ -5,7 +5,7 @@ order: 14
 
 # Login
 
-Compare the hash, refuse unverified accounts, then issue a JWT the client sends on later requests.
+Find the user, compare the hash, make sure they're verified, then hand them a JWT. That ticket rides along on later requests.
 
 ```ts
 import jwt from "jsonwebtoken";
@@ -39,4 +39,4 @@ router.post("/login", async (req, res) => {
 });
 ```
 
-Use the same error for bad email and bad password so you don’t leak which one failed.
+Same error for bad email and bad password — we don't tell attackers which one failed.

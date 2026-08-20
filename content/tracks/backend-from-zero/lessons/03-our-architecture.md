@@ -5,7 +5,7 @@ order: 3
 
 # Shape of the service
 
-Keep the HTTP surface small so the frontend has a clear contract.
+We're keeping the HTTP surface tiny on purpose — so whoever builds the UI has a clean contract to call.
 
 ```mermaid
 flowchart TB
@@ -47,3 +47,5 @@ club-portal-backend/
 ├── package.json
 └── tsconfig.json
 ```
+
+If you can point at a folder and say what it does in one sentence, you're in good shape.

@@ -5,10 +5,10 @@ order: 11
 
 # Outbound mail
 
-One helper for every email. Locally it hits MailDev; in production the same code hits SES.
+We want one helper for every email in the app. Locally it dumps into MailDev; later the same function talks to SES.
 
 ```bash
-npx maildev   # UI :1080 · SMTP :1025
+npx maildev   # UI on :1080 · SMTP on :1025
 ```
 
 `src/mail.ts`
@@ -33,4 +33,4 @@ export async function sendMail(opts: { to: string; subject: string; text: string
 }
 ```
 
-Swap SMTP settings in `.env` when you move to SES. Call sites stay unchanged.
+When we flip to SES, we only change `.env`. The call sites don't move.

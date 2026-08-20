@@ -5,7 +5,7 @@ order: 2
 
 # What a backend is
 
-The browser never talks to the database. Your API is the only door in.
+Think of it this way: the browser should never poke the database directly. Your API is the only door.
 
 ```mermaid
 flowchart LR
@@ -16,4 +16,4 @@ flowchart LR
   E -->|response| C
 ```
 
-A backend accepts HTTP, applies rules, and returns JSON. Everything durable lives behind it.
+Request comes in, we apply rules, JSON goes back out. Anything that needs to survive a restart lives behind that door.

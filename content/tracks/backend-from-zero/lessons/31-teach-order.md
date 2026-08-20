@@ -5,7 +5,7 @@ order: 31
 
 # Run of show
 
-Keep each block short. Paste, run, move on.
+This is the clock I keep in my head. Steal it.
 
 | Block | Min |
 | --- | ---: |
@@ -16,3 +16,5 @@ Keep each block short. Paste, run, move on.
 | Chat gate | 2 |
 | Actions → EC2 → domain → TLS | 6 |
 | AWS map · teardown | 4 |
+
+Talk to the diagram, paste the block, run the command, move on. Don't narrate every line of TypeScript.

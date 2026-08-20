@@ -5,7 +5,7 @@ order: 27
 
 # Domain
 
-Point a subdomain at a stable Elastic IP so DNS does not chase a changing public address.
+Public IPs on EC2 can change if you stop the instance. An Elastic IP doesn't — so that's what DNS should point at.
 
 | Type | Name | Value |
 | --- | --- | --- |
@@ -15,4 +15,4 @@ Point a subdomain at a stable Elastic IP so DNS does not chase a changing public
 dig +short api.yourdomain.com
 ```
 
-Allocate an Elastic IP in EC2 and associate it before you publish the A record.
+Allocate the Elastic IP in EC2, associate it to your instance, *then* create the A record. Wait until `dig` shows the right address before Certbot.

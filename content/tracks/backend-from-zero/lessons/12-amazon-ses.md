@@ -5,7 +5,7 @@ order: 12
 
 # Amazon SES
 
-Nodemailer is the postman. SES is the real post office for production and for the AWS pitch.
+Nodemailer is our postman. SES is the real post office — and it's what you mention in the AWS pitch.
 
 ```mermaid
 flowchart LR
@@ -14,11 +14,11 @@ flowchart LR
   SMTP --> IN[(Inbox)]
 ```
 
-| Step | Action |
+| Step | What you click / paste |
 | --- | --- |
-| 1 | SES → Identities → verify From |
-| 2 | SMTP settings → create credentials |
-| 3 | Point `.env` at the regional endpoint |
+| 1 | SES → Identities → verify your From address |
+| 2 | SMTP settings → create credentials (save them once) |
+| 3 | Drop those into `.env` |
 
 ```bash
 SMTP_HOST=email-smtp.ap-south-1.amazonaws.com
@@ -28,10 +28,10 @@ SMTP_PASS=…
 MAIL_FROM="Club Portal <verified@address>"
 ```
 
-| Failure | Likely cause |
+| If you see this | It usually means |
 | --- | --- |
-| MessageRejected | unverified From |
-| Sandbox block | unverified To |
-| Auth error | bad SMTP secret / wrong region |
+| MessageRejected | From isn't verified |
+| Sandbox block | To isn't verified yet |
+| Auth error | Wrong SMTP secret or wrong region |
 
-Sandbox only delivers to verified addresses. Request production access when you need the open internet.
+New accounts start in sandbox — you can only mail verified addresses until AWS opens production for you.

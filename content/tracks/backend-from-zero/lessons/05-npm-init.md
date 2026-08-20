@@ -5,7 +5,7 @@ order: 5
 
 # Bootstrap
 
-TypeScript from minute one — `tsx` runs `.ts` without a separate build step while you teach.
+We're going TypeScript from the first command. `tsx` lets us run `.ts` files without a separate build step while we're teaching.
 
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
@@ -15,15 +15,15 @@ npm install -D typescript tsx prisma @types/express @types/cors @types/bcrypt @t
 npx tsc --init
 ```
 
-| Package | Role |
+| Package | Why we care |
 | --- | --- |
-| express | HTTP |
-| prisma / `@prisma/client` | schema + typed queries |
-| bcrypt / jsonwebtoken | passwords + session tickets |
-| nodemailer | outbound mail |
-| tsx | run TypeScript directly |
+| express | Speaks HTTP |
+| prisma / `@prisma/client` | Schema + typed queries |
+| bcrypt / jsonwebtoken | Passwords + login tickets |
+| nodemailer | Sends mail |
+| tsx | Runs TypeScript live |
 
-Add scripts to `package.json`:
+Drop these scripts into `package.json` so the room can follow along:
 
 ```json
 {

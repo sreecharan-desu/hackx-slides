@@ -5,7 +5,7 @@ order: 9
 
 # Auth model
 
-Email + password only — matches the problem statement. No social login.
+The brief says email + password is enough. So that's what we're building — no Google login rabbit hole.
 
 ```mermaid
 flowchart TB
@@ -18,4 +18,4 @@ flowchart TB
   J --> ME[GET /me]
 ```
 
-Authentication answers *who you are*. Authorization answers *what you’re allowed to do* — chat is the latter.
+Quick vocab while we're here: **authentication** is "who are you?", **authorization** is "are you allowed?" Chat is the second one.

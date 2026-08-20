@@ -5,7 +5,7 @@ order: 13
 
 # Email verification
 
-The link in the email is a single-use token. After it succeeds, mark the user verified and burn the token.
+That link in the email? It's a one-time token. We check it, flip `isVerified`, and burn the token so nobody reuses it.
 
 ```ts
 router.get("/verify", async (req, res) => {
@@ -36,3 +36,5 @@ router.get("/verify", async (req, res) => {
   }
 });
 ```
+
+Demo tip: open MailDev, click the link, then try logging in.

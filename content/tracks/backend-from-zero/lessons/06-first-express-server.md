@@ -5,14 +5,14 @@ order: 6
 
 # First process
 
-Prove the process boots before you touch auth or the database.
+First win of the day: get a process listening. Auth can wait until `/health` says hello.
 
 ```bash
 mkdir -p src
 touch src/server.ts .env .gitignore
 ```
 
-`.gitignore`
+`.gitignore` — keep secrets and junk out of git from minute one:
 
 ```text
 node_modules/
@@ -20,7 +20,7 @@ node_modules/
 dist/
 ```
 
-`.env` (partial — Neon comes next)
+`.env` for now (Neon comes next):
 
 ```bash
 PORT=4000
@@ -54,3 +54,5 @@ app.listen(port, "0.0.0.0", () => {
 npm run dev
 curl http://localhost:4000/health
 ```
+
+If that curls back `{ ok: true }`, the room is ready.

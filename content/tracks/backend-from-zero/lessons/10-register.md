@@ -5,7 +5,7 @@ order: 10
 
 # Register
 
-Hash the password, store the user, then email a one-time verify link. Never persist plaintext.
+Someone signs up → we hash the password → save the user → email a verify link. Plaintext passwords never hit the database. Ever.
 
 `src/routes/auth.ts` (register)
 
@@ -63,3 +63,5 @@ router.post("/register", async (req, res) => {
 
 export default router;
 ```
+
+Walk the room through the happy path once, then show what a duplicate email returns.

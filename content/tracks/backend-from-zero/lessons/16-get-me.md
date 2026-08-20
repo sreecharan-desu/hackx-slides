@@ -5,7 +5,7 @@ order: 16
 
 # GET /me
 
-After login, the frontend asks “who am I?” once. This is that endpoint.
+After login, the UI needs one simple question answered: "who am I right now?"
 
 `src/routes/me.ts`
 
@@ -27,4 +27,4 @@ curl http://localhost:4000/me \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-Profile, nav, and “can open chat?” all hang off this response.
+If this returns the user, auth is working end to end. Celebrate briefly, then move on.

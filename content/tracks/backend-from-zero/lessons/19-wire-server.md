@@ -5,7 +5,7 @@ order: 19
 
 # Compose the app
 
-Mount every route in one place. This is the file you start with `npm run dev`.
+This is the file you actually start. Everything mounts here so there's one place to look when something's missing.
 
 `src/server.ts`
 
@@ -41,3 +41,5 @@ app.listen(port, "0.0.0.0", () => console.log(`up on ${port}`));
 ```bash
 npm run dev
 ```
+
+If the console says `up on 4000`, you're cooking.

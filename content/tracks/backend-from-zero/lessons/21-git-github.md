@@ -5,7 +5,7 @@ order: 21
 
 # Source control
 
-Ship the TypeScript source. Keep secrets and generated client noise out of git.
+Time to get this off your laptop. Push the TypeScript — leave secrets behind.
 
 ```bash
 git init
@@ -14,4 +14,4 @@ git commit -m "auth, /me, prisma, ses"
 gh repo create club-portal-backend --private --source=. --remote=origin --push
 ```
 
-`.env` never leaves the machine. Neon’s connection string is a secret.
+That Neon connection string is a password. It stays in `.env`, not in GitHub.

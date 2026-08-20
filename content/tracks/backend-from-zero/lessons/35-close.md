@@ -5,7 +5,7 @@ order: 35
 
 # Close
 
-One path: TypeScript API, Prisma on Neon, SES mail, Ubuntu behind a domain — then a clean bill.
+That's the path: TypeScript API, Prisma on Neon, mail through SES, Ubuntu behind a domain — then a clean bill.
 
 ```mermaid
 flowchart LR
@@ -16,4 +16,4 @@ flowchart LR
   E --> F[Teardown]
 ```
 
-The frontend consumes the contract. RAG fills grounded answers. This layer stays correct, deployable, and disposable.
+Frontend consumes the contract. RAG fills grounded answers. Our job was to keep this layer boring, correct, and something you can actually ship — and tear down.

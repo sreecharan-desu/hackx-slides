@@ -5,7 +5,7 @@ order: 26
 
 # Nginx
 
-Public traffic hits 80/443. Express stays on loopback `:4000` — a normal production split.
+The internet shouldn't talk to Express on `:4000` directly. Nginx takes 80/443 and quietly proxies inward.
 
 ```mermaid
 flowchart LR
@@ -32,3 +32,5 @@ server {
 sudo ln -s /etc/nginx/sites-available/club-api /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 ```
+
+`nginx -t` before reload — saves you from locking yourself out of a bad config.

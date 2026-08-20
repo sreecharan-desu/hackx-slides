@@ -5,7 +5,7 @@ order: 33
 
 # References
 
-Share these after the session — not as a wall of reading mid-talk.
+Drop these in the chat after the session — not mid-sentence while people are typing along.
 
 | Area | Link |
 | --- | --- |

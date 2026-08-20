@@ -5,7 +5,7 @@ order: 4
 
 # Tooling
 
-You need Node for the API and the AWS CLI for deploy and teardown — not for the database.
+Before we touch code, make sure your laptop can run Node and talk to AWS. You don't need Postgres installed locally — Neon handles that.
 
 ```bash
 node -v    # 20+
@@ -27,4 +27,4 @@ aws configure
 # Access Key · Secret · region e.g. ap-south-1 · json
 ```
 
-Postgres will live on **Neon** in the cloud. No local Postgres install required for the workshop.
+We'll use the AWS CLI later for teardown. For now, just get `aws configure` out of the way.

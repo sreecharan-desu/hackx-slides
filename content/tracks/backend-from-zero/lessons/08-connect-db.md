@@ -5,7 +5,7 @@ order: 8
 
 # Schema + client
 
-Two models cover auth: users, and short-lived email tokens for verify / reset.
+Auth only needs two models: people, and the short-lived tokens we email them.
 
 `prisma/schema.prisma`
 
@@ -37,7 +37,7 @@ npx prisma db push
 npx prisma generate
 ```
 
-`db push` creates tables on Neon from the schema. `generate` builds the typed client.
+`db push` creates the tables on Neon. `generate` builds the client your code imports.
 
 `src/db.ts`
 
@@ -47,4 +47,4 @@ import { PrismaClient } from "@prisma/client";
 export const prisma = new PrismaClient();
 ```
 
-One shared client for the whole app. Import `prisma` in routes — never open a new connection per request.
+One shared client for the whole app. Import `prisma` in routes — don't open a fresh connection every request.

@@ -5,7 +5,7 @@ order: 25
 
 # Host setup
 
-Clone the repo, install, generate Prisma client, put the same `.env` you use locally (with production `APP_URL` and SES).
+You're on the box now. Clone the repo, install, generate Prisma, drop in your production `.env`.
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
@@ -28,4 +28,4 @@ pm2 save && pm2 startup
 curl http://127.0.0.1:4000/health
 ```
 
-Neon already holds the tables from `prisma db push`. Nothing to install for Postgres on the box.
+Same Neon `DATABASE_URL` as local is fine. Tables already exist from `prisma db push` — nothing Postgres-related to install here.

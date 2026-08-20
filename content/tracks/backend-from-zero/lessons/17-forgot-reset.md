@@ -5,7 +5,7 @@ order: 17
 
 # Password reset
 
-Required by the brief. Token expires, works once, and never emails the new password itself.
+The brief requires this. Flow is simple: email a short-lived token, let them set a new password, kill the token.
 
 ```mermaid
 flowchart TB
@@ -62,3 +62,5 @@ router.post("/reset-password", async (req, res) => {
   res.json({ ok: true });
 });
 ```
+
+We always return the same "if it exists…" message on forgot — no email fishing.

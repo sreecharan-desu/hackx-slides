@@ -5,7 +5,7 @@ order: 18
 
 # Protected chat
 
-Chat is members-only. Wire RAG later — the auth gate is what we own here.
+Chat is for logged-in members only. RAG can come later — today we own the gate.
 
 `src/routes/chat.ts`
 
@@ -26,4 +26,4 @@ router.post("/chat", requireAuth, async (req, res) => {
 export default router;
 ```
 
-Event day needs the same shape on `POST /ask` at `0.0.0.0:8080` — top-level `answer` and `sources`.
+On event day you'll also expose `POST /ask` on `0.0.0.0:8080` with top-level `answer` and `sources`. Same idea, stricter contract.

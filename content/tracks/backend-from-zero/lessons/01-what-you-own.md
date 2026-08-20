@@ -5,7 +5,7 @@ order: 1
 
 # Scope
 
-Today we build the **API only** — auth, identity, mail, and deploy.
+Alright — today we're only building the **API**. Auth, who's logged in, email, and getting it onto a server. That's our lane.
 
 ```mermaid
 flowchart TB
@@ -21,14 +21,14 @@ flowchart TB
   API --> RAG
 ```
 
-| Portal requirement | On the API |
+| Portal needs this | We build it as |
 | --- | --- |
 | Sign up / login | Auth routes |
 | Forgot password | Token + SES |
 | Members-only chat | Auth middleware |
 | Who is logged in | `GET /me` |
 
-| Demo bar | What we still ship |
+| What judges accept | What we're still doing |
 | --- | --- |
-| Local demo | Enough for the brief |
-| Live AWS | Bonus — EC2 + domain so the story is lived |
+| Local demo | Totally fine for the brief |
+| Live AWS | Bonus — we're shipping EC2 + a domain so the story feels real |

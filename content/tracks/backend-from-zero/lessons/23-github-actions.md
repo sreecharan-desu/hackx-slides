@@ -5,7 +5,7 @@ order: 23
 
 # GitHub Actions
 
-Install, typecheck-ish boot, then SSH deploy. Secrets stay in the repo settings.
+Install deps, make sure TypeScript is happy, SSH in, pull, regenerate Prisma, restart PM2. Secrets live in the repo settings — not in the YAML.
 
 `.github/workflows/deploy.yml`
 
@@ -38,4 +38,4 @@ jobs:
             pm2 restart club-api || pm2 start "npx tsx src/server.ts" --name club-api
 ```
 
-Repo secrets: `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`.
+Add `EC2_HOST`, `EC2_USER`, and `EC2_SSH_KEY` under Settings → Secrets. Then push once and watch the run.

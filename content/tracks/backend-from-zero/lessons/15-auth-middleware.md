@@ -5,7 +5,7 @@ order: 15
 
 # Auth middleware
 
-Every members-only route runs through this first. No token, no entry.
+This is the bouncer. Members-only routes don't even run until the ticket checks out.
 
 ```mermaid
 flowchart LR
@@ -48,3 +48,5 @@ export async function requireAuth(req: AuthedRequest, res: Response, next: NextF
   }
 }
 ```
+
+Hang this on chat (and anything else that shouldn't be public).

@@ -5,7 +5,7 @@ order: 29
 
 # AWS narrative
 
-Judges accept a local demo. The pitch still needs a cloud map — say what you run today, then the managed upgrade.
+Judges are fine with a local demo. They still want to hear how this would look on AWS. So we tell the truth about what we run today, then the managed upgrade.
 
 ```mermaid
 flowchart TB
@@ -29,7 +29,7 @@ flowchart TB
   API -. later .-> CW
 ```
 
-| Running today | Pitch analogue |
+| What we actually run | What we'd say in the pitch |
 | --- | --- |
 | Express on EC2 | EC2 / ECS |
 | Neon Postgres | Amazon RDS |
@@ -38,4 +38,4 @@ flowchart TB
 | Document pack | S3 |
 | pm2 logs | CloudWatch |
 
-You already run SES and EC2. Neon is the workshop database; RDS is the production sentence.
+You're not inventing SES and EC2 — you already touched them. Neon is the workshop DB; RDS is the production sentence.
