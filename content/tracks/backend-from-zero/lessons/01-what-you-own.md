@@ -1,39 +1,25 @@
 ---
-title: "1. What YOU own today"
+title: "1. Scope"
 order: 1
 ---
 
-# What YOU own today
+# Scope
 
-This track is **only the backend**.
+The API layer. Nothing else.
 
 ```text
-React Frontend          ← Mohan
-       ↓
- Express API            ← YOU (this track)
-   /        \
-  ↓          ↓
-Postgres   FastAPI RAG  ← Anand
+Frontend ─────────────────────────── Mohan
+                │
+           Express API ───────────── this session
+            /        \
+     Postgres      RAG service ───── Anand
 ```
 
-### From the problem statement (70%)
-
-**You must make these work on the server:**
-
-| Requirement | Your job |
+| Portal requirement | On the API |
 | --- | --- |
-| Sign up + login | Auth APIs |
-| Forgot password | Token + email via Nodemailer → **Amazon SES** |
-| Chat is members-only | Auth middleware |
-| Never log passwords | Security habit |
+| Sign up / login | Auth routes |
+| Forgot password | Token + SES mail |
+| Members-only chat | Auth middleware |
+| Who is logged in | `GET /me` |
 
-### Bonus (we will actually do it)
-
-Local demo is enough to compete. Live AWS = bonus.
-
-We still deploy: **EC2 + domain** so you can explain it for real.
-
-### Sources
-
-- [Express Guide](https://expressjs.com/en/starter/installing.html)
-- Problem: Club Member Portal 70% + 30% PDFs
+Local demo satisfies the brief. We still ship to EC2 with a domain — so the AWS story is lived, not recited.

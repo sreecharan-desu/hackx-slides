@@ -1,46 +1,33 @@
 ---
-title: "3. Our architecture (your piece)"
+title: "3. Shape of the service"
 order: 3
 ---
 
-# Our architecture (your piece)
+# Shape of the service
 
 ```text
-Client
-  │
-  │  POST /auth/register
-  │  POST /auth/login
-  │  GET  /me
-  │  POST /auth/forgot-password
-  │  POST /auth/reset-password
-  │  POST /chat          (forward to RAG later)
-  ▼
-┌─────────────────────────┐
-│   Express (Node.js)     │
-│   port 4000 (local)     │
-│   port 8080 (event /ask)│
-└───────────┬─────────────┘
-            │
-            ▼
-      PostgreSQL
-   (users, tokens, ...)
+POST /auth/register
+POST /auth/login
+GET  /auth/verify
+POST /auth/forgot-password
+POST /auth/reset-password
+GET  /me
+POST /chat
 ```
-
-### Folders we will create
 
 ```text
 club-portal-backend/
 ├── src/
 │   ├── server.js
 │   ├── db.js
-│   ├── middleware/
-│   │   └── auth.js
+│   ├── mail.js
+│   ├── middleware/auth.js
 │   └── routes/
 │       ├── auth.js
-│       └── me.js
+│       ├── me.js
+│       └── chat.js
 ├── .env
-├── .gitignore
 └── package.json
 ```
 
-Keep it small. Understanding > fancy folders.
+Small surface. Clear ownership. Easy to hand to frontend.

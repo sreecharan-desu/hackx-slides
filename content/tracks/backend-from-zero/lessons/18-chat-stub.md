@@ -1,21 +1,13 @@
 ---
-title: "18. Chat stub (members only)"
+title: "18. Protected chat"
 order: 18
 ---
 
-# Chat stub (members only)
+# Protected chat
 
-Anand owns RAG. You own: **logged-in users only** can hit chat.
+RAG is Anand’s service. Auth gate is ours.
 
-```text
-POST /chat  +  Bearer token
-      ↓
-requireAuth
-      ↓
-forward to FastAPI  (or temporary echo)
-```
-
-### `src/routes/chat.js` (copy-paste)
+`src/routes/chat.js`
 
 ```js
 const express = require("express");
@@ -23,33 +15,22 @@ const { requireAuth } = require("../middleware/auth");
 
 const router = express.Router();
 
-// Temporary stub until RAG is connected
 router.post("/chat", requireAuth, async (req, res) => {
   const question = String(req.body.question || "").trim();
   if (!question) return res.status(400).json({ error: "question required" });
 
-  // Later: call FastAPI RAG service here
-  // const rag = await fetch(process.env.RAG_URL + "/ask", { ... })
-
+  // later: forward to FastAPI
   res.json({
-    answer:
-      "RAG not connected yet. When connected, answers come only from club documents with sources.",
+    answer: "RAG not wired yet.",
     sources: [],
-    askedBy: req.user.email,
   });
 });
 
 module.exports = router;
 ```
 
-### 30% note (event day)
+Event day (30%): same contract on `POST /ask`, listen `0.0.0.0:8080`.
 
-Judges also need:
-
-```http
-POST /ask   on port 8080
+```json
+{ "answer": "...", "sources": [{ "document": "..." }] }
 ```
-
-Exact JSON: `{ "answer", "sources": [ { "document", ... } ] }`
-
-You can mount the same handler on `/ask` and listen on `8080` for the evaluator. Anand fills the real answer.

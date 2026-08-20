@@ -1,51 +1,25 @@
 ---
-title: "4. Install tools (once)"
+title: "4. Tooling"
 order: 4
 ---
 
-# Install tools (once)
-
-### Check Node + npm
+# Tooling
 
 ```bash
-node -v
+node -v    # 20+
 npm -v
-```
-
-Need **Node 20+**. If missing:
-
-```bash
-# macOS (Homebrew)
-brew install node
-
-# Ubuntu
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-### Check PostgreSQL
-
-```bash
 psql --version
 ```
 
-If missing (Ubuntu):
-
 ```bash
-sudo apt update
-sudo apt install -y postgresql postgresql-contrib
-sudo systemctl start postgresql
-sudo systemctl enable postgresql
-```
-
-macOS:
-
-```bash
-brew install postgresql@16
+# macOS
+brew install node postgresql@16
 brew services start postgresql@16
+
+# Ubuntu
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs postgresql postgresql-contrib
+sudo systemctl enable --now postgresql
 ```
 
-### Sources
-
-- [Node.js downloads](https://nodejs.org/)
-- [PostgreSQL install](https://www.postgresql.org/download/)
+Node runs the API. Postgres holds durable state.

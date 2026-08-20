@@ -1,48 +1,20 @@
 ---
-title: "7. PostgreSQL — the notebook"
+title: "7. Postgres"
 order: 7
 ---
 
-# PostgreSQL — the notebook
+# Postgres
 
-### Why a database?
-
-```text
-Variable in Node  →  dies when server restarts
-Row in Postgres   →  still there tomorrow
-```
-
-We need to remember:
-
-- users (email + hashed password)
-- email verify tokens
-- password reset tokens
-
-### Create database (copy-paste)
+Process memory dies on restart. The database does not.
 
 ```bash
-# Ubuntu default user is often "postgres"
 sudo -u postgres psql
 ```
-
-Inside `psql`:
 
 ```sql
 CREATE USER club WITH PASSWORD 'clubpass' CREATEDB;
 CREATE DATABASE club_portal OWNER club;
 \q
-```
-
-Update `.env`:
-
-```bash
-DATABASE_URL=postgresql://club:clubpass@localhost:5432/club_portal
-```
-
-### Create tables
-
-```bash
-psql "$DATABASE_URL"
 ```
 
 ```sql
@@ -66,12 +38,4 @@ CREATE TABLE email_tokens (
 );
 ```
 
-```sql
-\dt
-\q
-```
-
-### Sources
-
-- [PostgreSQL tutorial](https://www.postgresqltutorial.com/)
-- [node-postgres (pg)](https://node-postgres.com/)
+Users and short-lived tokens. That is the auth data model.

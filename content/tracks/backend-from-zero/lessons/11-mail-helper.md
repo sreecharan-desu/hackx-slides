@@ -1,23 +1,17 @@
 ---
-title: "11. Mail helper (Nodemailer)"
+title: "11. Outbound mail"
 order: 11
 ---
 
-# Mail helper (Nodemailer)
+# Outbound mail
 
-PS tip: **nodemailer is fine for local reset emails**.
-
-Next slide: plug the **same helper** into **Amazon SES** (real delivery).
-
-### Dev inbox (optional, recommended)
+Local: MailDev. Production: SES. One helper.
 
 ```bash
-npx maildev
-# UI: http://localhost:1080
-# SMTP: localhost:1025
+npx maildev   # UI :1080 · SMTP :1025
 ```
 
-### `src/mail.js` (copy-paste)
+`src/mail.js`
 
 ```js
 const nodemailer = require("nodemailer");
@@ -32,29 +26,15 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendMail({ to, subject, text }) {
-  const info = await transporter.sendMail({
-    from: process.env.MAIL_FROM || "noreply@club.local",
+  return transporter.sendMail({
+    from: process.env.MAIL_FROM,
     to,
     subject,
     text,
   });
-  console.log("mail sent:", info.messageId);
-  return info;
 }
 
 module.exports = { sendMail };
 ```
 
-### 5-year-old version
-
-Nodemailer is a **postman**.  
-MailDev is a **toy mailbox** on your laptop so you can see emails without Gmail.
-
-### Switch to SES later
-
-Keep this file. Only change `.env` (see **slide 12 — Amazon SES**).
-
-### Sources
-
-- [Nodemailer](https://nodemailer.com/about/)
-- [MailDev](https://github.com/maildev/maildev)
+Swap hosts in `.env`. Keep the call sites identical.

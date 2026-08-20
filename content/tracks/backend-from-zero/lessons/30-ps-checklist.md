@@ -1,42 +1,27 @@
 ---
-title: "30. PS checklist — your slice"
+title: "30. Against the brief"
 order: 30
 ---
 
-# PS checklist — your slice
+# Against the brief
 
-### 70% — backend responsibility
+**70%**
 
-| Item | Done when |
+| Requirement | Endpoint / mechanism |
 | --- | --- |
 | Sign up | `POST /auth/register` |
-| Login | `POST /auth/login` → JWT |
-| Who am I | `GET /me` |
-| Forgot password | email reset link (Nodemailer local → **Amazon SES** prod) |
-| Real email path | SES verified identity + SMTP creds |
-| Members-only chat | `requireAuth` on `/chat` |
-| No password logging | never `console.log(password)` |
-| AWS explanation | pitch slide 28 |
+| Login | `POST /auth/login` |
+| Session identity | `GET /me` |
+| Forgot password | SES-backed reset |
+| Members-only chat | `requireAuth` |
+| No secret logging | discipline |
 
-### 30% — coordinate with Anand/Mohan
+**30% coordination**
 
-| Item | Your touch |
+| Requirement | Note |
 | --- | --- |
-| `POST /ask` exact JSON | mount route, bind `0.0.0.0:8080` |
-| Port 8080 | event Wi‑Fi evaluator |
-| Auth still required for UI chat | keep middleware |
+| `POST /ask` | exact top-level `answer` + `sources` |
+| Port `8080` | bind `0.0.0.0` |
+| Grounding / fallback | RAG owns the text |
 
-### Fallback (RAG / Anand — know the text)
-
-```text
-I could not find that in the club documents. Please
-contact Shanmukha Sasi Sadineni, AWS Student Builder
-Group Leader, at sadinenisasi@gmail.com or
-7396025334.
-```
-
-### Safety
-
-- Answer only from club documents (RAG)
-- Never invent AWS pricing/limits
-- Never log private student data
+Campus fallback when retrieval fails — from `01-onboarding-faq.md`, not invented.

@@ -1,53 +1,33 @@
 ---
-title: "9. Auth flow (big picture)"
+title: "9. Auth model"
 order: 9
 ---
 
-# Auth flow (big picture)
+# Auth model
 
-Problem statement: **email + password is enough**. No Google login needed.
+Email + password. No social providers. Matches the brief.
+
+```text
+register → hash → store → verify mail → login → JWT → /me
+```
 
 ```text
 REGISTER
-  email + password
-       ↓
-  hash password (bcrypt)
-       ↓
-  save user (is_verified = false)
-       ↓
-  create verify token
-       ↓
-  send email link
-       ↓
-  user clicks → is_verified = true
+  bcrypt(password)
+  user.is_verified = false
+  email token (24h)
 
 LOGIN
-  email + password
-       ↓
-  find user
-       ↓
-  compare hash
-       ↓
-  issue JWT
-       ↓
-  client stores token
-       ↓
-  later requests send:  Authorization: Bearer <token>
+  bcrypt.compare
+  jwt.sign({ sub, email })
+
+REQUEST
+  Authorization: Bearer <token>
 
 GET /me
-  read token
-       ↓
-  load user from DB
-       ↓
-  return profile (never password_hash)
+  resolve user from token
+  never return password_hash
 ```
 
-### Auth vs Authorization (simple)
-
-- **Authentication** = who are you? (login)
-- **Authorization** = are you allowed? (members-only chat)
-
-### Sources
-
-- [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
-- [bcrypt explained](https://auth0.com/blog/hashing-in-action-understanding-bcrypt/)
+Authentication answers *who*.  
+Authorization answers *allowed*. Chat is the latter.

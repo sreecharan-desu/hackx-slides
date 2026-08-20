@@ -1,21 +1,17 @@
 ---
-title: "8. Connect Express → Postgres"
+title: "8. Database client"
 order: 8
 ---
 
-# Connect Express → Postgres
+# Database client
 
-### `src/db.js` (copy-paste)
+`src/db.js`
 
 ```js
 const { Pool } = require("pg");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-});
-
-pool.on("error", (err) => {
-  console.error("Unexpected PG error", err);
 });
 
 async function query(text, params) {
@@ -25,30 +21,19 @@ async function query(text, params) {
 module.exports = { pool, query };
 ```
 
-### Test route — add to `src/server.js`
+Smoke check on `server.js`:
 
 ```js
 const { query } = require("./db");
 
-app.get("/db-check", async (req, res) => {
-  try {
-    const result = await query("SELECT NOW() as now");
-    res.json({ ok: true, now: result.rows[0].now });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ ok: false, error: "db down" });
-  }
+app.get("/db-check", async (_req, res) => {
+  const { rows } = await query("SELECT NOW() AS now");
+  res.json({ ok: true, now: rows[0].now });
 });
 ```
-
-### Test
 
 ```bash
 curl http://localhost:4000/db-check
 ```
 
-If this works: **waiter can read the notebook**.
-
-### Sources
-
-- [node-postgres Pool](https://node-postgres.com/features/pooling)
+If this responds, the API can read durable state.

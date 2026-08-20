@@ -1,22 +1,17 @@
 ---
-title: "32. Common mistakes"
+title: "32. Failure modes"
 order: 32
 ---
 
-# Common mistakes
+# Failure modes
 
-- Committing `.env` to GitHub
-- Storing plain text passwords
-- Binding only `127.0.0.1` (event judges can't reach you)
-- Forgetting `0.0.0.0` for `/ask` on 8080
-- Logging tokens / passwords
-- Pointing DNS at a changing public IP (use Elastic IP)
-- Security group blocks 80/443/22
-- `JWT_SECRET` left as `change-me` in production
-- Explaining Cognito in pitch but never explaining **your** real Express auth
+- `.env` committed
+- plaintext passwords
+- listening on `127.0.0.1` when judges need the LAN
+- DNS on a mutable public IP
+- SG missing 80/443/22
+- weak `JWT_SECRET` in production
+- SES From address unverified
+- pitching Cognito while unable to show working Express auth
 
-### Fix mindset
-
-```text
-If it fails: read the error → fix one thing → retest with curl
-```
+Read the error. Change one variable. Retest with curl.

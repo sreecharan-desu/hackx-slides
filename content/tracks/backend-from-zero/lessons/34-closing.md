@@ -1,18 +1,16 @@
 ---
-title: "34. Closing — your sentence"
+title: "34. Close"
 order: 34
 ---
 
-# Closing — your sentence
+# Close
 
-> We built a real Express API from `npm init`, stored users in Postgres, hashed passwords, verified email, logged in with JWT, exposed `GET /me`, protected chat, sent verify/reset mail through Nodemailer → Amazon SES, and shipped it to Ubuntu on EC2 behind a domain with HTTPS.
-
-### Hand off
+From `npm init` to a signed-in member hitting `/me`, mail on SES, and an API on Ubuntu behind a domain.
 
 ```text
-YOU     → auth + DB + API + deploy
-ANAND   → RAG grounded answers + sources
-MOHAN   → UI that calls your APIs
+API + auth + data + mail + ship
 ```
 
-One app. Three owners. Same story.
+Frontend consumes the contract.  
+RAG fills the answers.  
+This layer stays boring, correct, and deployable.

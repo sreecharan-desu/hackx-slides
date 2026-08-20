@@ -1,21 +1,13 @@
 ---
-title: "16. GET /me — who am I?"
+title: "16. GET /me"
 order: 16
 ---
 
-# GET /me — who am I?
+# GET /me
 
-Frontend needs: “who is logged in right now?”
+Identity for the client after login.
 
-```text
-Authorization: Bearer <token>
-        ↓
-     GET /me
-        ↓
-  { id, email, name, ... }
-```
-
-### `src/routes/me.js` (copy-paste)
+`src/routes/me.js`
 
 ```js
 const express = require("express");
@@ -30,11 +22,9 @@ router.get("/me", requireAuth, (req, res) => {
 module.exports = router;
 ```
 
-### Why `/me` matters
+```bash
+curl http://localhost:4000/me \
+  -H "Authorization: Bearer $TOKEN"
+```
 
-- Profile page
-- Navbar avatar / email
-- Decide if user can open chat
-- Mohan’s frontend will call this after login
-
-**Never include password fields.**
+Profile, nav, and “can I open chat?” all hang off this.

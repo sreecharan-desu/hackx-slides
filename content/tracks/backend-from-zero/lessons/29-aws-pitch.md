@@ -1,25 +1,20 @@
 ---
-title: "29. AWS pitch mapping (required)"
+title: "29. AWS narrative"
 order: 29
 ---
 
-# AWS pitch mapping (required)
+# AWS narrative
 
-PS: local demo is fine. You **must explain** AWS mapping in pitch + Builder Center article.
+Judges accept a local demo. The pitch still needs a cloud map.
 
-| What we built | AWS production mapping |
+| Running today | Production analogue |
 | --- | --- |
-| Express on EC2 | EC2 or ECS/Fargate |
-| PostgreSQL on box | **Amazon RDS** |
-| JWT auth | **Amazon Cognito** (managed auth) |
-| Nodemailer locally | **Amazon SES** in production (we actually wire SES SMTP) |
-| Club docs files | **Amazon S3** |
-| Nginx + HTTPS | ALB + ACM certificates |
-| Logs | **CloudWatch** |
-| RAG / vectors (Anand) | Bedrock + OpenSearch (pitch) |
+| Express on EC2 | EC2 / ECS |
+| Postgres on box | RDS |
+| JWT in our API | Cognito (managed auth) |
+| Nodemailer → SES SMTP | SES |
+| Document files | S3 |
+| Nginx + Certbot | ALB + ACM |
+| pm2 logs | CloudWatch |
 
-### Say this
-
-> We run MailDev locally for speed. For real email we use Amazon SES over SMTP with the same Nodemailer code — verify + forgot-password both go through SES. Cognito/RDS/S3 are the managed upgrades we'd pitch next.
-
-Live deploy = **bonus only**. You already did real **EC2 + domain + SES** — use that story.
+We already run SES and EC2. That is the spine of the story — Cognito and RDS are the managed upgrades, not fiction.

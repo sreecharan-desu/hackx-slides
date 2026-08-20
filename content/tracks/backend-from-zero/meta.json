@@ -1,5 +1,5 @@
 {
   "id": "backend-from-zero",
   "title": "Backend From Zero",
-  "description": "Your section only — Express, auth, /me, Postgres, Amazon SES, CI/CD, EC2 + domain. Copy-paste ready."
+  "description": "Express auth, /me, Postgres, SES, CI/CD, EC2 — screen-share deck."
 }

@@ -1,38 +1,25 @@
 ---
-title: "14. Login — issue JWT"
+title: "14. Login"
 order: 14
 ---
 
-# Login — issue JWT
-
-JWT = a **signed ticket** the server trusts.
-
-```text
-Login success → give ticket → client shows ticket on every request
-```
-
-Add to `src/routes/auth.js`:
+# Login
 
 ```js
+const jwt = require("jsonwebtoken");
+
 router.post("/login", async (req, res) => {
   try {
     const email = String(req.body.email || "").trim().toLowerCase();
     const password = String(req.body.password || "");
 
-    const found = await query("SELECT * FROM users WHERE email = $1", [email]);
-    if (!found.rows.length) {
-      return res.status(401).json({ error: "invalid email or password" });
-    }
+    const { rows } = await query("SELECT * FROM users WHERE email = $1", [email]);
+    if (!rows.length) return res.status(401).json({ error: "invalid credentials" });
 
-    const user = found.rows[0];
-    const ok = await bcrypt.compare(password, user.password_hash);
-    if (!ok) {
-      return res.status(401).json({ error: "invalid email or password" });
-    }
-
-    if (!user.is_verified) {
-      return res.status(403).json({ error: "verify your email first" });
-    }
+    const user = rows[0];
+    const match = await bcrypt.compare(password, user.password_hash);
+    if (!match) return res.status(401).json({ error: "invalid credentials" });
+    if (!user.is_verified) return res.status(403).json({ error: "email not verified" });
 
     const token = jwt.sign(
       { sub: user.id, email: user.email },
@@ -42,12 +29,7 @@ router.post("/login", async (req, res) => {
 
     res.json({
       token,
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        is_verified: user.is_verified,
-      },
+      user: { id: user.id, email: user.email, name: user.name },
     });
   } catch (err) {
     console.error(err);
@@ -56,13 +38,5 @@ router.post("/login", async (req, res) => {
 });
 ```
 
-### Security habits
-
-- Same error for bad email / bad password (don't leak which is wrong)
-- Never log `password`
-- Never return `password_hash`
-
-### Sources
-
-- [jwt.io introduction](https://jwt.io/introduction)
-- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+Identical error for bad email and bad password.  
+Never log the password. Never return the hash.

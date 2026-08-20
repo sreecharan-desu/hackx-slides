@@ -1,36 +1,24 @@
 ---
-title: "2. Backend like you're 5"
+title: "2. What a backend is"
 order: 2
 ---
 
-# Backend like you're 5
+# What a backend is
 
-Imagine a **restaurant**.
-
-```text
-Customer (browser / app)
-        ↓  "I want pizza"
-Waiter (API / Express)
-        ↓  writes the order
-Kitchen notebook (Database)
-        ↓
-Waiter brings pizza back
-```
-
-- **Frontend** = customer
-- **Backend** = waiter + kitchen rules
-- **Database** = notebook that remembers forever
-- **API** = the menu of things the waiter understands
-
-### One sentence
-
-The backend is a program that **listens for requests**, **does work**, and **sends answers back**.
+A process that accepts HTTP, applies rules, and returns JSON.
 
 ```text
-Request  →  Express  →  Database / other services  →  Response
+Client
+  │  request
+  ▼
+Express
+  │  read / write / call out
+  ▼
+Postgres · SES · RAG
+  │
+  ▼
+response
 ```
 
-### Sources
-
-- [MDN: What is a web server?](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server)
-- [HTTP in plain English](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
+The browser never touches the database.  
+The API is the only door.
