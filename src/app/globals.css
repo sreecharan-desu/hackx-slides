@@ -146,14 +146,17 @@ body {
 
 .classic-prose hr {
   border: none;
-  border-top: 1px solid var(--border);
-  margin: 2rem 0;
+  height: 1px;
+  margin: 2.25rem 0;
+  background: var(--border);
 }
 
 .classic-prose img {
   max-width: 100%;
-  border-radius: 6px;
-  margin: 1rem 0;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+  display: block;
 }
 
 .classic-prose .table-wrap {
@@ -211,9 +214,17 @@ body {
 }
 
 .classic-prose .mermaid-diagram {
-  margin: 1.5rem 0;
+  margin: 1.75rem 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
 }
 
 .classic-prose .mermaid-diagram svg {
   display: block;
+}
+
+.classic-prose .code-panel {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--code-accent);
 }

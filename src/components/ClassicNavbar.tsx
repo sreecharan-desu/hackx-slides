@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import {
@@ -39,6 +40,7 @@ export function ClassicNavbar({
   prevId,
   nextId,
 }: ClassicNavbarProps) {
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -46,6 +48,38 @@ export function ClassicNavbar({
 
   const prevHref = prevId ? `/tracks/${trackId}/${prevId}` : undefined;
   const nextHref = nextId ? `/tracks/${trackId}/${nextId}` : undefined;
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      const withMod = e.metaKey || e.ctrlKey;
+      // ← / → and ⌘/Ctrl + ← / →
+      if (e.key === "ArrowLeft" || (withMod && e.key === "ArrowLeft")) {
+        if (!prevHref) return;
+        e.preventDefault();
+        router.push(prevHref);
+        return;
+      }
+      if (e.key === "ArrowRight" || (withMod && e.key === "ArrowRight")) {
+        if (!nextHref) return;
+        e.preventDefault();
+        router.push(nextHref);
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [router, prevHref, nextHref]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-nav/95 backdrop-blur-sm">

@@ -56,7 +56,7 @@ export function MermaidDiagram({ chart }: { chart: string }) {
 
   return (
     <div
-      className="mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface/60 p-4 [&_svg]:mx-auto [&_svg]:max-w-full"
+      className="mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface p-5 shadow-[inset_3px_0_0_0_var(--code-accent)] [&_svg]:mx-auto [&_svg]:max-w-full"
       dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
     />
   );
