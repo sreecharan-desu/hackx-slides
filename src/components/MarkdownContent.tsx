@@ -14,6 +14,13 @@ export function MarkdownContent({ content }: { content: string }) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
         components={{
+          table({ children }) {
+            return (
+              <div className="table-wrap">
+                <table>{children}</table>
+              </div>
+            );
+          },
           pre({ children }) {
             const child = Array.isArray(children) ? children[0] : children;
             if (
