@@ -5,12 +5,10 @@ order: 33
 
 # References
 
-**Runtime** — [Express](https://expressjs.com/) · [node-postgres](https://node-postgres.com/) · [bcrypt](https://www.npmjs.com/package/bcrypt) · [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) · [Nodemailer](https://nodemailer.com/)
+**Runtime** — Express · bcrypt · jsonwebtoken · Nodemailer · [AWS SDK DynamoDB](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html)
 
 **Auth** — [OWASP Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html) · [JWT](https://jwt.io/introduction)
 
-**Mail** — [SES](https://docs.aws.amazon.com/ses/) · [SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html)
+**AWS** — [DynamoDB](https://docs.aws.amazon.com/dynamodb/) · [SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html) · [EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) · [Billing](https://docs.aws.amazon.com/account/latest/view-billing/what-is-view-billing.html)
 
-**Ship** — [PM2](https://pm2.keymetrics.io/) · [Nginx proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) · [Certbot](https://certbot.eff.org/) · [Actions](https://docs.github.com/en/actions) · [EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
-
-**Pitch** — Cognito · RDS · S3 · [Builder Center](https://builder.aws.com/)
+**Ship** — PM2 · Nginx · Certbot · GitHub Actions · [Builder Center](https://builder.aws.com/)

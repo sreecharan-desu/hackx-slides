@@ -7,11 +7,8 @@ order: 32
 
 - `.env` committed
 - plaintext passwords
-- listening on `127.0.0.1` when judges need the LAN
-- DNS on a mutable public IP
+- listening on `127.0.0.1` when the LAN needs you
+- DynamoDB region mismatch with the SDK
+- SES From unverified
 - SG missing 80/443/22
-- weak `JWT_SECRET` in production
-- SES From address unverified
-- pitching Cognito while unable to show working Express auth
-
-Read the error. Change one variable. Retest with curl.
+- leaving EC2 + Elastic IP + tables running after the talk

@@ -5,21 +5,18 @@ order: 15
 
 # Auth middleware
 
-```text
-Authorization: Bearer <jwt>
-        │
-        ▼
-   requireAuth
-        │
-        ▼
-     route handler
+```mermaid
+flowchart LR
+  REQ[Request] --> MW[requireAuth]
+  MW -->|Bearer JWT| DB[(DynamoDB)]
+  MW --> H[Route handler]
 ```
 
 `src/middleware/auth.js`
 
 ```js
 const jwt = require("jsonwebtoken");
-const { query } = require("../db");
+const { db } = require("../db");
 
 async function requireAuth(req, res, next) {
   try {
@@ -29,13 +26,15 @@ async function requireAuth(req, res, next) {
     }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const { rows } = await query(
-      `SELECT id, email, name, is_verified, created_at FROM users WHERE id = $1`,
-      [payload.sub]
-    );
-    if (!rows.length) return res.status(401).json({ error: "unauthorized" });
+    const user = await db.user.findUnique({ where: { email: payload.email } });
+    if (!user) return res.status(401).json({ error: "unauthorized" });
 
-    req.user = rows[0];
+    req.user = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      isVerified: user.isVerified,
+    };
     next();
   } catch {
     return res.status(401).json({ error: "unauthorized" });
@@ -44,5 +43,3 @@ async function requireAuth(req, res, next) {
 
 module.exports = { requireAuth };
 ```
-
-Attach to every members-only route. Chat included.

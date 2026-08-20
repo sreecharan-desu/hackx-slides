@@ -35,4 +35,4 @@ jobs:
             pm2 restart club-api || pm2 start src/server.js --name club-api
 ```
 
-Repo secrets: `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`.
+Secrets: `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`.

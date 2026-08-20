@@ -5,10 +5,6 @@ order: 16
 
 # GET /me
 
-Identity for the client after login.
-
-`src/routes/me.js`
-
 ```js
 const express = require("express");
 const { requireAuth } = require("../middleware/auth");
@@ -26,5 +22,3 @@ module.exports = router;
 curl http://localhost:4000/me \
   -H "Authorization: Bearer $TOKEN"
 ```
-
-Profile, nav, and “can I open chat?” all hang off this.

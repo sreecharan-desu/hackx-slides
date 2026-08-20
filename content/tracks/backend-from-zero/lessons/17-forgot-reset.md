@@ -5,27 +5,34 @@ order: 17
 
 # Password reset
 
-Required by the 70% brief.
-
-```text
-forgot → mail token (30m) → reset → invalidate token
+```mermaid
+flowchart TB
+  F[forgot-password] --> T[token in DynamoDB]
+  T --> S[SES mail]
+  S --> R[reset-password]
+  R --> H[bcrypt new hash]
+  H --> U[update user]
+  U --> X[mark token used]
 ```
 
 ```js
 router.post("/forgot-password", async (req, res) => {
   const email = String(req.body.email || "").trim().toLowerCase();
   const generic = { message: "if the account exists, a reset link was sent" };
-  const { rows } = await query("SELECT id, email FROM users WHERE email = $1", [email]);
-  if (!rows.length) return res.json(generic);
+  const user = await db.user.findUnique({ where: { email } });
+  if (!user) return res.json(generic);
 
   const token = crypto.randomBytes(32).toString("hex");
-  await query(
-    `INSERT INTO email_tokens (user_id, token, purpose, expires_at)
-     VALUES ($1, $2, 'reset', NOW() + INTERVAL '30 minutes')`,
-    [rows[0].id, token]
-  );
+  await db.token.create({
+    data: {
+      token,
+      userEmail: email,
+      purpose: "reset",
+      expiresAt: new Date(Date.now() + 18e5).toISOString(),
+    },
+  });
   await sendMail({
-    to: rows[0].email,
+    to: email,
     subject: "Reset password",
     text: `${process.env.APP_URL}/reset-password?token=${token}`,
   });
@@ -39,20 +46,23 @@ router.post("/reset-password", async (req, res) => {
     return res.status(400).json({ error: "token and password required" });
   }
 
-  const { rows } = await query(
-    `SELECT * FROM email_tokens
-     WHERE token = $1 AND purpose = 'reset' AND used_at IS NULL`,
-    [token]
-  );
-  if (!rows.length || new Date(rows[0].expires_at) < new Date()) {
+  const row = await db.token.findUnique({ where: { token } });
+  if (!row || row.purpose !== "reset" || row.usedAt) {
     return res.status(400).json({ error: "invalid token" });
   }
+  if (new Date(row.expiresAt) < new Date()) {
+    return res.status(400).json({ error: "token expired" });
+  }
 
-  const password_hash = await bcrypt.hash(password, 10);
-  await query("UPDATE users SET password_hash = $1 WHERE id = $2", [password_hash, rows[0].user_id]);
-  await query("UPDATE email_tokens SET used_at = NOW() WHERE id = $1", [rows[0].id]);
+  const passwordHash = await bcrypt.hash(password, 10);
+  await db.user.update({
+    where: { email: row.userEmail },
+    data: { passwordHash },
+  });
+  await db.token.update({
+    where: { token },
+    data: { usedAt: new Date().toISOString() },
+  });
   res.json({ ok: true });
 });
 ```
-
-Expiry. Single use. Hash again. Never email the new password.

@@ -37,4 +37,4 @@ async function sendMail({ to, subject, text }) {
 module.exports = { sendMail };
 ```
 
-Swap hosts in `.env`. Keep the call sites identical.
+Swap hosts in `.env`. Keep call sites identical.

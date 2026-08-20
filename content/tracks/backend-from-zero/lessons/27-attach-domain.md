@@ -7,10 +7,10 @@ order: 27
 
 | Type | Name | Value |
 | --- | --- | --- |
-| A | `api` | Elastic IP of the instance |
+| A | `api` | Elastic IP |
 
 ```bash
 dig +short api.yourdomain.com
 ```
 
-Allocate an Elastic IP and associate it. Ephemeral public addresses move; DNS should not.
+Allocate an Elastic IP and associate it. Ephemeral addresses move; DNS should not.

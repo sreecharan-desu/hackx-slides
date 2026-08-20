@@ -21,7 +21,9 @@ node_modules/
 
 ```bash
 PORT=4000
-DATABASE_URL=postgresql://club:clubpass@localhost:5432/club_portal
+AWS_REGION=ap-south-1
+USERS_TABLE=club-portal-users
+TOKENS_TABLE=club-portal-tokens
 JWT_SECRET=replace-with-long-random
 APP_URL=http://localhost:4000
 SMTP_HOST=localhost
@@ -44,9 +46,8 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-const port = process.env.PORT || 4000;
-app.listen(port, "0.0.0.0", () => {
-  console.log(`listening on ${port}`);
+app.listen(process.env.PORT || 4000, "0.0.0.0", () => {
+  console.log("listening");
 });
 ```
 

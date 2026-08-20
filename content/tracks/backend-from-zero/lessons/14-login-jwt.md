@@ -13,13 +13,12 @@ router.post("/login", async (req, res) => {
     const email = String(req.body.email || "").trim().toLowerCase();
     const password = String(req.body.password || "");
 
-    const { rows } = await query("SELECT * FROM users WHERE email = $1", [email]);
-    if (!rows.length) return res.status(401).json({ error: "invalid credentials" });
+    const user = await db.user.findUnique({ where: { email } });
+    if (!user) return res.status(401).json({ error: "invalid credentials" });
 
-    const user = rows[0];
-    const match = await bcrypt.compare(password, user.password_hash);
+    const match = await bcrypt.compare(password, user.passwordHash);
     if (!match) return res.status(401).json({ error: "invalid credentials" });
-    if (!user.is_verified) return res.status(403).json({ error: "email not verified" });
+    if (!user.isVerified) return res.status(403).json({ error: "email not verified" });
 
     const token = jwt.sign(
       { sub: user.id, email: user.email },
@@ -38,5 +37,4 @@ router.post("/login", async (req, res) => {
 });
 ```
 
-Identical error for bad email and bad password.  
-Never log the password. Never return the hash.
+Identical error for bad email and bad password.

@@ -8,7 +8,8 @@ order: 5
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
 npm init -y
-npm install express dotenv cors bcrypt jsonwebtoken pg nodemailer
+npm install express dotenv cors bcrypt jsonwebtoken nodemailer \
+  @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb
 npm install -D nodemon
 ```
 
@@ -16,11 +17,9 @@ npm install -D nodemon
 | --- | --- |
 | express | HTTP |
 | dotenv | config |
-| cors | browser access |
-| bcrypt | password hashes |
-| jsonwebtoken | session tickets |
-| pg | Postgres client |
-| nodemailer | outbound mail |
-| nodemon | local reload |
+| bcrypt / jsonwebtoken | auth |
+| nodemailer | mail |
+| `@aws-sdk/client-dynamodb` | DynamoDB control plane |
+| `@aws-sdk/lib-dynamodb` | document reads/writes |
 
-`package.json` is the contract for dependencies and scripts. Nothing mystical.
+No raw SQL. No `pg`. Access goes through a typed `db` module — Prisma-shaped call sites on a DynamoDB engine.

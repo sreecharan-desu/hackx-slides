@@ -5,7 +5,11 @@ order: 26
 
 # Nginx
 
-Public traffic terminates on 80/443. Express stays on loopback `:4000`.
+```mermaid
+flowchart LR
+  NET[Internet :443] --> NGX[Nginx]
+  NGX --> APP[Express :4000]
+```
 
 ```nginx
 server {

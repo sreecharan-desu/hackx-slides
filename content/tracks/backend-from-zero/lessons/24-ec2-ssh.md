@@ -5,7 +5,7 @@ order: 24
 
 # EC2 access
 
-Launch Ubuntu 24.04 · `t3.micro` · key pair downloaded.
+Ubuntu 24.04 · `t3.micro` · key pair downloaded.
 
 Security group: `22` (your IP), `80`, `443`.
 
@@ -15,4 +15,4 @@ ssh -i club-portal.pem ubuntu@PUBLIC_IP
 sudo apt update && sudo apt upgrade -y
 ```
 
-First successful shell on the instance is the hard part done.
+IAM on the instance (or env keys): allow DynamoDB read/write on your two tables + SES send if not using SMTP user.

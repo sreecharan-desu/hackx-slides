@@ -5,28 +5,17 @@ order: 9
 
 # Auth model
 
-Email + password. No social providers. Matches the brief.
+Email + password. Matches the brief.
 
-```text
-register → hash → store → verify mail → login → JWT → /me
-```
-
-```text
-REGISTER
-  bcrypt(password)
-  user.is_verified = false
-  email token (24h)
-
-LOGIN
-  bcrypt.compare
-  jwt.sign({ sub, email })
-
-REQUEST
-  Authorization: Bearer <token>
-
-GET /me
-  resolve user from token
-  never return password_hash
+```mermaid
+flowchart TB
+  R[Register] --> H[bcrypt hash]
+  H --> U[(DynamoDB users)]
+  U --> M[SES verify mail]
+  M --> V[Verify token]
+  V --> L[Login]
+  L --> J[JWT]
+  J --> ME[GET /me]
 ```
 
 Authentication answers *who*.  

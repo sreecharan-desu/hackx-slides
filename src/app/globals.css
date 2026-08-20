@@ -156,7 +156,10 @@ body {
   margin: 1rem 0;
 }
 
-.hljs {
-  background: transparent !important;
-  padding: 0 !important;
+.classic-prose .mermaid-diagram {
+  margin: 1.5rem 0;
+}
+
+.classic-prose .mermaid-diagram svg {
+  display: block;
 }

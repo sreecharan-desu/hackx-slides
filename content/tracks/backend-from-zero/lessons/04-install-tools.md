@@ -8,18 +8,23 @@ order: 4
 ```bash
 node -v    # 20+
 npm -v
-psql --version
+aws --version
 ```
 
 ```bash
 # macOS
-brew install node postgresql@16
-brew services start postgresql@16
+brew install node awscli
 
 # Ubuntu
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs postgresql postgresql-contrib
-sudo systemctl enable --now postgresql
+sudo apt-get install -y nodejs
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+unzip awscliv2.zip && sudo ./aws/install
 ```
 
-Node runs the API. Postgres holds durable state.
+```bash
+aws configure
+# Access Key · Secret · region e.g. ap-south-1 · json
+```
+
+Node runs the API. DynamoDB holds durable state. AWS CLI creates tables and tears them down.

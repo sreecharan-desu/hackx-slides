@@ -7,17 +7,13 @@ order: 2
 
 A process that accepts HTTP, applies rules, and returns JSON.
 
-```text
-Client
-  │  request
-  ▼
-Express
-  │  read / write / call out
-  ▼
-Postgres · SES · RAG
-  │
-  ▼
-response
+```mermaid
+flowchart LR
+  C[Client] -->|request| E[Express]
+  E --> D[(DynamoDB)]
+  E --> S[SES]
+  E --> R[RAG]
+  E -->|response| C
 ```
 
 The browser never touches the database.  
