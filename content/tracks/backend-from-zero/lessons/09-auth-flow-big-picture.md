@@ -5,12 +5,12 @@ order: 9
 
 # Auth model
 
-Email + password. Matches the brief.
+Email + password only — matches the problem statement. No social login.
 
 ```mermaid
 flowchart TB
   R[Register] --> H[bcrypt hash]
-  H --> U[(DynamoDB users)]
+  H --> U[(Postgres · User)]
   U --> M[SES verify mail]
   M --> V[Verify token]
   V --> L[Login]
@@ -18,5 +18,4 @@ flowchart TB
   J --> ME[GET /me]
 ```
 
-Authentication answers *who*.  
-Authorization answers *allowed*. Chat is the latter.
+Authentication answers *who you are*. Authorization answers *what you’re allowed to do* — chat is the latter.

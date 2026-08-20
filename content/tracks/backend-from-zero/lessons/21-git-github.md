@@ -5,11 +5,13 @@ order: 21
 
 # Source control
 
+Ship the TypeScript source. Keep secrets and generated client noise out of git.
+
 ```bash
 git init
 git add .
-git commit -m "auth, /me, dynamodb, ses"
+git commit -m "auth, /me, prisma, ses"
 gh repo create club-portal-backend --private --source=. --remote=origin --push
 ```
 
-Keep `.env` out of the tree. Credentials live on the host and in Actions secrets.
+`.env` never leaves the machine. Neon’s connection string is a secret.

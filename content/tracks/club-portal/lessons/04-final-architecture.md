@@ -24,8 +24,8 @@ order: 4
                              LLM
 ```
 
-### Ownership
+### Layers
 
-- **You** — backend foundation
-- **Anand** — RAG layer
-- **Mohan** — usable product (frontend + integration)
+- Backend foundation — Express + Postgres
+- RAG layer — retrieval + grounded answers
+- Frontend — product surface that calls the APIs

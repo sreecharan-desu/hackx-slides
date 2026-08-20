@@ -5,16 +5,16 @@ order: 11
 
 # Outbound mail
 
-Local: MailDev. Production: SES. One helper.
+One helper for every email. Locally it hits MailDev; in production the same code hits SES.
 
 ```bash
 npx maildev   # UI :1080 · SMTP :1025
 ```
 
-`src/mail.js`
+`src/mail.ts`
 
-```js
-const nodemailer = require("nodemailer");
+```ts
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "localhost",
@@ -25,16 +25,12 @@ const transporter = nodemailer.createTransport({
     : undefined,
 });
 
-async function sendMail({ to, subject, text }) {
+export async function sendMail(opts: { to: string; subject: string; text: string }) {
   return transporter.sendMail({
     from: process.env.MAIL_FROM,
-    to,
-    subject,
-    text,
+    ...opts,
   });
 }
-
-module.exports = { sendMail };
 ```
 
-Swap hosts in `.env`. Keep call sites identical.
+Swap SMTP settings in `.env` when you move to SES. Call sites stay unchanged.

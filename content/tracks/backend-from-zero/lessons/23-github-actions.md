@@ -5,6 +5,8 @@ order: 23
 
 # GitHub Actions
 
+Install, typecheck-ish boot, then SSH deploy. Secrets stay in the repo settings.
+
 `.github/workflows/deploy.yml`
 
 ```yaml
@@ -21,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm ci && node --check src/server.js
+      - run: npm ci && npx tsc --noEmit
       - uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -31,8 +33,9 @@ jobs:
             set -e
             cd /var/www/club-portal-backend
             git pull origin main
-            npm ci --omit=dev
-            pm2 restart club-api || pm2 start src/server.js --name club-api
+            npm ci
+            npx prisma generate
+            pm2 restart club-api || pm2 start "npx tsx src/server.ts" --name club-api
 ```
 
-Secrets: `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`.
+Repo secrets: `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY`.

@@ -5,6 +5,8 @@ order: 12
 
 # Amazon SES
 
+Nodemailer is the postman. SES is the real post office for production and for the AWS pitch.
+
 ```mermaid
 flowchart LR
   API[Express] --> NM[Nodemailer]
@@ -32,4 +34,4 @@ MAIL_FROM="Club Portal <verified@address>"
 | Sandbox block | unverified To |
 | Auth error | bad SMTP secret / wrong region |
 
-Sandbox: verified recipients only. Production access when you need the open net.
+Sandbox only delivers to verified addresses. Request production access when you need the open internet.

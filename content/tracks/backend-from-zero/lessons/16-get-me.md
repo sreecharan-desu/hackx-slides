@@ -5,20 +5,26 @@ order: 16
 
 # GET /me
 
-```js
-const express = require("express");
-const { requireAuth } = require("../middleware/auth");
+After login, the frontend asks “who am I?” once. This is that endpoint.
 
-const router = express.Router();
+`src/routes/me.ts`
 
-router.get("/me", requireAuth, (req, res) => {
+```ts
+import { Router } from "express";
+import { requireAuth, type AuthedRequest } from "../middleware/auth";
+
+const router = Router();
+
+router.get("/me", requireAuth, (req: AuthedRequest, res) => {
   res.json({ user: req.user });
 });
 
-module.exports = router;
+export default router;
 ```
 
 ```bash
 curl http://localhost:4000/me \
   -H "Authorization: Bearer $TOKEN"
 ```
+
+Profile, nav, and “can open chat?” all hang off this response.

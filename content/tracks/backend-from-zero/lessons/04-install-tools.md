@@ -5,6 +5,8 @@ order: 4
 
 # Tooling
 
+You need Node for the API and the AWS CLI for deploy and teardown — not for the database.
+
 ```bash
 node -v    # 20+
 npm -v
@@ -18,8 +20,6 @@ brew install node awscli
 # Ubuntu
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
-unzip awscliv2.zip && sudo ./aws/install
 ```
 
 ```bash
@@ -27,4 +27,4 @@ aws configure
 # Access Key · Secret · region e.g. ap-south-1 · json
 ```
 
-Node runs the API. DynamoDB holds durable state. AWS CLI creates tables and tears them down.
+Postgres will live on **Neon** in the cloud. No local Postgres install required for the workshop.

@@ -5,17 +5,15 @@ order: 35
 
 # Close
 
+One path: TypeScript API, Prisma on Neon, SES mail, Ubuntu behind a domain — then a clean bill.
+
 ```mermaid
 flowchart LR
   A[npm init] --> B[Auth + /me]
-  B --> C[DynamoDB]
+  B --> C[Prisma · Neon]
   C --> D[SES]
   D --> E[EC2 + domain]
   E --> F[Teardown]
 ```
 
-From zero to a signed-in member on `/me`, mail on SES, data in DynamoDB, API on Ubuntu — then a clean bill.
-
-Frontend consumes the contract.  
-RAG fills the answers.  
-This layer stays correct, deployable, and disposable.
+The frontend consumes the contract. RAG fills grounded answers. This layer stays correct, deployable, and disposable.

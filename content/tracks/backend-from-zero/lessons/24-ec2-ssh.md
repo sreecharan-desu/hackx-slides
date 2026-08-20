@@ -5,7 +5,9 @@ order: 24
 
 # EC2 access
 
-Ubuntu 24.04 · `t3.micro` · key pair downloaded.
+One Ubuntu box. Your laptop SSHs in. That is the whole server story for this workshop.
+
+Ubuntu 24.04 · `t3.micro` · download the `.pem`.
 
 Security group: `22` (your IP), `80`, `443`.
 
@@ -15,4 +17,4 @@ ssh -i club-portal.pem ubuntu@PUBLIC_IP
 sudo apt update && sudo apt upgrade -y
 ```
 
-IAM on the instance (or env keys): allow DynamoDB read/write on your two tables + SES send if not using SMTP user.
+Database stays on Neon — the instance only runs Node, Nginx, and PM2.

@@ -18,5 +18,3 @@ POST /chat
 The frontend should not know how authentication or databases work.
 
 **It only talks to APIs.**
-
-This prepares Mohan's section.

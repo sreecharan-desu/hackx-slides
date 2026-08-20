@@ -5,28 +5,35 @@ order: 15
 
 # Auth middleware
 
+Every members-only route runs through this first. No token, no entry.
+
 ```mermaid
 flowchart LR
   REQ[Request] --> MW[requireAuth]
-  MW -->|Bearer JWT| DB[(DynamoDB)]
+  MW -->|Bearer JWT| DB[(Postgres)]
   MW --> H[Route handler]
 ```
 
-`src/middleware/auth.js`
+`src/middleware/auth.ts`
 
-```js
-const jwt = require("jsonwebtoken");
-const { db } = require("../db");
+```ts
+import type { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import { prisma } from "../db";
 
-async function requireAuth(req, res, next) {
+export type AuthedRequest = Request & {
+  user?: { id: string; email: string; name: string | null; isVerified: boolean };
+};
+
+export async function requireAuth(req: AuthedRequest, res: Response, next: NextFunction) {
   try {
-    const [scheme, token] = String(req.headers.authorization || "").split(" ");
+    const [scheme, token] = String(req.headers.authorization ?? "").split(" ");
     if (scheme !== "Bearer" || !token) {
       return res.status(401).json({ error: "unauthorized" });
     }
 
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await db.user.findUnique({ where: { email: payload.email } });
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as { sub: string; email: string };
+    const user = await prisma.user.findUnique({ where: { id: payload.sub } });
     if (!user) return res.status(401).json({ error: "unauthorized" });
 
     req.user = {
@@ -40,6 +47,4 @@ async function requireAuth(req, res, next) {
     return res.status(401).json({ error: "unauthorized" });
   }
 }
-
-module.exports = { requireAuth };
 ```

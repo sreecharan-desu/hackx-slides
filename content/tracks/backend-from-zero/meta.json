@@ -1,5 +1,5 @@
 {
   "id": "backend-from-zero",
   "title": "Backend From Zero",
-  "description": "Express, DynamoDB, SES, EC2 — diagrams, teardown, screen-share deck."
+  "description": "Express + TypeScript, Prisma on Neon, SES, EC2 — screen-share deck."
 }

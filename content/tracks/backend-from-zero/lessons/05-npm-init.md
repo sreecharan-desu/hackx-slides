@@ -5,21 +5,33 @@ order: 5
 
 # Bootstrap
 
+TypeScript from minute one — `tsx` runs `.ts` without a separate build step while you teach.
+
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
 npm init -y
-npm install express dotenv cors bcrypt jsonwebtoken nodemailer \
-  @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb
-npm install -D nodemon
+npm install express cors dotenv bcrypt jsonwebtoken nodemailer @prisma/client
+npm install -D typescript tsx prisma @types/express @types/cors @types/bcrypt @types/jsonwebtoken @types/node nodemon
+npx tsc --init
 ```
 
 | Package | Role |
 | --- | --- |
 | express | HTTP |
-| dotenv | config |
-| bcrypt / jsonwebtoken | auth |
-| nodemailer | mail |
-| `@aws-sdk/client-dynamodb` | DynamoDB control plane |
-| `@aws-sdk/lib-dynamodb` | document reads/writes |
+| prisma / `@prisma/client` | schema + typed queries |
+| bcrypt / jsonwebtoken | passwords + session tickets |
+| nodemailer | outbound mail |
+| tsx | run TypeScript directly |
 
-No raw SQL. No `pg`. Access goes through a typed `db` module — Prisma-shaped call sites on a DynamoDB engine.
+Add scripts to `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
+  }
+}
+```

@@ -5,11 +5,13 @@ order: 30
 
 # Against the brief
 
+Map every portal requirement to something you can demo on the API.
+
 | 70% requirement | Mechanism |
 | --- | --- |
-| Sign up / login | auth routes + DynamoDB |
+| Sign up / login | auth routes + Prisma |
 | Session identity | `GET /me` |
-| Forgot password | SES + token item |
+| Forgot password | SES + token row |
 | Members-only chat | `requireAuth` |
 | No secret logging | discipline |
 

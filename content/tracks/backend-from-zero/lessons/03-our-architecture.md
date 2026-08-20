@@ -5,6 +5,8 @@ order: 3
 
 # Shape of the service
 
+Keep the HTTP surface small so the frontend has a clear contract.
+
 ```mermaid
 flowchart TB
   subgraph routes [HTTP surface]
@@ -18,30 +20,30 @@ flowchart TB
   end
 
   subgraph src [src/]
-    S[server.js]
-    DB[db.js]
-    M[mail.js]
-    A[middleware/auth.js]
-    RA[routes/auth.js]
-    RM[routes/me.js]
-    RC[routes/chat.js]
+    S[server.ts]
+    DB[db.ts]
+    M[mail.ts]
+    A[middleware/auth.ts]
+    RA[routes/auth.ts]
   end
 
   routes --> S
-  S --> RA & RM & RC
-  RA & RM --> A
-  RA & RM & RC --> DB
+  S --> RA
+  RA --> A
+  RA --> DB
   RA --> M
 ```
 
 ```text
 club-portal-backend/
+├── prisma/schema.prisma
 ├── src/
-│   ├── server.js
-│   ├── db.js          # typed data access
-│   ├── mail.js
-│   ├── middleware/auth.js
+│   ├── server.ts
+│   ├── db.ts
+│   ├── mail.ts
+│   ├── middleware/auth.ts
 │   └── routes/
 ├── .env
-└── package.json
+├── package.json
+└── tsconfig.json
 ```

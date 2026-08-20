@@ -5,18 +5,18 @@ order: 1
 
 # Scope
 
-The API layer. Nothing else.
+Today we build the **API only** — auth, identity, mail, and deploy.
 
 ```mermaid
 flowchart TB
-  FE["Frontend · Mohan"]
-  API["Express API · this session"]
-  DDB["DynamoDB"]
-  SES["Amazon SES"]
-  RAG["RAG · Anand"]
+  FE[Frontend]
+  API[Express API · this session]
+  DB[(Postgres · Neon)]
+  SES[Amazon SES]
+  RAG[RAG service]
 
   FE --> API
-  API --> DDB
+  API --> DB
   API --> SES
   API --> RAG
 ```

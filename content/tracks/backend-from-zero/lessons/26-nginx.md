@@ -5,6 +5,8 @@ order: 26
 
 # Nginx
 
+Public traffic hits 80/443. Express stays on loopback `:4000` — a normal production split.
+
 ```mermaid
 flowchart LR
   NET[Internet :443] --> NGX[Nginx]
