@@ -17,15 +17,15 @@
 }
 
 .dark {
-  --background: #0a0a0a;
+  --background: #2f3437;
   --foreground: #f9fafb;
-  --muted: #a1a1aa;
-  --surface: #151515;
-  --border: #27272a;
-  --nav: #0a0a0a;
-  --code-inline-bg: rgba(135, 131, 120, 0.15);
+  --muted: #a8afb4;
+  --surface: #3a4044;
+  --border: #4a5054;
+  --nav: #1a1d1f;
+  --code-inline-bg: rgba(135, 131, 120, 0.18);
   --code-inline-fg: #eb5757;
-  --code-block-bg: #151515;
+  --code-block-bg: #25292c;
   --code-accent: #3b82f6;
 }
 
