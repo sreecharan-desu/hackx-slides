@@ -84,6 +84,8 @@ Default output format [None]: json
 
 On the region line, if it already says `[NEW_REGION]`, type `ap-south-1` anyway, then Enter.
 
+**IAM says Global — ignore that for this prompt.** IAM users/keys are global. EC2, SES, and most other services are *not*. `aws configure` wants a region **code** like `ap-south-1`, never the word `Global` and never `NEW_REGION`.
+
 ---
 
 ## 3. If you already ran configure and it failed
