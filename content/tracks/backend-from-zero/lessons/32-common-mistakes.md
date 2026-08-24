@@ -16,3 +16,5 @@ Live demos almost never die on clever algorithms. They die on config. Here's the
 | Bound to `127.0.0.1` | listen on `0.0.0.0` |
 | SES From unverified | verify the identity first |
 | Idle EC2 + Elastic IP | teardown before you leave the room |
+| `aws configure` region is `NEW_REGION` | type a real code: `ap-south-1` |
+| Access keys in git / chat | IAM → delete that key, create a new one |
