@@ -17,8 +17,8 @@ export default function HomePage() {
         }}
       />
 
-      <header className="border-b border-border/80 bg-nav/80 backdrop-blur-sm">
-        <div className="mx-auto flex h-14 max-w-[880px] items-center justify-between px-4">
+      <header className="sticky top-0 z-40 border-b border-border/80 bg-nav/90 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-[720px] items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-2.5">
             <Image
               src="/hackx-logo.png"

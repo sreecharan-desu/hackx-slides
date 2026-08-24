@@ -33,4 +33,4 @@ export async function sendMail(opts: { to: string; subject: string; text: string
 }
 ```
 
-When we flip to SES, we only change `.env`. The call sites don't move.
+When we flip to SES, we only change `.env`. The call sites don't move. `MAIL_FROM` is the Gmail you verified in SES — no custom domain.

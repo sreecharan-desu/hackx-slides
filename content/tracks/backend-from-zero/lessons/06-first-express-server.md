@@ -20,6 +20,8 @@ node_modules/
 dist/
 ```
 
+Prisma will later write `src/generated/` — leave that folder in git or ignore it, but never hand-edit it.
+
 `.env` for now (Neon comes next):
 
 ```bash

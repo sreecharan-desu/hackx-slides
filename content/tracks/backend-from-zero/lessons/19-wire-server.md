@@ -13,10 +13,10 @@ This is the file you actually start. Everything mounts here so there's one place
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { requireAuth } from "./middleware/auth";
-import authRoutes from "./routes/auth";
-import meRoutes from "./routes/me";
-import chatRoutes from "./routes/chat";
+import { requireAuth } from "./middleware/auth.js";
+import authRoutes from "./routes/auth.js";
+import meRoutes from "./routes/me.js";
+import chatRoutes from "./routes/chat.js";
 
 const app = express();
 app.use(cors());

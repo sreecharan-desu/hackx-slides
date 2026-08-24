@@ -13,8 +13,8 @@ Someone signs up → we hash the password → save the user → email a verify l
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import { prisma } from "../db";
-import { sendMail } from "../mail";
+import prisma from "../db.js";
+import { sendMail } from "../mail.js";
 
 const router = Router();
 

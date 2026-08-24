@@ -27,7 +27,7 @@ export function CodeBlock({ children }: { children: React.ReactNode }) {
       >
         {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
       </button>
-      <pre className="code-panel !m-0 overflow-x-auto rounded-lg border border-border border-l-[3px] border-l-[var(--code-accent)] bg-[var(--code-block-bg)] p-4 text-[0.9rem] leading-[1.55]">
+      <pre className="code-panel !m-0 overflow-x-auto rounded-xl p-4 sm:p-5">
         {children}
       </pre>
     </div>

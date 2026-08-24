@@ -19,7 +19,7 @@ flowchart LR
 ```ts
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { prisma } from "../db";
+import prisma from "../db.js";
 
 export type AuthedRequest = Request & {
   user?: { id: string; email: string; name: string | null; isVerified: boolean };

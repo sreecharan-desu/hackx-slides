@@ -18,7 +18,7 @@ cd /var/www
 git clone https://github.com/YOU/club-portal-backend.git
 cd club-portal-backend
 npm ci
-npx prisma generate
+npx prisma generate --config src/prisma.config.ts
 ```
 
 ```bash

@@ -11,7 +11,6 @@ import {
   ExternalLink,
   Moon,
   Sun,
-  Download,
 } from "lucide-react";
 import { JumpTo } from "./JumpTo";
 
@@ -82,8 +81,8 @@ export function ClassicNavbar({
   }, [router, prevHref, nextHref]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-nav/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-[1400px] items-center gap-3 px-3 sm:px-4">
+    <header className="sticky top-0 z-50 border-b border-border bg-nav/90 backdrop-blur-md">
+      <div className="mx-auto flex min-h-14 max-w-[1100px] items-center gap-2 px-3 sm:gap-3 sm:px-5">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <Image
             src="/hackx-logo.png"
@@ -124,15 +123,6 @@ export function ClassicNavbar({
             )}
           </button>
 
-          <a
-            href="#"
-            aria-label="Download"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-foreground hover:bg-surface"
-            onClick={(e) => e.preventDefault()}
-          >
-            <Download className="h-4 w-4" />
-          </a>
-
           <Link
             href={`/tracks/${trackId}`}
             className="hidden items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm hover:bg-surface sm:inline-flex"
@@ -141,15 +131,6 @@ export function ClassicNavbar({
             <ExternalLink className="h-3.5 w-3.5" />
             Outline
           </Link>
-
-          <div
-            className="ml-1 h-8 w-8 overflow-hidden rounded-full border border-border bg-surface"
-            aria-hidden
-          >
-            <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-muted">
-              hx
-            </div>
-          </div>
         </div>
       </div>
     </header>

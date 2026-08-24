@@ -11,7 +11,7 @@ Chat is for logged-in members only. RAG can come later — today we own the gate
 
 ```ts
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth";
+import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
 

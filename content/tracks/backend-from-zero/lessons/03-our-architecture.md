@@ -38,6 +38,8 @@ flowchart TB
 club-portal-backend/
 ├── prisma/schema.prisma
 ├── src/
+│   ├── prisma.config.ts    ← inside rootDir so tsc is happy
+│   ├── generated/prisma/   ← prisma generate (do not hand-edit)
 │   ├── server.ts
 │   ├── db.ts
 │   ├── mail.ts

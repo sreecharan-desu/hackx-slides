@@ -2,31 +2,33 @@
 @import "highlight.js/styles/github-dark.css";
 
 :root {
-  --background: #f7f7f5;
-  --foreground: #1a1a1a;
-  --muted: #5c5c5c;
+  --background: #f3f2ef;
+  --foreground: #1c1c1c;
+  --muted: #5f5f5c;
   --surface: #ffffff;
-  --border: #e5e5e5;
+  --border: #e4e2dc;
   --nav: #ffffff;
-  --code-inline-bg: rgba(135, 131, 120, 0.15);
-  --code-inline-fg: #eb5757;
-  --code-block-bg: #f4f4f4;
+  --code-inline-bg: rgba(120, 80, 70, 0.1);
+  --code-inline-fg: #c44536;
+  --code-block-bg: #f7f6f3;
   --code-accent: #3b82f6;
   --brand-coral: #ee6e5b;
   --brand-purple: #7c4dff;
+  --prose: #3a3a38;
 }
 
 .dark {
-  --background: #2f3437;
-  --foreground: #f9fafb;
-  --muted: #a8afb4;
-  --surface: #3a4044;
-  --border: #4a5054;
-  --nav: #1a1d1f;
-  --code-inline-bg: rgba(135, 131, 120, 0.18);
-  --code-inline-fg: #eb5757;
-  --code-block-bg: #25292c;
-  --code-accent: #3b82f6;
+  --background: #2c3134;
+  --foreground: #f4f5f6;
+  --muted: #b0b6bb;
+  --surface: #363c40;
+  --border: #4a5156;
+  --nav: #222628;
+  --code-inline-bg: rgba(200, 120, 110, 0.14);
+  --code-inline-fg: #f0a8a0;
+  --code-block-bg: #24292c;
+  --code-accent: #60a5fa;
+  --prose: #d8dcde;
 }
 
 @theme inline {
@@ -53,55 +55,105 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Classic Notion-like prose */
+html:not(.dark) .hljs {
+  color: #1f2328;
+  background: transparent;
+}
+
+html:not(.dark) .hljs-comment,
+html:not(.dark) .hljs-quote {
+  color: #6e7781;
+}
+
+html:not(.dark) .hljs-keyword,
+html:not(.dark) .hljs-selector-tag {
+  color: #cf222e;
+}
+
+html:not(.dark) .hljs-string,
+html:not(.dark) .hljs-attr {
+  color: #0a3069;
+}
+
+html:not(.dark) .hljs-number,
+html:not(.dark) .hljs-literal {
+  color: #0550ae;
+}
+
 .classic-prose {
-  max-width: 720px;
+  max-width: 42rem;
   margin: 0 auto;
-  padding: 2.5rem 1.25rem 6rem;
-  font-size: 1.125rem;
-  line-height: 1.7;
-  color: var(--foreground);
+  padding: 2.75rem 1.25rem 7rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--prose);
+}
+
+@media (min-width: 640px) {
+  .classic-prose {
+    padding: 3.25rem 1.5rem 8rem;
+    font-size: 1.125rem;
+  }
+}
+
+.classic-prose > *:first-child {
+  margin-top: 0;
 }
 
 .classic-prose h1 {
-  font-size: 2.5rem;
+  font-size: 1.85rem;
   font-weight: 600;
-  line-height: 1.2;
-  margin: 0 0 1.25rem;
-  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+@media (min-width: 640px) {
+  .classic-prose h1 {
+    font-size: 2.05rem;
+  }
 }
 
 .classic-prose h2,
 .classic-prose h3 {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  line-height: 1.3;
-  margin: 2rem 0 0.75rem;
+  line-height: 1.4;
+  margin: 2.35rem 0 0.7rem;
+  letter-spacing: -0.015em;
+  color: var(--foreground);
 }
 
 .classic-prose h4 {
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin: 1.75rem 0 0.6rem;
+  margin: 1.75rem 0 0.5rem;
+  color: var(--foreground);
 }
 
 .classic-prose p {
-  margin: 0.75rem 0;
-  color: color-mix(in srgb, var(--foreground) 88%, transparent);
+  margin: 0.85rem 0;
 }
 
 .classic-prose ul,
 .classic-prose ol {
-  margin: 0.75rem 0;
-  padding-left: 1.5rem;
+  margin: 0.85rem 0 1.2rem;
+  padding-left: 1.35rem;
+}
+
+.classic-prose ol {
+  padding-left: 1.55rem;
 }
 
 .classic-prose li {
-  margin: 0.4rem 0;
-  color: color-mix(in srgb, var(--foreground) 88%, transparent);
+  margin: 0.5rem 0;
+  padding-left: 0.2rem;
+  line-height: 1.7;
 }
 
 .classic-prose li strong {
@@ -112,86 +164,93 @@ body {
 .classic-prose a {
   color: var(--foreground);
   text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
 .classic-prose a:hover {
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .classic-prose :not(pre) > code {
   background: var(--code-inline-bg);
   color: var(--code-inline-fg);
-  border-radius: 4px;
-  padding: 0.15em 0.4em;
-  font-size: 0.9em;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border-radius: 5px;
+  padding: 0.12em 0.4em;
+  font-size: 0.82em;
+  font-weight: 500;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.classic-prose pre,
+.classic-prose pre code,
+.classic-prose .hljs {
+  background: transparent !important;
 }
 
 .classic-prose pre code {
-  background: transparent !important;
-  color: inherit;
-  padding: 0;
-  font-size: inherit;
-  border-radius: 0;
   display: block;
+  padding: 0;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: inherit;
+  border-radius: 0;
 }
 
 .classic-prose blockquote {
   border-left: 3px solid var(--border);
-  padding-left: 1rem;
-  margin: 1rem 0;
+  padding: 0.15rem 0 0.15rem 1rem;
+  margin: 1.25rem 0;
   color: var(--muted);
 }
 
 .classic-prose hr {
   border: none;
   height: 1px;
-  margin: 2.25rem 0;
+  margin: 2.5rem 0;
   background: var(--border);
 }
 
 .classic-prose img {
   max-width: 100%;
-  border-radius: 8px;
+  border-radius: 10px;
   margin: 1.5rem 0;
   border: 1px solid var(--border);
   display: block;
 }
 
 .classic-prose .table-wrap {
-  margin: 1.75rem 0;
+  margin: 1.5rem 0 1.75rem;
   overflow-x: auto;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--surface);
 }
 
 .classic-prose table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.98rem;
-  line-height: 1.45;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .classic-prose thead th {
-  padding: 0.85rem 1.1rem;
+  padding: 0.8rem 1.05rem;
   text-align: left;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--muted);
-  background: color-mix(in srgb, var(--foreground) 4%, var(--surface));
+  background: color-mix(in srgb, var(--foreground) 3.5%, var(--surface));
   border-bottom: 1px solid var(--border);
-  white-space: nowrap;
 }
 
 .classic-prose tbody td {
-  padding: 0.95rem 1.1rem;
+  padding: 0.85rem 1.05rem;
   vertical-align: top;
   border-bottom: 1px solid var(--border);
-  color: color-mix(in srgb, var(--foreground) 92%, transparent);
 }
 
 .classic-prose tbody tr:last-child td {
@@ -201,7 +260,7 @@ body {
 .classic-prose tbody td:first-child {
   font-weight: 500;
   color: var(--foreground);
-  width: 42%;
+  width: 38%;
 }
 
 .classic-prose tbody td:last-child {
@@ -210,21 +269,25 @@ body {
 
 .classic-prose tbody td :not(pre) > code,
 .classic-prose tbody td code {
-  font-size: 0.86em;
+  font-size: 0.84em;
 }
 
 .classic-prose .mermaid-diagram {
-  margin: 1.75rem 0;
+  margin: 1.6rem 0;
+  padding: 1.25rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--surface);
 }
 
 .classic-prose .mermaid-diagram svg {
   display: block;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .classic-prose .code-panel {
   border: 1px solid var(--border);
   border-left: 3px solid var(--code-accent);
+  background: var(--code-block-bg);
 }

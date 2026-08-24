@@ -50,7 +50,7 @@ export function JumpTo({
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+6px)] z-50 max-h-[70vh] w-[min(92vw,360px)] overflow-y-auto rounded-md border border-border bg-nav py-1 shadow-xl">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-50 max-h-[70vh] w-[min(92vw,380px)] overflow-y-auto rounded-xl border border-border bg-nav py-1.5 shadow-2xl">
           {lessons.map((lesson) => {
             const active = lesson.id === currentId;
             return (
@@ -58,8 +58,8 @@ export function JumpTo({
                 key={lesson.id}
                 href={`/tracks/${trackId}/${lesson.id}`}
                 onClick={() => setOpen(false)}
-                className={`block truncate px-3 py-2 text-sm hover:bg-surface ${
-                  active ? "bg-surface font-medium" : "text-muted hover:text-foreground"
+                className={`mx-1 block truncate rounded-md px-3 py-2 text-sm hover:bg-surface ${
+                  active ? "bg-surface font-medium text-foreground" : "text-muted hover:text-foreground"
                 }`}
               >
                 {lesson.order} - {lesson.title}
