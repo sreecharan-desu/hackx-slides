@@ -40,8 +40,13 @@ The CLI needs a **username + password for machines**. AWS calls these **Access k
    - Next → attach policy **AdministratorAccess** (workshop only)
    - Create user
 4. Click the user → tab **Security credentials** → **Create access key**
-5. Choose **Command Line Interface (CLI)** → tick the confirmation → **Next** → **Create access key**
-6. You now see two values. Copy both into a notes app **on your machine**:
+5. Screen **Access key best practices & alternatives**:
+   - Use case: select **Command Line Interface (CLI)** — first option  
+     (not Local code, not EC2, not Other)
+   - Tick **I understand the above recommendation and want to proceed to create an access key**
+   - Click orange **Next**
+6. Description (optional) → **Create access key**
+7. You now see two values. Copy both into a notes app **on your machine**:
    - **Access key ID** — starts with `AKIA…`
    - **Secret access key** — long random string, shown **once**
 
