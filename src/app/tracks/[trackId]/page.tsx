@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, FileText } from "lucide-react";
 import { getTrack } from "@/lib/content";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export default async function TrackPage({
   params,
@@ -14,62 +13,37 @@ export default async function TrackPage({
   if (!track) notFound();
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 45% at 50% -15%, color-mix(in srgb, var(--brand-purple) 14%, transparent), transparent 55%)",
-        }}
-      />
-
-      <header className="sticky top-0 z-40 border-b border-border/80 bg-nav/90 backdrop-blur-md">
-        <div className="mx-auto flex h-14 max-w-[720px] items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Image
-              src="/hackx-logo.png"
-              alt="hackx"
-              width={36}
-              height={36}
-              className="h-8 w-8 object-contain"
-              priority
-            />
-            <span className="text-lg font-semibold tracking-tight">hackx</span>
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
+    <div className="min-h-screen">
+      <SiteHeader
+        right={
+          <Link href="/" className="hover:text-foreground">
             All tracks
           </Link>
-        </div>
-      </header>
+        }
+      />
 
-      <main className="mx-auto max-w-[720px] px-4 pb-24 pt-14 sm:pt-16">
-        <div className="mb-10 text-center">
-          <p className="mb-2 text-sm text-muted">
+      <main className="mx-auto max-w-[42rem] px-5 pb-28 pt-16 sm:px-6 sm:pt-20">
+        <div className="mb-12">
+          <p className="mb-3 text-xs font-medium tracking-[0.16em] text-muted uppercase">
             {track.chapters} chapters
           </p>
-          <h1 className="mb-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h1 className="mb-4 text-[2.1rem] font-semibold leading-tight tracking-tight sm:text-4xl">
             {track.title}
           </h1>
-          <p className="mx-auto max-w-lg text-muted">{track.description}</p>
+          <p className="max-w-xl text-muted">{track.description}</p>
         </div>
 
-        <ul className="overflow-hidden rounded-xl border border-border bg-surface/40">
+        <ul className="overflow-hidden rounded-xl border border-border bg-surface/50">
           {track.lessons.map((lesson, i) => (
             <li key={lesson.id} className="border-b border-border last:border-b-0">
               <Link
                 href={`/tracks/${track.id}/${lesson.id}`}
-                className="group flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-surface sm:px-5"
+                className="group flex items-center gap-4 px-5 py-3.5 sm:px-6"
               >
-                <span className="w-7 shrink-0 text-sm tabular-nums text-muted">
+                <span className="w-8 shrink-0 text-sm tabular-nums text-muted">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <FileText className="h-4 w-4 shrink-0 text-muted group-hover:text-foreground" />
-                <span className="min-w-0 flex-1 text-foreground underline decoration-transparent underline-offset-4 group-hover:decoration-foreground/40">
+                <span className="min-w-0 flex-1 text-foreground group-hover:underline group-hover:underline-offset-4">
                   {lesson.title}
                 </span>
               </Link>
