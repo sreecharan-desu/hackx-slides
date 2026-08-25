@@ -5,29 +5,30 @@ order: 5
 
 # Empty folder, dump packages in
 
-TypeScript from the first command. `tsx` runs `.ts` live so we're not fighting a `dist/` folder while people are still installing Node.
+TypeScript from the first command. `tsx` runs `.ts` live. Small list on purpose.
 
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
 npm init -y
 npm pkg set type=module
-npm install express cors dotenv bcrypt jsonwebtoken nodemailer @aws-sdk/client-sesv2 @prisma/client@6.12.0
-npm install -D typescript tsx prisma@6.12.0 @types/express @types/cors @types/bcrypt @types/jsonwebtoken @types/nodemailer @types/node nodemon
+npm install express cors dotenv bcrypt jsonwebtoken @aws-sdk/client-sesv2 @prisma/client@6.12.0
+npm install -D typescript tsx prisma@6.12.0 @types/express @types/cors @types/bcrypt @types/jsonwebtoken @types/node
 npx tsc --init
 ```
 
-**Pin Prisma 6.12.0 on both `prisma` and `@prisma/client`.** I mixed 6 and 7 once. It looks for a file that doesn't exist anymore and `tsx` just dies. Don't be me.
+**Pin Prisma 6.12.0 on both.** Mixing 6 and 7 dies inside `tsx`.
 
 | Package | Why |
 | --- | --- |
 | express | HTTP |
-| prisma | talk to Postgres without writing SQL by hand |
-| `@aws-sdk/client-sesv2` | send mail with the keys from `aws configure` |
+| prisma | Postgres without handwritten SQL |
+| `@aws-sdk/client-sesv2` | mail. same keys as `aws configure` |
 | bcrypt / jwt | hash + tickets |
-| nodemailer | only if you dump mail to MailDev locally |
 | tsx | run TypeScript |
 
-Our files import `.ts`. Generated Prisma imports `.js`. Weird, but that's Node. `rootDir` is `src` so later Prisma config has to live in there too.
+No Nodemailer. No MailDev. If it isn't SES, we don't send it.
+
+Our files import `.ts`. Generated Prisma imports `.js`. `rootDir` is `src`.
 
 ```json
 {
@@ -42,8 +43,6 @@ Our files import `.ts`. Generated Prisma imports `.js`. Weird, but that's Node. 
 }
 ```
 
-Don't set `noEmit` and `emitDeclarationOnly` together. `tsc` gets mad.
-
 ```json
 {
   "scripts": {
@@ -55,4 +54,4 @@ Don't set `noEmit` and `emitDeclarationOnly` together. `tsc` gets mad.
 }
 ```
 
-Run those from the repo root. **Don't** add `--config src/prisma.config.ts`. I did. It looks for `src/prisma/schema.prisma` and fails. Ugly.
+Run from repo root. **Don't** pass `--config src/prisma.config.ts`.

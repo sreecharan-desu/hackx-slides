@@ -16,4 +16,4 @@ We already did this on `https://api.sreecharandesu.in` after club secrets landed
 | Event `/ask` | same stub, `answer` + `sources` |
 | Don't log secrets | `.env` gitignored. Actions writes it |
 
-Health `shipped: "v2"` only proves the new build. Login 401 on a fake user proves Neon.
+Health `shipped: "v3"` only proves the new build. Login 401 on a fake user proves Neon.

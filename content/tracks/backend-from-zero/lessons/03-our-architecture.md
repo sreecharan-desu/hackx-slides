@@ -5,42 +5,46 @@ order: 3
 
 # The repo, as it actually is
 
-Clone this, don't invent a tree. GitHub: https://github.com/sreecharan-desu/club-portal-backend
+Bored? Skim this and sit back down: https://github.com/sreecharan-desu/club-portal-backend
 
-`"type": "module"`. Imports from our code end in `.ts`. Generated Prisma ends in `.js`. `rootDir` is `src`, so `prisma.config.ts` lives in `src/` but schema paths are **from the repo root**. Never `prisma --config src/prisma.config.ts`.
+`"type": "module"`. Our imports end in `.ts`. Generated Prisma ends in `.js`. Prisma config lives in `src/` because `rootDir` is `src`. Schema paths are from the **repo root**. Never `prisma --config`.
+
+No MailDev. No Nodemailer. Mail is SES or it doesn't send.
 
 ```text
 club-portal-backend/
-├── .github/workflows/blank.yml   Deploy API. SSH + write .env
-├── prisma/schema.prisma          User + EmailToken. output → src/generated/prisma
+├── .github/workflows/blank.yml
+├── prisma/schema.prisma
 ├── src/
-│   ├── generated/prisma/         gitignored. npx prisma generate
-│   ├── middleware/auth.ts        Bearer JWT → load User
-│   ├── routes/auth.ts            register login verify forgot reset
-│   ├── routes/me.ts              GET /me
-│   ├── routes/chat.ts            POST /chat
-│   ├── db.ts                     one PrismaClient
-│   ├── mail.ts                   SES SendEmail (MailDev only if SMTP_HOST=localhost)
-│   ├── prisma.config.ts          earlyAccess. schema: prisma/schema.prisma
-│   └── server.ts                 health, mount routes, POST /ask, listen 0.0.0.0
-├── .gitignore                    .env, generated prisma, *.pem
-├── package.json                  type module. prisma + client 6.12.0
-├── tsconfig.json                 nodenext, noEmit, allowImportingTsExtensions
-└── .env                          not in git. laptop copy / box copy
+│   ├── config.ts              crash if JWT / APP_URL / MAIL_FROM / DATABASE_URL missing
+│   ├── app.ts                 cors, json, mount every router
+│   ├── server.ts              listen 0.0.0.0
+│   ├── db.ts                  one PrismaClient
+│   ├── mail.ts                SES SendEmail. that's it
+│   ├── prisma.config.ts
+│   ├── middleware/auth.ts     Bearer → User
+│   └── routes/
+│       ├── health.ts          GET /health — no Neon
+│       ├── auth.ts            register login verify forgot reset
+│       ├── me.ts              GET /me
+│       ├── chat.ts            POST /chat
+│       └── ask.ts             POST /ask
+├── package.json               prisma + client 6.12.0
+└── .env                       not git. laptop copy / Actions copy
 ```
 
-**What the site can hit** (one process, port 4000):
+How to explain it: **config → app → listen**. One folder per URL family.
 
-| Method | Path | Needs login |
+| Method | Path | Login |
 | --- | --- | --- |
-| GET | `/health` | no. `{ ok, shipped: "v2" }`. no Neon |
+| GET | `/health` | no. `{ shipped: "v3" }` |
 | POST | `/auth/register` | no |
-| GET | `/auth/verify?token=` | no |
+| GET | `/auth/verify` | no |
 | POST | `/auth/login` | no |
 | POST | `/auth/forgot-password` | no |
-| POST | `/auth/reset-password` | no. body token + password. mail link is not a page |
-| GET | `/me` | Bearer |
-| POST | `/chat` | Bearer. members room |
-| POST | `/ask` | Bearer. event-day `answer` + `sources`. same stub |
+| POST | `/auth/reset-password` | no. copy token; the mail URL is not a page |
+| GET | `/me` | yes |
+| POST | `/chat` | yes. club room |
+| POST | `/ask` | yes. judges want `answer` + `sources` |
 
-`/chat` and `/ask` are two URLs on purpose — club story vs judges' checklist. Same lock, same RAG stub, same process. Not a second server.
+`/chat` and `/ask` are two doors, one lock, one stub, one process.

@@ -32,7 +32,7 @@ Laptop `.env` and live `.env` are the same keys. Actions writes all of them onto
 | `MAIL_FROM` | verified From identity |
 | `DATABASE_URL` | Prisma / Neon |
 
-Do **not** set `SMTP_HOST` in production secrets. Empty = SES SendEmail. `localhost` = MailDev. Mail Manager SMTP was the 250-and-nothing bug.
+No `SMTP_HOST`. We deleted MailDev. SES SDK only. Mail Manager SMTP was the 250-and-nothing bug.
 
 `appleboy` `envs:` copies every club secret into the SSH session. Script writes `.env` (`umask 077`), then `pm2 restart`. Don't `cat .env` in the log.
 
@@ -62,7 +62,7 @@ Skip `tsc --noEmit` — Prisma TS4094.
 
 ## 4. Prove it live
 
-1. Stamp `/health` (`shipped: "cicd"`)
+1. Stamp `/health` (`shipped: "v3"`)
 2. All club secrets in GitHub
 3. `git push origin main`
 4. Actions green

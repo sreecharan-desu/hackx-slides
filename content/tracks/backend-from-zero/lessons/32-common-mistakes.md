@@ -15,7 +15,7 @@ Not algorithms. Config. Every time.
 | `--config` schema not found | don't pass `--config` |
 | `../../generated` | `./generated/prisma/client.js` from `db.ts` |
 | Prisma 6 + client 7 | pin both 6.12.0 |
-| Mail Manager 250, empty inbox | unset `SMTP_HOST`, use SES SDK |
+| Mail Manager 250, empty inbox | we don't use SMTP. SES SDK in `mail.ts` |
 | Spam + red banner | that's normal. copy the token |
 | Clicked localhost in webmail | of course it failed |
 | MessageRejected | To isn't verified |

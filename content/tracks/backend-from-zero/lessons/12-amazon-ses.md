@@ -53,7 +53,7 @@ AWS_REGION=ap-south-1
 MAIL_FROM=sreecharan309@gmail.com
 ```
 
-Leave `SMTP_HOST` unset. If you point at `*.mail-manager-smtp.amazonaws.com`, SMTP says 250 and Gmail never shows up. I lost time on that.
+Leave SMTP out of `.env`. We never installed Nodemailer. If you point at `*.mail-manager-smtp.amazonaws.com`, SMTP says 250 and Gmail never shows up.
 
 ## It will land in Spam. That's success.
 

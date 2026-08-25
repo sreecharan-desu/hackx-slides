@@ -5,42 +5,20 @@ order: 11
 
 # One sendMail
 
-Register, verify, reset — all call `sendMail`. If you sprinkle Nodemailer in every route you'll hate yourself later.
-
-Default: **SES SendEmail** with the same keys as `aws configure`. MailDev only if you set `SMTP_HOST=localhost`.
-
-```bash
-npm install @aws-sdk/client-sesv2
-```
+Register and reset both call `sendMail`. One file. SES SendEmail. Same keys as `aws configure` (laptop) or `AWS_*` in `.env` (the box).
 
 `src/mail.ts`
 
 ```ts
-import nodemailer from "nodemailer";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
+import { env } from "./config.ts";
 
-const host = process.env.SMTP_HOST;
-const region = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || "ap-south-1";
-const useMaildev = host === "localhost" || host === "127.0.0.1";
-
-const ses = new SESv2Client({ region });
+const ses = new SESv2Client({ region: env.awsRegion });
 
 export async function sendMail(opts: { to: string; subject: string; text: string }) {
-  const from = process.env.MAIL_FROM;
-  if (!from) throw new Error("MAIL_FROM is not set");
-
-  if (useMaildev) {
-    const transporter = nodemailer.createTransport({
-      host,
-      port: Number(process.env.SMTP_PORT || 1025),
-      secure: false,
-    });
-    return transporter.sendMail({ from, ...opts });
-  }
-
   return ses.send(
     new SendEmailCommand({
-      FromEmailAddress: from,
+      FromEmailAddress: env.mailFrom,
       Destination: { ToAddresses: [opts.to] },
       Content: {
         Simple: {
@@ -51,8 +29,6 @@ export async function sendMail(opts: { to: string; subject: string; text: string
     }),
   );
 }
-
-export default sendMail;
 ```
 
-`MAIL_FROM` is a real inbox you verified. No custom domain. Routes just call `sendMail({ to, subject, text })`.
+Routes never talk to AWS themselves. Don't add SMTP. Mail Manager SMTP said 250 and delivered nothing.

@@ -5,43 +5,42 @@ order: 19
 
 # This is the file you start
 
-If a route is missing, look here. Everything hangs off `server.ts`.
+`server.ts` only listens. `app.ts` mounts routes. Missing a URL? It's a file under `src/routes/`.
+
+`src/app.ts`
+
+```ts
+import express from "express";
+import cors from "cors";
+import health from "./routes/health.ts";
+import auth from "./routes/auth.ts";
+import me from "./routes/me.ts";
+import chat from "./routes/chat.ts";
+import ask from "./routes/ask.ts";
+
+export const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(health);
+app.use("/auth", auth);
+app.use(me);
+app.use(chat);
+app.use(ask);
+```
 
 `src/server.ts`
 
 ```ts
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import { requireAuth } from "./middleware/auth.ts";
-import authRoutes from "./routes/auth.ts";
-import meRoutes from "./routes/me.ts";
-import chatRoutes from "./routes/chat.ts";
+import { env } from "./config.ts";
+import { app } from "./app.ts";
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.get("/health", (_req, res) => res.json({ ok: true, shipped: "v2" }));
-
-app.use("/auth", authRoutes);
-app.use(meRoutes);
-app.use(chatRoutes);
-
-app.post("/ask", requireAuth, async (req, res) => {
-  const question = String(req.body.question ?? "").trim();
-  if (!question) return res.status(400).json({ error: "question required" });
-  res.json({ answer: "RAG not wired yet.", sources: [] });
-});
-
-const port = Number(process.env.PORT) || 4000;
-app.listen(port, "0.0.0.0", () => console.log(`up on ${port}`));
+app.listen(env.port, "0.0.0.0", () => console.log(`up on ${env.port}`));
 ```
+
+`config.ts` throws if JWT, APP_URL, MAIL_FROM, or DATABASE_URL is missing. That's on purpose.
 
 ```bash
 npm run dev
 ```
 
-`up on 4000`. Now register a real person.
-
-`/health` can be green while register is 500. Health doesn't open Neon.
+`up on 4000`. `/health` still never opens Neon.

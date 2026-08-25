@@ -49,7 +49,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true, shipped: "v2" });
+  res.json({ ok: true, shipped: "v3" });
 });
 
 const port = Number(process.env.PORT) || 4000;
@@ -63,4 +63,4 @@ npm run dev
 curl http://localhost:4000/health
 ```
 
-`{ ok: true, shipped: "v2" }` means the process is up. It does **not** mean Postgres works. `/health` never touches Neon. We bump `shipped` when we want to see a deploy.
+`{ ok: true, shipped: "v3" }` means the process is up. It does **not** mean Postgres works. `/health` never touches Neon. We bump `shipped` when we want to see a deploy. The finished repo splits this into `config.ts`, `app.ts`, and `server.ts`.

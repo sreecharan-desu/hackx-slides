@@ -20,4 +20,4 @@ This is the whole workshop. Stay here two minutes. Don't code yet.
 
 Laptop is the same API on `localhost:4000`. Live is the same repo. Two `.env` files, one Neon.
 
-Today we **explain** this picture, then paste the real files from `club-portal-backend`. Judges want yes/no JSON, hashed passwords, and a lock on chat. The website is someone else's problem.
+Today we **explain** this picture, then paste the real files from https://github.com/sreecharan-desu/club-portal-backend — same repo as the home page. Judges want yes/no JSON, hashed passwords, and a lock on chat.
