@@ -30,4 +30,10 @@ curl -s http://localhost:4000/me -H "Authorization: Bearer $TOKEN"
 
 Same dance with `sreecharan309@gmail.com` if that's the inbox you're staring at. Don't skip steps to save time. You'll just debug the skip.
 
-**Live API is not this.** After Nginx/HTTPS, `POST https://api.sreecharandesu.in/auth/register` only hits Neon if EC2 has `.env` with `DATABASE_URL`. We tried it without that file: `500 register failed` / `500 login failed`. Laptop still had the users. Two machines, two env files, one Neon project — but the box has to be told the URL.
+**Live (we ran this).** Same Neon. Same password `password123`. After Actions wrote `.env`:
+
+1. Register college inbox → 201, mail, click verify (`GET /auth/verify?token=`)
+2. Login → `/me` `isVerified: true` → `/chat` and `/ask` 200 stubs
+3. Forgot → copy token from mail (reset URL may 404) → `POST /auth/reset-password` 200 → token reuse 400 → login 200
+
+`curl --resolve api.sreecharandesu.in:443:43.204.238.87` if the ISP DNS is drunk.

@@ -1,36 +1,23 @@
 ---
-title: "1. Why we're even here"
+title: "1. Point at the picture"
 order: 1
 ---
 
-# Why we're even here
+# Point at the picture
 
-Picture a campus club. People want to join. Someone has to remember them, email them, and keep the group chat off-limits to randoms.
+This is the whole workshop. Stay here two minutes. Don't code yet.
 
-That someone is not the pretty website. The website is just a face. **We write the thing that actually decides.**
+![Club portal architecture](/lessons/club-portal-architecture.png)
 
-Today: only the API. Yes, no, and never store a password as text. That's it.
+**What we're discussing, top to bottom:**
 
-```mermaid
-flowchart TB
-  FE[Website]
-  API[Us · the API]
-  DB[(Neon · Postgres)]
-  SES[Amazon SES]
-  RAG[RAG · later, not us]
+1. A person (curl, browser) hits a public address — IP is enough, `api.sreecharandesu.in` if you have DNS
+2. **Nginx + Certbot** on one Ubuntu box. Port 4000 stays closed
+3. **Express** (`club-api` under PM2). That's us
+4. **Neon** via Prisma — members and mail tokens
+5. **SES SendEmail** — verify + reset. Sandbox: From and To must be verified
+6. **GitHub Actions** SSHs in, writes the **full** `.env`, restarts PM2
 
-  FE --> API
-  API --> DB
-  API --> SES
-  API --> RAG
-```
+Laptop is the same API on `localhost:4000`. Live is the same repo. Two `.env` files, one Neon.
 
-| They want | We actually build |
-| --- | --- |
-| Join | register + verify email |
-| Come back | login + JWT |
-| "wait, who am I?" | `GET /me` |
-| Forgot password | email + new hash |
-| Members chat | chat, but only if you're logged in |
-
-If it runs on your laptop, judges are already happy. Putting it on a cheap Ubuntu box is extra — and **the public IP is enough**. Domain is if you happen to have one. Most of us don't. That's fine.
+Today we **explain** this picture, then paste the real files from `club-portal-backend`. Judges want yes/no JSON, hashed passwords, and a lock on chat. The website is someone else's problem.

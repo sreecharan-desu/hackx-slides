@@ -5,15 +5,16 @@ order: 31
 
 # Timebox or die
 
-Paste the block. Run it. Move. Don't read TypeScript line by line. People will fall asleep.
+Slide 1 is the picture. Stay there. Then paste. Don't read TypeScript line by line.
 
 | | Min |
 | --- | ---: |
-| Why this exists | 3 |
-| Health + Neon + Prisma | 6 |
+| Architecture sketch (slide 1) | 4 |
+| Repo tree + the nine URLs | 3 |
+| Health + Neon + Prisma | 5 |
 | Register → mail → login → /me | 6 |
 | SES sandbox + spam folder | 4 |
-| Chat gate | 2 |
+| /chat vs /ask (same stub) | 2 |
 | Git + EC2 + Nginx + Actions | 6 |
-| Club secrets → `.env` or live register is fake | 2 |
-| Pitch + kill the box | 4 |
+| Club secrets write full `.env` | 2 |
+| Pitch + kill the box | 3 |

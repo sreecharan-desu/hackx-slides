@@ -5,16 +5,15 @@ order: 30
 
 # Can you demo the brief?
 
+We already did this on `https://api.sreecharandesu.in` after club secrets landed in Actions.
+
 | They asked | You show |
 | --- | --- |
-| Signup / login | those routes + Prisma — **on live, only if EC2 has `.env`** |
-| Who's logged in | `GET /me` |
-| Forgot password | SES + a token row |
-| Members chat | requireAuth |
-| Don't log secrets | just… don't |
+| Signup / login | register 201 → verify → login 200 |
+| Who's logged in | `GET /me` verified |
+| Forgot password | SES + `POST /auth/reset-password` (copy token; URL is not a page) |
+| Members chat | `POST /chat` 200 stub, 401 without JWT |
+| Event `/ask` | same stub, `answer` + `sources` |
+| Don't log secrets | `.env` gitignored. Actions writes it |
 
-| Extra | Remember |
-| --- | --- |
-| `POST /ask` | `answer` + `sources` |
-| Listen on `0.0.0.0` | we already do |
-| Grounding | that's RAG's job |
+Health `shipped: "v2"` only proves the new build. Login 401 on a fake user proves Neon.

@@ -5,4 +5,4 @@ order: 35
 
 # That's the job
 
-You made an API that lets people join — laptop `.env`, live `.env` the same keys via Actions (not Neon alone). Door secrets are only SSH. Health can lie. Kill the box before dinner.
+You pointed at the sketch, cloned the real tree, and shipped it. Laptop and live share Neon. Actions writes every club secret, not just the database URL. `/chat` and `/ask` are two doors on one lock. Health can lie. Kill the box before dinner.

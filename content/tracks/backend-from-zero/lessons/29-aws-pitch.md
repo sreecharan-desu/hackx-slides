@@ -21,7 +21,7 @@ flowchart TB
 | Neon | RDS when we're rich |
 | JWT we wrote | Cognito, maybe |
 | SES | SES. We already did this. |
-| GitHub | public repo. clone on EC2 by hand |
-| GitHub Actions | **wired.** push to `main` SSHs and restarts pm2 |
+| GitHub | public repo https://github.com/sreecharan-desu/club-portal-backend |
+| GitHub Actions | **wired.** push writes full `.env`, `pm2 restart` |
 
-Don't invent a bunch of services you didn't touch. You used SES and EC2. Neon is the workshop DB. RDS is the sentence for later.
+Don't invent Cloudflare or Traefik. Slide 1 is the honest sketch. RDS is the sentence for later.

@@ -27,3 +27,5 @@ export default router;
 ```
 
 Event day also wants `POST /ask` with `answer` and `sources`. We stick that stub on the **same** process. Port 4000. Not some second server on 8080.
+
+Two URLs, one lock: `/chat` is the club room, `/ask` is the brief. Until RAG exists they return the same JSON.
