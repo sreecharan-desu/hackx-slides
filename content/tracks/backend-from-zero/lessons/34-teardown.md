@@ -5,22 +5,31 @@ order: 34
 
 # Turn it off
 
-Don't leave AWS up "just in case." You'll forget. **Elastic IPs** still bill when the instance is dead if you don't release them.
+Don't leave AWS up "just in case." You'll forget. **Elastic IPs** still bill after the instance is gone if you don't release them.
 
-| | |
-| --- | --- |
-| 1 | Disassociate, then **release** the Elastic IP |
-| 2 | Terminate the instance |
-| 3 | Delete the key pair, trash the `.pem` |
-| 4 | Delete the A record if you made one |
-| 5 | Pause Neon |
-| 6 | Billing → a $5 alarm |
+**Do not paste `assoc-…` or `i-…`.** Those dots are "put your real id here." Copy IDs from the describe output.
 
 ```bash
+# 1. Elastic IP? empty list = you never allocated one. skip to instances.
 aws ec2 describe-addresses --region ap-south-1
-aws ec2 disassociate-address --association-id assoc-…
-aws ec2 release-address --allocation-id eipalloc-…
-aws ec2 terminate-instances --instance-ids i-… --region ap-south-1
 ```
 
-Free tier ends. Idle IPs don't care.
+If you see `AssociationId` and `AllocationId`, then:
+
+```bash
+aws ec2 disassociate-address --association-id assoc-0YOURREALID
+aws ec2 release-address --allocation-id eipalloc-0YOURREALID
+```
+
+```bash
+# 2. Find the box, then terminate THAT id
+aws ec2 describe-instances --region ap-south-1 \
+  --query 'Reservations[].Instances[].{Id:InstanceId,State:State.Name,Ip:PublicIpAddress}' \
+  --output table
+
+aws ec2 terminate-instances --instance-ids i-0YOURREALID --region ap-south-1
+```
+
+Then: delete the key pair, trash the `.pem`, delete the DNS A record if you made one, pause Neon, set a $5 billing alarm.
+
+`Addresses: []` means no Elastic IP to release. `terminated` in the table means the instance is already off.
