@@ -1,13 +1,11 @@
 ---
-title: "2. The browser is a gossip"
+title: "2. Why the browser is not allowed near the database"
 order: 2
 ---
 
-# The browser is a gossip
+# Why the browser is not allowed near the database
 
-If the website could talk to the database directly, anyone who opens DevTools owns every member. I've seen people try. Don't.
-
-So the browser only talks HTTP. Express sits in the middle, checks stuff, hits Postgres and mail, sends JSON back.
+If the website talked to Postgres directly, anyone who opens DevTools could read every member. So the browser only speaks HTTP. **Your** Express app sits in the middle: check the request, talk to Neon and SES, send JSON back.
 
 ```mermaid
 flowchart LR
@@ -18,10 +16,10 @@ flowchart LR
   E -->|ok / nope| C
 ```
 
-Three things I will be annoying about all day:
+Three rules we keep all day — write them on a sticky note:
 
-1. We hash passwords. Always.
-2. A checkbox is not "I own this email." Mail is.
-3. Chat is for people who logged in. Period.
+1. We **hash** passwords. Always.
+2. A checkbox is not proof of email. **Mail** is.
+3. Chat is only for people who logged in.
 
-If it has to still be there after you slam the laptop, it lives on our side. Not in React state.
+If it still has to exist after you close the laptop, it lives on the server. Not in React state.

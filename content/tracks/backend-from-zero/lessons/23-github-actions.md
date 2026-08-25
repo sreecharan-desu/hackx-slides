@@ -15,7 +15,7 @@ Settings → Secrets and variables → Actions. Add **every** row. Skip one and 
 | `EC2_USER` | `ubuntu` |
 | `EC2_SSH_KEY` | full text of the `.pem` |
 
-Port 22 must allow GitHub (workshop: `0.0.0.0/0` on 22). Home `/32` only → SSH timeout.
+Port 22 must allow GitHub (in class we often open `0.0.0.0/0` on 22). If SSH is only your home `/32`, the job dies at SSH.
 
 ## 2. Club — the whole `.env`, not only Neon
 
@@ -60,10 +60,10 @@ with:
 
 Skip `tsc --noEmit` — Prisma TS4094.
 
-## 4. Prove it live
+## 4. You prove the deploy
 
-1. Stamp `/health` (`shipped: "v3"`)
-2. All club secrets in GitHub
+1. Change `/health` (`shipped: "v3"`) so you can see the new build
+2. Put every club secret in GitHub
 3. `git push origin main`
-4. Actions green
-5. Health, then register — `500` means a club secret is still missing or SES/Neon rejected the call
+4. Wait for Actions green
+5. Hit health, then register — `500` means a secret is still missing or SES/Neon said no

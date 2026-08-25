@@ -16,7 +16,7 @@ npm install -D typescript tsx prisma@6.12.0 @types/express @types/cors @types/bc
 npx tsc --init
 ```
 
-**Pin Prisma 6.12.0 on both.** Mixing 6 and 7 dies inside `tsx`.
+**Pin Prisma 6.12.0 on both.** If one is 6 and one is 7, `tsx` dies looking for a file that moved.
 
 | Package | Why |
 | --- | --- |

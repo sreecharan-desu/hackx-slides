@@ -9,7 +9,7 @@ Close the laptop and the members have to still exist. That's Postgres. We're not
 
 1. [console.neon.tech](https://console.neon.tech) → create a project
 2. Copy the **Prisma / pooled** string
-3. Stick it in `.env` as `DATABASE_URL`. `sslmode=require`. Never commit `.env`. I will judge you.
+3. Stick it in `.env` as `DATABASE_URL`. `sslmode=require`. Never commit `.env`. That string is a password.
 
 ```bash
 npx prisma init

@@ -34,7 +34,7 @@ CLI install if brew isn't your thing: [AWS CLI getting started](https://docs.aws
 Your console password is for you. The CLI wants a **throwaway IAM user** with an access key.
 
 1. [console.aws.amazon.com](https://console.aws.amazon.com) → **IAM**
-2. Create user `club-portal-cli` → **AdministratorAccess** (workshop only, I know it's spicy)
+2. Create user `club-portal-cli` → **AdministratorAccess** (class shortcut — too wide for a real job later)
 3. Security credentials → create access key → use case **CLI**
 4. Copy both values into notes on **this** machine. Once. Not Discord. Not a screenshot in the group chat.
 

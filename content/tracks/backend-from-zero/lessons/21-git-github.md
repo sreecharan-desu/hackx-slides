@@ -14,10 +14,10 @@ git commit -m "auth, /me, prisma, ses"
 gh repo create club-portal-backend --public --source=. --remote=origin --push
 ```
 
-**Public.** Private repos make `git clone` on EC2 ask for a GitHub username. GitHub won't even say "not found." That's the prompt that made everyone swear in class.
+**Public.** A private repo makes `git clone` on EC2 ask for a GitHub username. GitHub will not even say "not found." That prompt is confusing — make it public for class.
 
 Neon URL is a password. `.env` stays off GitHub.
 
-Clone for this workshop: https://github.com/sreecharan-desu/club-portal-backend
+When you want to compare your files: https://github.com/sreecharan-desu/club-portal-backend
 
-Pushing here **does** update EC2 once Actions is green (slide 23). If DNS is drunk, curl with `--resolve`.
+Your push to `main` **does** update EC2 once Actions is green (next slides). If DNS fails, curl with `--resolve`.

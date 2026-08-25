@@ -20,7 +20,7 @@ flowchart LR
   NGX --> APP[Express :4000]
 ```
 
-**Paste the server block into a file.** `ln` only makes a shortcut. If the file isn't there, nginx -t screams. We hit that live.
+**Write the server block into a file first.** `ln` only makes a shortcut. If the file is missing, `nginx -t` fails. Create, then link.
 
 ```bash
 sudo nano /etc/nginx/sites-available/club-api

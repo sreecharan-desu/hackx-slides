@@ -1,23 +1,23 @@
 ---
-title: "1. Point at the picture"
+title: "1. Let's read the map together"
 order: 1
 ---
 
-# Point at the picture
+# Let's read the map together
 
-This is the whole workshop. Stay here two minutes. Don't code yet.
+Look at this with us. Don't open the editor yet. By the end of the day you will be able to point at every box and say what it does.
 
 ![Club portal architecture](/lessons/club-portal-architecture.png)
 
-**What we're discussing, top to bottom:**
+**Follow the arrows with your finger:**
 
-1. A person (curl, browser) hits a public address — IP is enough, `api.sreecharandesu.in` if you have DNS
-2. **Nginx + Certbot** on one Ubuntu box. Port 4000 stays closed
-3. **Express** (`club-api` under PM2). That's us
-4. **Neon** via Prisma — members and mail tokens
-5. **SES SendEmail** — verify + reset. Sandbox: From and To must be verified
-6. **GitHub Actions** SSHs in, writes the **full** `.env`, restarts PM2
+1. You (browser or `curl`) hit a public address — a public IP is enough. A domain like `api.sreecharandesu.in` is optional
+2. **Nginx + Certbot** on one Ubuntu machine. Port **4000 stays closed**. The world talks to 80/443
+3. **Express** — our API, kept alive by PM2 (`club-api`)
+4. **Neon** (Postgres) through Prisma — members and one-time mail tokens
+5. **Amazon SES** — verify and reset mail. Sandbox: From *and* To must be verified identities
+6. **GitHub Actions** — a push SSHs into the box, writes your **whole** `.env`, restarts PM2
 
-Laptop is the same API on `localhost:4000`. Live is the same repo. Two `.env` files, one Neon.
+Your laptop runs the **same** API on `localhost:4000`. Live is the **same** git repo. Two `.env` files. One Neon project.
 
-Today we **explain** this picture, then paste the real files from https://github.com/sreecharan-desu/club-portal-backend — same repo as the home page. Judges want yes/no JSON, hashed passwords, and a lock on chat.
+We will **build** this, not screenshot it. When you need a second look, the finished code is public: https://github.com/sreecharan-desu/club-portal-backend — open it after you have tried the step, so you still understand each file.

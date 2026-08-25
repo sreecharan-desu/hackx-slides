@@ -3,9 +3,9 @@ title: "20. Walk someone through the door"
 order: 20
 ---
 
-# Do this live, don't skip hops
+# Walk the door with us — every hop
 
-Sandbox only delivers to verified emails. From = Gmail. New user = college mailbox. If `/me` returns the person, you're done with auth.
+Sandbox only delivers to verified emails. From = your Gmail. New member = the other verified inbox. When `/me` returns that person, you finished auth.
 
 ```bash
 curl -s http://localhost:4000/health
@@ -28,12 +28,12 @@ TOKEN=$(curl -s -X POST http://localhost:4000/auth/login \
 curl -s http://localhost:4000/me -H "Authorization: Bearer $TOKEN"
 ```
 
-Same dance with `sreecharan309@gmail.com` if that's the inbox you're staring at. Don't skip steps to save time. You'll just debug the skip.
+You can use `sreecharan309@gmail.com` as the member if that is the inbox on your screen. Run every hop. Skipping one hop is how you spend an hour debugging the hop you skipped.
 
-**Live (we ran this).** Same Neon. Same password `password123`. After Actions wrote `.env`:
+**Same story on the public URL** (after Actions has written `.env` on EC2):
 
-1. Register college inbox → 201, mail, click verify (`GET /auth/verify?token=`)
-2. Login → `/me` `isVerified: true` → `/chat` and `/ask` 200 stubs
-3. Forgot → copy token from mail (reset URL may 404) → `POST /auth/reset-password` 200 → token reuse 400 → login 200
+1. Register the college inbox → 201 → open the verify mail (`GET /auth/verify?token=`)
+2. Login → `/me` shows `isVerified: true` → `/chat` and `/ask` return the stub
+3. Forgot password → copy the token (the reset URL in the browser is often **404**) → `POST /auth/reset-password` → using the token twice is 400 → login again
 
-`curl --resolve api.sreecharandesu.in:443:43.204.238.87` if the ISP DNS is drunk.
+If your ISP cannot resolve the domain: `curl --resolve api.sreecharandesu.in:443:43.204.238.87 …`

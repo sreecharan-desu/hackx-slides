@@ -77,4 +77,4 @@ router.post("/reset-password", async (req, res) => {
 
 That's the flow. Chat next — even if RAG isn't real yet.
 
-The mail says `APP_URL/reset-password?token=…`. We never built that page. Clicking it on the live API is often **404**. Copy the hex, then `POST /auth/reset-password` with `{ token, password }`. Reusing the token is 400. We proved that live.
+The mail says `APP_URL/reset-password?token=…`. We did not build that webpage. Opening it in a browser is often **404**. That is expected. Copy the hex, then `POST /auth/reset-password` with `{ token, password }`. Using the token twice is 400.

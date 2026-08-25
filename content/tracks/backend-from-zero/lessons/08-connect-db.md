@@ -39,7 +39,7 @@ npx prisma db push
 npx prisma generate
 ```
 
-`src/db.ts` lives **next to** `src/generated/`. One extra `../` and TypeScript looks outside the project. Ask me how I know.
+`src/db.ts` lives **next to** `src/generated/`. One extra `../` and TypeScript looks outside the project. Count the dots with us.
 
 Wrong:
 

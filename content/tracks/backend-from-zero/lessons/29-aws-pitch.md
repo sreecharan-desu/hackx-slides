@@ -1,11 +1,11 @@
 ---
-title: "29. What we actually ran"
+title: "29. What would you say if they ask about AWS?"
 order: 29
 ---
 
-# What we actually ran
+# What would you say if they ask about AWS?
 
-Judges are fine with localhost. They still ask "how would this look on AWS?" Tell the truth.
+Localhost is a real demo. If they ask "how does this look on AWS?" you tell the truth — you name only what you ran.
 
 ```mermaid
 flowchart TB
@@ -15,13 +15,13 @@ flowchart TB
   API --> SES[SES]
 ```
 
-| What we ran today | What you'd say in a pitch |
+| What you ran | What you might say later |
 | --- | --- |
 | Express on EC2 | EC2, maybe ECS later |
-| Neon | RDS when we're rich |
-| JWT we wrote | Cognito, maybe |
-| SES | SES. We already did this. |
-| GitHub | public repo https://github.com/sreecharan-desu/club-portal-backend |
-| GitHub Actions | **wired.** push writes full `.env`, `pm2 restart` |
+| Neon | RDS when the budget exists |
+| JWT you wrote | Cognito, maybe |
+| SES | SES. You already did this |
+| GitHub | public repo you can show |
+| GitHub Actions | push writes `.env`, restarts pm2 |
 
-Don't invent Cloudflare or Traefik. Slide 1 is the honest sketch. RDS is the sentence for later.
+Don't invent Cloudflare or Traefik. Slide 1 is the honest sketch. RDS is a sentence for later, not something you fake today.

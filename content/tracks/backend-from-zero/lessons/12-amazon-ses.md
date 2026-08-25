@@ -36,7 +36,7 @@ aws sesv2 get-account --query ProductionAccessEnabled
 aws sesv2 list-email-identities
 ```
 
-You: [SES Identities](https://ap-south-1.console.aws.amazon.com/ses/home?region=ap-south-1#/identities) → create identity → **Email address** (not Domain) → click the AWS link in **that** inbox.
+Open [SES Identities](https://ap-south-1.console.aws.amazon.com/ses/home?region=ap-south-1#/identities) → create identity → **Email address** (not Domain) → click the AWS link in **that** inbox.
 
 Don't From: `club@made-up.com`. SES will laugh.
 

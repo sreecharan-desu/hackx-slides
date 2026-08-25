@@ -5,7 +5,7 @@ order: 24
 
 # A tiny Ubuntu box
 
-Laptop was fine. Now we want a public address. One Ubuntu machine, **same region as SES** (`ap-south-1`). Click with me. Don't skip.
+Laptop was fine. Now we want a public address. One Ubuntu machine, **same region as SES** (`ap-south-1`). We click the console together. Don't jump ahead.
 
 ### Open EC2
 

@@ -45,10 +45,10 @@ export default function HomePage() {
             Tracks
           </h1>
           <p className="mx-auto max-w-md text-base text-muted sm:text-lg">
-            Classic, readable lessons. Pick a track and start from slide one.
+            You will build with us, not copy a finished app in silence. Start at slide one.
           </p>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted">
-            Final code lives here:{" "}
+            After you try a step, you can compare with the finished API:{" "}
             <a
               href="https://github.com/sreecharan-desu/club-portal-backend"
               target="_blank"
@@ -57,7 +57,7 @@ export default function HomePage() {
             >
               github.com/sreecharan-desu/club-portal-backend
             </a>
-            . If you ever feel bored, skip ahead and skim that repo — the slides are just walking the same files.
+            . Use it as a map when you are stuck — not as a substitute for typing.
           </p>
         </div>
 

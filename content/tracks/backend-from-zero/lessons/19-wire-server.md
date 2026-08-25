@@ -3,9 +3,9 @@ title: "19. Open the building"
 order: 19
 ---
 
-# This is the file you start
+# Where every URL gets plugged in
 
-`server.ts` only listens. `app.ts` mounts routes. Missing a URL? It's a file under `src/routes/`.
+`server.ts` only listens. `app.ts` mounts routes. Missing a URL? Look under `src/routes/` — you will add those files with us.
 
 `src/app.ts`
 

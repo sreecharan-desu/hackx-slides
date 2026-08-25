@@ -1,19 +1,19 @@
 ---
-title: "30. Can you demo the brief?"
+title: "30. Can you show what they asked for?"
 order: 30
 ---
 
-# Can you demo the brief?
+# Can you show what they asked for?
 
-We already did this on `https://api.sreecharandesu.in` after club secrets landed in Actions.
+When someone reviews your project, this is the checklist. You run the curls. You explain the JSON.
 
 | They asked | You show |
 | --- | --- |
-| Signup / login | register 201 → verify → login 200 |
-| Who's logged in | `GET /me` verified |
-| Forgot password | SES + `POST /auth/reset-password` (copy token; URL is not a page) |
-| Members chat | `POST /chat` 200 stub, 401 without JWT |
-| Event `/ask` | same stub, `answer` + `sources` |
-| Don't log secrets | `.env` gitignored. Actions writes it |
+| Signup / login | register → verify mail → login |
+| Who's logged in | `GET /me` |
+| Forgot password | SES + `POST /auth/reset-password` (copy token; the mail URL is not a page) |
+| Members chat | `POST /chat` with JWT; 401 without |
+| Event `/ask` | same stub: `answer` + `sources` |
+| Secrets | `.env` not in git. Actions writes the live file |
 
-Health `shipped: "v3"` only proves the new build. Login 401 on a fake user proves Neon.
+`GET /health` with `shipped: "v3"` only proves a new **process**. A fake login returning **401** proves Neon is actually reachable.

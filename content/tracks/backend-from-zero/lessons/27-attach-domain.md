@@ -11,7 +11,7 @@ order: 27
 http://13.xxx.xxx.xxx/health
 ```
 
-No domain in the room? Skip this slide. Seriously.
+No domain today? Skip this slide as a class. The IP already works.
 
 A pretty hostname does not create Neon users. Same as the IP: if EC2 has no `.env`, register is still `500`.
 
