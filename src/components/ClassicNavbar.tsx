@@ -82,29 +82,32 @@ export function ClassicNavbar({
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-nav/90 backdrop-blur-md">
-      <div className="mx-auto flex min-h-14 max-w-[1100px] items-center gap-2 px-3 sm:gap-3 sm:px-5">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
+      <div className="mx-auto flex h-14 w-full max-w-[42rem] items-center gap-3 px-5 sm:px-6">
+        <Link href="/" className="flex h-9 shrink-0 items-center gap-2">
           <Image
             src="/hackx-logo.png"
             alt="hackx"
-            width={36}
-            height={36}
-            className="h-8 w-8 rounded-sm object-contain"
+            width={32}
+            height={32}
+            className="block size-8 shrink-0 rounded-sm object-contain"
             priority
           />
-          <span className="hidden text-base font-semibold tracking-tight sm:inline">
+          <span className="hidden leading-none text-[15px] font-semibold tracking-tight sm:inline">
             hackx
           </span>
         </Link>
 
-        <div className="min-w-0 flex-1 truncate text-sm text-muted sm:text-base sm:text-foreground">
-          {trackTitle}{" "}
+        <span className="hidden h-4 w-px shrink-0 bg-border sm:block" aria-hidden />
+
+        <p className="min-w-0 flex-1 truncate leading-none text-[15px] text-muted">
+          <span className="text-foreground">{trackTitle}</span>
           <span className="text-muted">
+            {" "}
             ({currentIndex + 1} / {total})
           </span>
-        </div>
+        </p>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="flex h-9 shrink-0 items-center gap-1.5 sm:gap-2">
           <JumpTo trackId={trackId} lessons={lessons} currentId={lessons[currentIndex]?.id} />
 
           <NavButton href={prevHref} disabled={!prevHref} label="Prev" icon={<ChevronLeft className="h-4 w-4" />} />
@@ -125,7 +128,7 @@ export function ClassicNavbar({
 
           <Link
             href={`/tracks/${trackId}`}
-            className="hidden items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm hover:bg-surface sm:inline-flex"
+            className="hidden h-9 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm hover:bg-surface sm:inline-flex"
             title="Track outline"
           >
             <ExternalLink className="h-3.5 w-3.5" />
