@@ -59,6 +59,4 @@ That's on the box. From your **laptop** (SG must allow port 80):
 curl http://PASTE_PUBLIC_IPV4/health
 ```
 
-Open it in a browser. `{ ok: true }` and you're on the internet. No domain.
-
-Got a domain? Optional next slide. Don't have one? Skip it. Always `nginx -t` before reload.
+Open it in a browser. `{ ok: true }` and Nginx works. **That is not a user in Neon.** Hit register on this URL. `500` = no `.env` on the box. Copy `DATABASE_URL` onto EC2, `pm2 restart`, then register again.

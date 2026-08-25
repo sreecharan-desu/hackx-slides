@@ -22,6 +22,6 @@ flowchart TB
 | JWT we wrote | Cognito, maybe |
 | SES | SES. We already did this. |
 | GitHub | public repo. clone on EC2 by hand |
-| GitHub Actions | **not hooked up.** no repo secrets, no push-to-deploy |
+| GitHub Actions | **wired.** push to `main` SSHs and restarts pm2 |
 
 Don't invent a bunch of services you didn't touch. You used SES and EC2. Neon is the workshop DB. RDS is the sentence for later.

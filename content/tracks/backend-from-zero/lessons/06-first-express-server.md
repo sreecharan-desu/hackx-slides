@@ -62,4 +62,4 @@ npm run dev
 curl http://localhost:4000/health
 ```
 
-`{ ok: true }` and you can breathe. Database next — still not on this laptop.
+`{ ok: true }` means the process is up. It does **not** mean Postgres works. `/health` never touches Neon.

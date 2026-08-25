@@ -5,6 +5,4 @@ order: 35
 
 # That's the job
 
-You made an API that lets people join, proves the email, logs them in, and sits on a public IP if you put it on Ubuntu. Domain wasn't required. CI/CD isn't done — we clone and `git pull` over SSH. That's allowed. Don't fake a pipeline.
-
-Kill the box before dinner.
+You made an API that lets people join — laptop `.env`, live `.env` the same keys via Actions (not Neon alone). Door secrets are only SSH. Health can lie. Kill the box before dinner.

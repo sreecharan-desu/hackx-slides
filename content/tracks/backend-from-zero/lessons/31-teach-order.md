@@ -14,5 +14,6 @@ Paste the block. Run it. Move. Don't read TypeScript line by line. People will f
 | Register → mail → login → /me | 6 |
 | SES sandbox + spam folder | 4 |
 | Chat gate | 2 |
-| Git + EC2 + Nginx (manual clone, no Actions) | 6 |
+| Git + EC2 + Nginx + Actions | 6 |
+| Club secrets → `.env` or live register is fake | 2 |
 | Pitch + kill the box | 4 |

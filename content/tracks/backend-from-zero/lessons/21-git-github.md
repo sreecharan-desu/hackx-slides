@@ -20,4 +20,4 @@ Neon URL is a password. `.env` stays off GitHub.
 
 Clone for this workshop: https://github.com/sreecharan-desu/club-portal-backend
 
-Pushing here does **not** update EC2. That's still SSH until you finish Actions (slide 23).
+Pushing here **does** update EC2 once Actions is green (slide 23). If DNS is drunk, curl with `--resolve`.

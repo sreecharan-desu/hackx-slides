@@ -41,4 +41,4 @@ ssh -i ~/Downloads/club-portal.pem ubuntu@PASTE_PUBLIC_IP
 
 Type `yes`. Then `sudo apt update && sudo apt upgrade -y`.
 
-Database stays on Neon. This box is just Node, Nginx, PM2.
+Database stays on Neon. This box is just Node, Nginx, PM2. Neon still needs `DATABASE_URL` **on this machine** (next slide). Without it, public `/health` works and live register does not.

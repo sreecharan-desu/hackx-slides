@@ -13,6 +13,8 @@ http://13.xxx.xxx.xxx/health
 
 No domain in the room? Skip this slide. Seriously.
 
+A pretty hostname does not create Neon users. Same as the IP: if EC2 has no `.env`, register is still `500`.
+
 ---
 
 If you *do* own a domain: nicer URL, and you can do HTTPS after.

@@ -67,3 +67,5 @@ export default router;
 Walk it once. Then hit register twice — 409, club already knows you.
 
 **Sandbox:** you can only mail addresses SES already verified. Use `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`. Random Gmail? It'll 500. Verify that inbox first.
+
+This writes Neon **on the machine you curled**. `localhost:4000` = laptop `.env`. `https://api.sreecharandesu.in` = EC2 `.env`. If that file isn't on the box, live register is `500` and Neon doesn't get a user. CI does not fix that.

@@ -60,3 +60,5 @@ export default prisma;
 ```
 
 Routes: `import prisma from "../db.ts"`. Generated client stays `.js`. Yeah it's inconsistent. Live with it.
+
+The whole `.env` has to exist **on whichever machine is running Node**. Laptop = your file. Live = Actions writes every club secret (JWT, APP_URL, AWS keys, MAIL_FROM, Neon), not only `DATABASE_URL`.

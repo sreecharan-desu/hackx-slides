@@ -20,7 +20,8 @@ Not algorithms. Config. Every time.
 | Clicked localhost in webmail | of course it failed |
 | MessageRejected | To isn't verified |
 | Clone asks username | repo is private |
-| Actions fails / never runs | we didn't add secrets. SSH `git pull` is today's deploy |
+| Live `/health` ok, register 500 | incomplete `.env`. Add **all** club secrets in Actions (JWT, APP_URL, AWS keys, MAIL_FROM, DATABASE_URL) and redeploy |
+| Actions green but old /health | pm2 didn't restart or pull failed. `git log -1` on the box |
 | `ln` then nginx missing file | create the file **first** |
 | Can't hit public IP | open port **80**. `http://IP/health`. no domain needed |
 | Bound to 127.0.0.1 | `0.0.0.0` |

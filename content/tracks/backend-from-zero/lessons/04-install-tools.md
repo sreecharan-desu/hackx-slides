@@ -59,4 +59,4 @@ If you already saved `NEW_REGION`, run configure again and fix just the region. 
 aws sts get-caller-identity
 ```
 
-Arn should end with `user/club-portal-cli`. Same keys send mail later. Don't put them in `.env`.
+Arn should end with `user/club-portal-cli`. Laptop: those keys stay in `~/.aws`, not git. Live: the same pair goes in GitHub Actions as `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` so the box can SES without a second `aws configure`.

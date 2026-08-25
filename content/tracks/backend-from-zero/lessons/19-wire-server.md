@@ -43,3 +43,5 @@ npm run dev
 ```
 
 `up on 4000`. Now register a real person.
+
+`/health` can be green while register is 500. Health doesn't open Neon.
