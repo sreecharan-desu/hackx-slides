@@ -221,6 +221,45 @@ html:not(.dark) .hljs-literal {
   display: block;
 }
 
+.classic-prose .image-zoom-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  text-align: left;
+}
+
+.classic-prose .image-zoom-trigger img {
+  margin: 1.5rem 0;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(12, 14, 16, 0.88);
+  cursor: zoom-out;
+}
+
+.image-lightbox img {
+  max-width: min(96vw, 1400px);
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: default;
+}
+
 .classic-prose .table-wrap {
   margin: 1.5rem 0 1.75rem;
   overflow-x: auto;

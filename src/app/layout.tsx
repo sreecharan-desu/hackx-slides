@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "hackx",
   description: "Learn by building — classic, readable tracks.",
+  icons: {
+    icon: "/hackx-logo.png",
+    shortcut: "/hackx-logo.png",
+    apple: "/hackx-logo.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
