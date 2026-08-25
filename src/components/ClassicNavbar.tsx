@@ -49,6 +49,11 @@ export function ClassicNavbar({
   const nextHref = nextId ? `/tracks/${trackId}/${nextId}` : undefined;
 
   useEffect(() => {
+    if (nextHref) router.prefetch(nextHref);
+    if (prevHref) router.prefetch(prevHref);
+  }, [router, nextHref, prevHref]);
+
+  useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null;
       if (
@@ -178,7 +183,7 @@ function NavButton({
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href} prefetch className={className}>
       {content}
     </Link>
   );

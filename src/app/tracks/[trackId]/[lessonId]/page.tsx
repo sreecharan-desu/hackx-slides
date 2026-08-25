@@ -1,7 +1,16 @@
 import { notFound } from "next/navigation";
 import { ClassicNavbar } from "@/components/ClassicNavbar";
 import { MarkdownContent } from "@/components/MarkdownContent";
-import { getAdjacentLessons, getLesson, getTrack } from "@/lib/content";
+import { getAdjacentLessons, getAllTracks, getLesson, getTrack } from "@/lib/content";
+
+export function generateStaticParams() {
+  return getAllTracks().flatMap((track) =>
+    track.lessons.map((lesson) => ({
+      trackId: track.id,
+      lessonId: lesson.id,
+    })),
+  );
+}
 
 export default async function LessonPage({
   params,

@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useState } from "react";
 import { useTheme } from "next-themes";
-import mermaid from "mermaid";
 
 export function MermaidDiagram({ chart }: { chart: string }) {
   const reactId = useId().replace(/:/g, "");
@@ -15,31 +14,29 @@ export function MermaidDiagram({ chart }: { chart: string }) {
     const id = `mmd-${reactId}`;
     const theme = resolvedTheme === "light" ? "neutral" : "dark";
 
-    mermaid.initialize({
-      startOnLoad: false,
-      securityLevel: "loose",
-      theme,
-      fontFamily: "var(--font-poppins), system-ui, sans-serif",
-      flowchart: {
-        curve: "basis",
-        padding: 12,
-        htmlLabels: true,
-        nodeSpacing: 36,
-        rankSpacing: 40,
-      },
-    });
-
-    mermaid
-      .render(id, chart.trim())
-      .then(({ svg: rendered }) => {
-        if (!cancelled) {
-          setSvg(rendered);
-          setError(null);
-        }
-      })
-      .catch((err: Error) => {
-        if (!cancelled) setError(err.message);
+    void import("mermaid").then(({ default: mermaid }) => {
+      if (cancelled) return;
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme,
+        fontFamily: "var(--font-poppins), system-ui, sans-serif",
+        flowchart: {
+          curve: "basis",
+          padding: 12,
+          htmlLabels: true,
+          nodeSpacing: 36,
+          rankSpacing: 40,
+        },
       });
+      return mermaid.render(id, chart.trim());
+    }).then((result) => {
+      if (cancelled || !result) return;
+      setSvg(result.svg);
+      setError(null);
+    }).catch((err: Error) => {
+      if (!cancelled) setError(err.message);
+    });
 
     return () => {
       cancelled = true;

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getTrack } from "@/lib/content";
+import { getAllTracks, getTrack } from "@/lib/content";
 import { SiteHeader } from "@/components/SiteHeader";
+
+export function generateStaticParams() {
+  return getAllTracks().map((track) => ({ trackId: track.id }));
+}
 
 export default async function TrackPage({
   params,
