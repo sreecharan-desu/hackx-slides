@@ -82,8 +82,8 @@ export function ClassicNavbar({
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-nav/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-[42rem] items-center gap-3 px-5 sm:px-6">
-        <Link href="/" className="flex h-9 shrink-0 items-center gap-2">
+      <div className="grid h-14 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6">
+        <Link href="/" className="flex h-9 min-w-0 items-center gap-2 justify-self-start">
           <Image
             src="/hackx-logo.png"
             alt="hackx"
@@ -92,22 +92,20 @@ export function ClassicNavbar({
             className="block size-8 shrink-0 rounded-sm object-contain"
             priority
           />
-          <span className="hidden leading-none text-[15px] font-semibold tracking-tight sm:inline">
+          <span className="hidden text-base font-semibold tracking-tight sm:inline">
             hackx
           </span>
         </Link>
 
-        <span className="hidden h-4 w-px shrink-0 bg-border sm:block" aria-hidden />
-
-        <p className="min-w-0 flex-1 truncate leading-none text-[15px] text-muted">
-          <span className="text-foreground">{trackTitle}</span>
-          <span className="text-muted">
+        <p className="whitespace-nowrap justify-self-center px-1 text-center text-sm font-medium leading-none text-foreground sm:text-[15px]">
+          {trackTitle}
+          <span className="font-normal text-muted">
             {" "}
             ({currentIndex + 1} / {total})
           </span>
         </p>
 
-        <div className="flex h-9 shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="flex h-9 items-center justify-end gap-1.5 justify-self-end sm:gap-2">
           <JumpTo trackId={trackId} lessons={lessons} currentId={lessons[currentIndex]?.id} />
 
           <NavButton href={prevHref} disabled={!prevHref} label="Prev" icon={<ChevronLeft className="h-4 w-4" />} />
