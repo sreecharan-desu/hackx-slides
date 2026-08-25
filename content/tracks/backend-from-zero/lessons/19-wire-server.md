@@ -3,9 +3,9 @@ title: "19. Open the building"
 order: 19
 ---
 
-# Open the building
+# This is the file you start
 
-This is the file you actually start. Everything hangs off one desk. If a route is missing, you look here first.
+If a route is missing, look here. Everything hangs off `server.ts`.
 
 `src/server.ts`
 
@@ -42,4 +42,4 @@ app.listen(port, "0.0.0.0", () => console.log(`up on ${port}`));
 npm run dev
 ```
 
-If the console says `up on 4000`, the building is open. Next we walk a real person through join → mail → login → me.
+`up on 4000`. Now register a real person.

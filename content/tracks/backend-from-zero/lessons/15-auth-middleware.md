@@ -3,9 +3,9 @@ title: "15. The bouncer"
 order: 15
 ---
 
-# The bouncer
+# Don't even start the handler
 
-Members-only rooms don't even start until the ticket checks out. The bouncer reads `Authorization: Bearer …`, verifies the JWT, loads the person from Postgres, and stamps `req.user`.
+If they don't have a Bearer token, chat shouldn't run. Read the header, verify JWT, load the user, put them on `req.user`.
 
 ```mermaid
 flowchart LR
@@ -49,4 +49,4 @@ export async function requireAuth(req: AuthedRequest, res: Response, next: NextF
 }
 ```
 
-Hang this on chat — and on anything else that shouldn't be public. Next: the simplest private question, "who am I?"
+Hang this on chat. Hang it on anything that shouldn't be public.

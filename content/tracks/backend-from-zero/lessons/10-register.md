@@ -5,9 +5,9 @@ order: 10
 
 # Someone wants in
 
-A new member types an email and a password. We do not trust the password as text. We hash it, we save the person as **unverified**, we mint a one-time token, we send a letter.
+They type an email and a password. We don't save the password. Hash it, save them as **unverified**, make a one-time token, send the mail.
 
-`src/routes/auth.ts` — the join scene:
+`src/routes/auth.ts`:
 
 ```ts
 import { Router } from "express";
@@ -64,6 +64,6 @@ router.post("/register", async (req, res) => {
 export default router;
 ```
 
-Walk the happy path once. Then show a duplicate email — the club already knows that person.
+Walk it once. Then hit register twice — 409, club already knows you.
 
-**Sandbox:** the `to` address must already be a verified **email** identity. Register as `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`. Anyone else: they verify that inbox first (slide 12). Next: one helper for every letter.
+**Sandbox:** you can only mail addresses SES already verified. Use `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`. Random Gmail? It'll 500. Verify that inbox first.

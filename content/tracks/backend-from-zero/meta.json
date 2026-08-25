@@ -1,5 +1,5 @@
 {
   "id": "backend-from-zero",
   "title": "Backend From Zero",
-  "description": "A club needs a door: sign up, mail, login, then a real box on AWS — told as one story."
+  "description": "We build the boring half of a club: signup, mail, login, a box on AWS — and we don't leave it running overnight."
 }

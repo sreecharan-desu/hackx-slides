@@ -1,23 +1,23 @@
 ---
-title: "1. The club needs a door"
+title: "1. Why we're even here"
 order: 1
 ---
 
-# The club needs a door
+# Why we're even here
 
-Imagine a campus club. People want in. Someone has to check who they are, send a mail, remember them next week, and keep the chat for members only.
+Picture a campus club. People want to join. Someone has to remember them, email them, and keep the group chat off-limits to randoms.
 
-That someone is not the pretty website. The website is the lobby. **We are the door.**
+That someone is not the pretty website. The website is just a face. **We write the thing that actually decides.**
 
-Today we build only the API — the thing that says yes or no, and never forgets a password in plaintext.
+Today: only the API. Yes, no, and never store a password as text. That's it.
 
 ```mermaid
 flowchart TB
-  FE[The lobby · frontend]
-  API[The door · this room]
-  DB[(Memory · Neon Postgres)]
-  SES[The post office · SES]
-  RAG[The librarian · RAG later]
+  FE[Website]
+  API[Us · the API]
+  DB[(Neon · Postgres)]
+  SES[Amazon SES]
+  RAG[RAG · later, not us]
 
   FE --> API
   API --> DB
@@ -25,16 +25,12 @@ flowchart TB
   API --> RAG
 ```
 
-What a member actually wants, and what we name it:
-
-| They want | We ship |
+| They want | We actually build |
 | --- | --- |
-| Join the club | Register + verify mail |
-| Come back tomorrow | Login + a ticket (JWT) |
-| "Who am I?" | `GET /me` |
-| Forgot the password | A reset mail, then a new hash |
-| Talk in the members room | Chat, but only with a ticket |
+| Join | register + verify email |
+| Come back | login + JWT |
+| "wait, who am I?" | `GET /me` |
+| Forgot password | email + new hash |
+| Members chat | chat, but only if you're logged in |
 
-A local demo already satisfies the brief. Putting it on Ubuntu behind Nginx is the extra chapter — **the public IP is enough**. A domain is a bonus if someone in the room already owns one.
-
-Next: why the browser is not allowed to touch the database.
+If it runs on your laptop, judges are already happy. Putting it on a cheap Ubuntu box is extra — and **the public IP is enough**. Domain is if you happen to have one. Most of us don't. That's fine.

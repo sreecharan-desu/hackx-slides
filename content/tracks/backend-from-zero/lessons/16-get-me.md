@@ -3,9 +3,9 @@ title: "16. Who am I right now?"
 order: 16
 ---
 
-# Who am I right now?
+# Who am I?
 
-After login, the lobby only needs one honest answer. That's `GET /me` — same bouncer, JSON of `req.user`.
+After login the UI just needs this. Same middleware. JSON of `req.user`.
 
 `src/routes/me.ts`
 
@@ -27,4 +27,4 @@ curl http://localhost:4000/me \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-If this returns the member, auth is a complete story. Celebrate briefly. Next: they lost the password.
+If that returns the user, auth works. You can smile for two seconds.

@@ -1,85 +1,68 @@
 ---
-title: "12. The post office, no domain required"
+title: "12. SES, without buying a domain"
 order: 12
 ---
 
-# The post office, no domain required
+# SES, without buying a domain
 
-Amazon SES is the post office. The robot user from slide 4 is who pays the postage. Stay in **ap-south-1**.
+Amazon SES sends the mail. Stay in **ap-south-1**. Same IAM user as before.
 
-**Webinar day: verify an email you can open.** Gmail, Outlook, college mail. Domain identities are a later chapter — skip them today.
+**You do not need a domain.** Gmail, Outlook, college mail. Verify the address you can actually open.
 
 ```mermaid
 flowchart LR
-  API[The door] --> SES[SES]
-  SES --> IN[An inbox you control]
+  API[API] --> SES[SES]
+  SES --> IN[your inbox]
 ```
 
-## New accounts live in a sandbox
-
-You cannot write to the whole internet yet.
+New AWS accounts are in a **sandbox**. You cannot email the whole planet.
 
 | | Allowed |
 | --- | --- |
-| From | a verified **email** identity |
-| To | a verified **email** identity |
+| From | a verified email |
+| To | a verified email |
 | Volume | 200 / day |
 
-This workshop account already verified:
+We've already verified:
 
-| Identity | In the story |
+| Address | Use |
 | --- | --- |
-| `sreecharan309@gmail.com` | The sender (`MAIL_FROM`) |
-| `o210008@rguktong.ac.in` | A second member — To ≠ From |
+| `sreecharan309@gmail.com` | From (`MAIL_FROM`) |
+| `o210008@rguktong.ac.in` | a second person signing up |
 
 ```bash
 aws sts get-caller-identity
-aws sesv2 get-account --query ProductionAccessEnabled   # false = sandbox
+aws sesv2 get-account --query ProductionAccessEnabled
 aws sesv2 list-email-identities
 ```
 
-## Every attendee: verify *your* inbox
+You: [SES Identities](https://ap-south-1.console.aws.amazon.com/ses/home?region=ap-south-1#/identities) → create identity → **Email address** (not Domain) → click the AWS link in **that** inbox.
 
-1. [SES Identities · ap-south-1](https://ap-south-1.console.aws.amazon.com/ses/home?region=ap-south-1#/identities)
-2. **Create identity** → **Email address** — not Domain
-3. Paste the address you can open → create → click AWS's link in **that** inbox
+Don't From: `club@made-up.com`. SES will laugh.
 
-`MAIL_FROM` must match a verified address. You cannot From: `club@fake-domain.com`.
-
-Second inbox (same trick):
+Want a second inbox?
 
 ```bash
 aws sesv2 create-email-identity --email-identity o210008@rguktong.ac.in
 ```
 
-**Send to anyone** is production access — hours to days. Skip for class.
-
-`.env` — still no access keys in this file:
+"Send to anyone" is production access. Takes forever. Skip it today.
 
 ```bash
 AWS_REGION=ap-south-1
 MAIL_FROM=sreecharan309@gmail.com
 ```
 
-Leave `SMTP_HOST` unset. Do not use `….mail-manager-smtp.amazonaws.com` — that can return 250 while Gmail never arrives.
+Leave `SMTP_HOST` unset. If you point at `*.mail-manager-smtp.amazonaws.com`, SMTP says 250 and Gmail never shows up. I lost time on that.
 
-## What the letter looks like (expect this)
-
-It will sit in **Spam**. That means the pipe worked.
+## It will land in Spam. That's success.
 
 ![Verify email in Spam](/lessons/ses-verify-spam-inbox.png)
 
-| What you see | The story |
-| --- | --- |
-| Spam / External | Gmail doesn't fully trust Gmail-via-SES yet |
-| Red "dangerous" banner | A bare `localhost` link looks like phishing |
-| `via amazonses.com` | SES sent it. Correct. |
-| Only a localhost URL | `APP_URL` is local. Fine for today. |
+Gmail sees Gmail-via-SES plus a `localhost` link and freaks out. Red banner. External. Whatever.
 
-**Demo:** copy `token=` and curl verify. Do **not** click localhost in webmail on another machine — it cannot reach your laptop.
+**Don't click the link in college webmail.** That browser is not your laptop. Copy `token=` and curl:
 
 ```bash
 curl -s "http://localhost:4000/auth/verify?token=PASTE_TOKEN_HERE"
 ```
-
-Next: we honour that token in the API.

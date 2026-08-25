@@ -3,11 +3,11 @@ title: "17. They lost the password"
 order: 17
 ---
 
-# They lost the password
+# Forgot password
 
-The brief requires this. Same pattern as verify: a short-lived token in Postgres, a letter, a new hash, burn the token.
+Required by the brief. Same idea as verify: token in the DB, email, new hash, kill the token.
 
-On **forgot**, we always say "if the account exists…" — we don't confirm emails to strangers.
+On forgot we always say "if the account exists." We don't confirm emails for strangers.
 
 ```mermaid
 flowchart TB
@@ -75,4 +75,4 @@ router.post("/reset-password", async (req, res) => {
 });
 ```
 
-Next: the members room — even if RAG isn't wired yet.
+That's the flow. Chat next — even if RAG isn't real yet.

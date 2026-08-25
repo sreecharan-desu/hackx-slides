@@ -1,13 +1,13 @@
 ---
-title: "8. Two kinds of paper"
+title: "8. People, and the tokens we email them"
 order: 8
 ---
 
-# Two kinds of paper
+# People, and the tokens we email them
 
-Auth is not a dozen tables. It's **people**, and **tokens we mailed them** (verify, reset). That's the whole filing cabinet for today.
+You don't need twelve tables. Users. And tokens we mailed (verify, reset). Done.
 
-Add these **below** the generator block in `prisma/schema.prisma`:
+Stick this **under** the generator block:
 
 ```prisma
 model User {
@@ -32,16 +32,14 @@ model EmailToken {
 }
 ```
 
-Push the shape to Neon, then generate the TypeScript client. From the **repo root**, no `--config`:
+From the repo root. No `--config`:
 
 ```bash
 npx prisma db push
 npx prisma generate
 ```
 
-Or `npm run db:push`.
-
-`src/db.ts` sits **next to** `src/generated/`. One extra `../` and TypeScript looks outside the project.
+`src/db.ts` lives **next to** `src/generated/`. One extra `../` and TypeScript looks outside the project. Ask me how I know.
 
 Wrong:
 
@@ -51,7 +49,7 @@ import { PrismaClient } from "../../generated/prisma/client.mjs";
 
 ![Wrong Prisma import](/lessons/prisma-wrong-import.png)
 
-The whole file — one shared client for the whole club, not a new connection per request:
+The whole file. One client. Don't open a new connection every request, you'll melt Neon.
 
 ```ts
 import { PrismaClient } from "./generated/prisma/client.js";
@@ -61,4 +59,4 @@ const prisma = new PrismaClient();
 export default prisma;
 ```
 
-Your routes import `../db.ts`. Generated Prisma stays `.js`. Next: the human journey — join, mail, ticket, "who am I?"
+Routes: `import prisma from "../db.ts"`. Generated client stays `.js`. Yeah it's inconsistent. Live with it.

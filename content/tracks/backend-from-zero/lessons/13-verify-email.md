@@ -3,9 +3,9 @@ title: "13. They prove they own the inbox"
 order: 13
 ---
 
-# They prove they own the inbox
+# Prove you own the inbox
 
-The letter is not the membership card. The **token** is. We look it up, we check it isn't used or expired, we flip `isVerified`, we burn the token so nobody replays the link.
+The email isn't membership. The **token** is. Look it up, make sure it's unused and not expired, flip `isVerified`, burn the token so nobody reuses the link.
 
 ```ts
 router.get("/verify", async (req, res) => {
@@ -37,4 +37,4 @@ router.get("/verify", async (req, res) => {
 });
 ```
 
-Open the inbox you registered — **Spam first**. Subject: **Verify your account**. From: `MAIL_FROM` **via** `amazonses.com`. Copy `token=` and curl (next beats) — don't rely on clicking localhost in webmail. Then they can try login.
+Check **Spam**. Subject: Verify your account. Copy the token. Curl it. Don't trust clicking localhost from RGUKT webmail.

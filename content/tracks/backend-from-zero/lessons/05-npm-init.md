@@ -1,11 +1,11 @@
 ---
-title: "5. Empty folder, first guests"
+title: "5. Empty folder, dump packages in"
 order: 5
 ---
 
-# Empty folder, first guests
+# Empty folder, dump packages in
 
-A club backend starts as a folder and a guest list. TypeScript from minute one — `tsx` runs `.ts` files live so we don't babysit a `dist/` during class.
+TypeScript from the first command. `tsx` runs `.ts` live so we're not fighting a `dist/` folder while people are still installing Node.
 
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
@@ -16,20 +16,18 @@ npm install -D typescript tsx prisma@6.12.0 @types/express @types/cors @types/bc
 npx tsc --init
 ```
 
-**Same Prisma version on both packages (6.12.0).** Mix 6 and 7 and the generated client looks for a runtime file that no longer exists. The process dies before anyone can join the club.
+**Pin Prisma 6.12.0 on both `prisma` and `@prisma/client`.** I mixed 6 and 7 once. It looks for a file that doesn't exist anymore and `tsx` just dies. Don't be me.
 
-Who's on the guest list:
-
-| Guest | Job in the story |
+| Package | Why |
 | --- | --- |
-| Express | Speaks HTTP at the door |
-| Prisma | Typed questions to Postgres |
-| SES SDK | Sends letters with the CLI keys |
-| bcrypt / jwt | Hash passwords, hand out tickets |
-| nodemailer | Only if we dump mail into MailDev locally |
-| tsx | Keep TypeScript running while we teach |
+| express | HTTP |
+| prisma | talk to Postgres without writing SQL by hand |
+| `@aws-sdk/client-sesv2` | send mail with the keys from `aws configure` |
+| bcrypt / jwt | hash + tickets |
+| nodemailer | only if you dump mail to MailDev locally |
+| tsx | run TypeScript |
 
-Open `tsconfig.json`. Our own files import **`.ts`**. Generated Prisma is the exception: **`.js`**. `rootDir` is `src` — later we move Prisma's config *into* `src` so TypeScript doesn't complain.
+Our files import `.ts`. Generated Prisma imports `.js`. Weird, but that's Node. `rootDir` is `src` so later Prisma config has to live in there too.
 
 ```json
 {
@@ -44,9 +42,7 @@ Open `tsconfig.json`. Our own files import **`.ts`**. Generated Prisma is the ex
 }
 ```
 
-`noEmit` only — not together with `emitDeclarationOnly`. We are not compiling to disk; `tsx` is the runner.
-
-Scripts from the **repo root**:
+Don't set `noEmit` and `emitDeclarationOnly` together. `tsc` gets mad.
 
 ```json
 {
@@ -59,4 +55,4 @@ Scripts from the **repo root**:
 }
 ```
 
-Do **not** pass `--config src/prisma.config.ts`. Those paths are written from the project root. Next: a process that answers hello.
+Run those from the repo root. **Don't** add `--config src/prisma.config.ts`. I did. It looks for `src/prisma/schema.prisma` and fails. Ugly.

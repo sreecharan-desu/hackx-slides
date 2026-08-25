@@ -3,11 +3,9 @@ title: "20. Walk someone through the door"
 order: 20
 ---
 
-# Walk someone through the door
+# Do this live, don't skip hops
 
-Do this live. Sandbox only delivers to **verified emails**. This account can use Gmail as From and the college mailbox as the new member.
-
-If `/me` comes back with the person, the auth story is done.
+Sandbox only delivers to verified emails. From = Gmail. New user = college mailbox. If `/me` returns the person, you're done with auth.
 
 ```bash
 curl -s http://localhost:4000/health
@@ -30,4 +28,4 @@ TOKEN=$(curl -s -X POST http://localhost:4000/auth/login \
 curl -s http://localhost:4000/me -H "Authorization: Bearer $TOKEN"
 ```
 
-Same walk with `sreecharan309@gmail.com` if that's the inbox on screen. Don't skip hops to "save time." Next: get the TypeScript off the laptop.
+Same dance with `sreecharan309@gmail.com` if that's the inbox you're staring at. Don't skip steps to save time. You'll just debug the skip.

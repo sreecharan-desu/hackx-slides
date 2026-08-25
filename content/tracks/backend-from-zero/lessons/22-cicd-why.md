@@ -1,17 +1,24 @@
 ---
-title: "22. A robot ships while we sleep"
+title: "22. How we ship today vs later"
 order: 22
 ---
 
-# A robot ships while we sleep
+# How we ship today vs later
 
-We don't want to SSH and paste forever. Push to `main`. A robot checks the types. Then it updates the box.
+**Today we did not finish CI/CD.** Be honest with the room.
+
+What we actually did:
+
+1. Push the repo to GitHub (public)
+2. SSH into EC2
+3. `git clone` once, `npm ci`, `pm2 start`
+
+To ship a change after that: SSH again, `git pull`, `pm2 restart`. Ugly. Works. That's this webinar.
 
 ```mermaid
 flowchart LR
-  P[You push] --> A[GitHub Actions]
-  A --> S[SSH to Ubuntu]
-  S --> H[Pull, generate Prisma, restart]
+  L[Laptop] -->|git push| GH[GitHub]
+  L2[You SSH] --> B[EC2 clone / pull]
 ```
 
-CI means "it still boots." CD means "and the live door has it." Next: the YAML that does that.
+**Later** (not wired yet): GitHub Actions + three repo secrets. Then a push from your laptop would SSH for you. We didn't add the secrets. We didn't prove a push updates the box. Don't demo a green check that isn't there.

@@ -1,75 +1,62 @@
 ---
-title: "4. Two programs, one region"
+title: "4. Node, and a robot on AWS"
 order: 4
 ---
 
-# Two programs, one region
+# Node, and a robot on AWS
 
-Before we write club code, we need two voices:
+Two programs before we write real code:
 
-- **Node** — runs the door on your laptop (and later on Ubuntu).
-- **AWS CLI** — talks to Amazon as a robot, not as clicks in the console.
+- **Node** — runs our API
+- **AWS CLI** — talks to Amazon without clicking around all day
 
-We are **not** installing Postgres locally. Memory lives in Neon. Mail and the later server live in **Mumbai (`ap-south-1`)** — pick one region and stay there all day.
-
-Open Terminal. Versions mean you're ready:
+We're not installing Postgres on the laptop. Neon has that. Mail and the later server: stay in **Mumbai (`ap-south-1`)**. Pick one region. Don't wander.
 
 ```bash
-node -v    # 20 or higher
+node -v    # 20+
 npm -v
 aws --version
 ```
 
-Missing `aws`?
+No `aws`?
 
 ```bash
-# macOS
+# mac
 brew install node awscli
 
-# Ubuntu laptop
+# ubuntu laptop
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-AWS CLI install: [docs.aws.amazon.com — getting started](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+CLI install if brew isn't your thing: [AWS CLI getting started](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
----
+Your console password is for you. The CLI wants a **throwaway IAM user** with an access key.
 
-## A robot user, not your human login
-
-The website password is for you. The CLI wants a **machine pair**: Access key ID + Secret. We create a throwaway workshop user named `club-portal-cli`.
-
-1. [console.aws.amazon.com](https://console.aws.amazon.com) → search **IAM**
-2. **Users** → **Create user** → `club-portal-cli` → attach **AdministratorAccess** (workshop only)
-3. User → **Security credentials** → **Create access key**
-4. Use case: **Command Line Interface (CLI)** — tick the box → **Create**
-5. Copy both values into a notes app **on this machine**. Shown once. Not Discord. Not git.
-
----
-
-## Teach the laptop those keys
+1. [console.aws.amazon.com](https://console.aws.amazon.com) → **IAM**
+2. Create user `club-portal-cli` → **AdministratorAccess** (workshop only, I know it's spicy)
+3. Security credentials → create access key → use case **CLI**
+4. Copy both values into notes on **this** machine. Once. Not Discord. Not a screenshot in the group chat.
 
 ```bash
 aws configure
 ```
 
-Four questions. Type over anything in `[square brackets]`.
+Four questions. Don't just smash Enter on the `[old junk]` in brackets.
 
-| It asks | You type |
+| It asks | Type |
 | --- | --- |
-| Access Key ID | `AKIA…` |
-| Secret | the long one (the cursor may look empty) |
-| Region | `ap-south-1` — **never** `NEW_REGION`, never `Global` |
+| Access key | `AKIA…` |
+| Secret | the long one (cursor looks empty, that's normal) |
+| Region | `ap-south-1` — not `NEW_REGION`, not `Global` |
 | Output | `json` |
 
-IAM users are global. EC2 and SES are not. `aws configure` wants a **region code**.
+IAM is global. SES and EC2 are not. Configure wants a **code** like `ap-south-1`.
 
-If you already saved `NEW_REGION`, run `aws configure` again and only fix the region, or edit `~/.aws/config` to `region = ap-south-1`.
-
-Proof:
+If you already saved `NEW_REGION`, run configure again and fix just the region. Or edit `~/.aws/config`.
 
 ```bash
 aws sts get-caller-identity
 ```
 
-You want an Arn ending in `user/club-portal-cli`. Same keys will send mail later. Next we open an empty folder and invite the packages.
+Arn should end with `user/club-portal-cli`. Same keys send mail later. Don't put them in `.env`.

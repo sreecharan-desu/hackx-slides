@@ -3,9 +3,9 @@ title: "18. The members room"
 order: 18
 ---
 
-# The members room
+# Members only
 
-Chat is for people with a ticket. RAG can arrive later — today we own the **gate**. No ticket, 401. Empty question, 400. Otherwise a honest stub: we haven't wired the librarian yet.
+Chat is for people who logged in. RAG can wait. Today we own the lock. No token → 401. Empty question → 400. Otherwise we admit it: librarian isn't plugged in.
 
 `src/routes/chat.ts`
 
@@ -26,4 +26,4 @@ router.post("/chat", requireAuth, async (req, res) => {
 export default router;
 ```
 
-Event-day RAG contract is `POST /ask` with top-level `answer` and `sources`. We mount that stub on the **same** process in the next slide — port 4000, not a second listener on 8080. Next: we actually start the building.
+Event day also wants `POST /ask` with `answer` and `sources`. We stick that stub on the **same** process. Port 4000. Not some second server on 8080.

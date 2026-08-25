@@ -5,9 +5,9 @@ order: 14
 
 # Come back tomorrow
 
-They return with email and password. We find the person, we compare hashes, we refuse if they never proved the inbox, then we hand a **JWT** — a ticket that rides on later requests.
+Email + password. Find them, check the hash, refuse if they never verified, then hand a JWT.
 
-Same lie for bad email and bad password. We don't help attackers guess which one failed.
+Same error for bad email and bad password. Don't help attackers.
 
 ```ts
 import jwt from "jsonwebtoken";
@@ -41,4 +41,4 @@ router.post("/login", async (req, res) => {
 });
 ```
 
-The ticket is not magic. Next we hire a bouncer who actually checks it.
+That's the ticket. Next we actually check it instead of trusting whoever shows up.

@@ -1,18 +1,18 @@
 ---
-title: "6. First heartbeat"
+title: "6. Just make it say hello"
 order: 6
 ---
 
-# First heartbeat
+# Just make it say hello
 
-Before members, before mail: prove a process is alive. If `/health` doesn't answer, nothing else in the story matters.
+Forget members. Forget mail. If `/health` is dead, nothing else matters and you'll debug ghosts.
 
 ```bash
 mkdir -p src
 touch src/server.ts .env .gitignore
 ```
 
-`.gitignore` is the "don't leak the club secrets" list:
+Gitignore so we don't accidentally publish the whole club:
 
 ```text
 node_modules/
@@ -23,9 +23,9 @@ dist/
 .DS_Store
 ```
 
-Prisma will later write generated code. Ignore it. Never edit it by hand.
+Prisma generates a pile of files. Ignore them. Don't hand-edit.
 
-`.env` is the back office. Access keys stay in `~/.aws` — not here.
+Access keys stay in `~/.aws`. `.env` is just our app:
 
 ```bash
 PORT=4000
@@ -36,9 +36,7 @@ MAIL_FROM=sreecharan309@gmail.com
 DATABASE_URL=
 ```
 
-`MAIL_FROM` is the **email identity** we verify later (Gmail or college mail — nobody needs a domain today).
-
-The smallest possible door:
+`MAIL_FROM` is whatever Gmail or college mail you verify later. No domain.
 
 ```ts
 import "dotenv/config";
@@ -64,4 +62,4 @@ npm run dev
 curl http://localhost:4000/health
 ```
 
-`{ ok: true }` means the room is breathing. Next we rent a database in the cloud — still no Postgres on the laptop.
+`{ ok: true }` and you can breathe. Database next — still not on this laptop.

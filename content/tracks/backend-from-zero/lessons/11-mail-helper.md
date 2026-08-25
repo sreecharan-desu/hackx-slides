@@ -1,13 +1,13 @@
 ---
-title: "11. One tray for every letter"
+title: "11. One sendMail"
 order: 11
 ---
 
-# One tray for every letter
+# One sendMail
 
-Join, verify, reset — three scenes, **one** `sendMail`. If we scatter Nodemailer in every route, flipping to SES later becomes a treasure hunt.
+Register, verify, reset — all call `sendMail`. If you sprinkle Nodemailer in every route you'll hate yourself later.
 
-Default story: letters go through **SES SendEmail** using the same IAM keys as `aws configure`. MailDev (`SMTP_HOST=localhost`) is the optional local dump.
+Default: **SES SendEmail** with the same keys as `aws configure`. MailDev only if you set `SMTP_HOST=localhost`.
 
 ```bash
 npm install @aws-sdk/client-sesv2
@@ -55,4 +55,4 @@ export async function sendMail(opts: { to: string; subject: string; text: string
 export default sendMail;
 ```
 
-`MAIL_FROM` is a verified **email** — no domain required. Call sites stay `sendMail({ to, subject, text })`. Next: how SES sandbox actually works on webinar day.
+`MAIL_FROM` is a real inbox you verified. No custom domain. Routes just call `sendMail({ to, subject, text })`.

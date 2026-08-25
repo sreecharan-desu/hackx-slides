@@ -1,11 +1,11 @@
 ---
-title: "21. Leave the laptop"
+title: "21. Get it off your laptop"
 order: 21
 ---
 
-# Leave the laptop
+# Get it off your laptop
 
-The club cannot live only on one person's machine. We push the TypeScript. Secrets stay home.
+This cannot live on one person's machine. Push the code. Leave secrets at home.
 
 ```bash
 git init
@@ -14,12 +14,10 @@ git commit -m "auth, /me, prisma, ses"
 gh repo create club-portal-backend --public --source=. --remote=origin --push
 ```
 
-**Public** so an EC2 box can `git clone` over HTTPS with **no GitHub login**. A private repo prompts `Username for 'https://github.com':` — GitHub hides "not found" behind a login. That's the trap from class.
+**Public.** Private repos make `git clone` on EC2 ask for a GitHub username. GitHub won't even say "not found." That's the prompt that made everyone swear in class.
 
-Neon URL is a password. It stays in `.env`, never on GitHub.
+Neon URL is a password. `.env` stays off GitHub.
 
-This workshop's clone:
+Clone for this workshop: https://github.com/sreecharan-desu/club-portal-backend
 
-https://github.com/sreecharan-desu/club-portal-backend
-
-Next: why we don't SSH forever.
+Pushing here does **not** update EC2. That's still SSH until you finish Actions (slide 23).

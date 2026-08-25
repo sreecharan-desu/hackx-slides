@@ -1,11 +1,11 @@
 ---
-title: "24. Rent a small machine"
+title: "24. A tiny Ubuntu box"
 order: 24
 ---
 
-# Rent a small machine
+# A tiny Ubuntu box
 
-The door has been on a laptop. Now it gets an address on the internet: one Ubuntu box in the **same region** as SES (`ap-south-1`). Click with me — don't skip ahead.
+Laptop was fine. Now we want a public address. One Ubuntu machine, **same region as SES** (`ap-south-1`). Click with me. Don't skip.
 
 ### Open EC2
 
@@ -30,9 +30,9 @@ Network → **Edit**: public IP **Enable**. Security group `club-portal-sg`:
 | HTTP | 80 | Anywhere | Nginx / Certbot |
 | HTTPS | 443 | Anywhere | TLS |
 
-Leave **4000 closed** to the world. Nginx will whisper to Express on localhost.
+Leave **4000 closed**. Nginx talks to Express on localhost. Don't expose 4000 "just to test."
 
-Launch. Wait for **Running** and **2/2 checks**. Copy **Public IPv4** — that URL is how the room hits the API **without a domain** (`http://THAT_IP/health` after Nginx). Elastic IP is optional: only if you want the number to survive stop/start, or you're attaching a domain.
+Launch. Wait for Running + 2/2 checks. Copy **Public IPv4**. After Nginx that's `http://THAT_IP/health` — **no domain**. Elastic IP only if you care about stop/start or you actually have DNS.
 
 ```bash
 chmod 400 ~/Downloads/club-portal.pem
@@ -41,4 +41,4 @@ ssh -i ~/Downloads/club-portal.pem ubuntu@PASTE_PUBLIC_IP
 
 Type `yes`. Then `sudo apt update && sudo apt upgrade -y`.
 
-Database stays on Neon. This box runs Node, Nginx, PM2. Next: clone the public repo and start the door.
+Database stays on Neon. This box is just Node, Nginx, PM2.

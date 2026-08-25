@@ -1,50 +1,36 @@
 ---
-title: "3. Seven doors, one building"
+title: "3. We only need seven URLs"
 order: 3
 ---
 
-# Seven doors, one building
+# We only need seven URLs
 
-We don't invent fifty endpoints. A club portal needs seven public moves. Everything else is folders so we can find the bouncer at 2am.
+I'm not inventing a REST museum. A club needs like seven things the frontend can call. Folders exist so we don't cry at 2am.
 
 ```mermaid
 flowchart TB
-  subgraph routes [What the lobby can ask]
-    R1[Join · POST /auth/register]
-    R2[Come back · POST /auth/login]
-    R3[Prove mail · GET /auth/verify]
-    R4[I forgot · POST /auth/forgot-password]
-    R5[New password · POST /auth/reset-password]
-    R6[Who am I · GET /me]
-    R7[Members chat · POST /chat]
+  subgraph routes [What the site can hit]
+    R1[POST /auth/register]
+    R2[POST /auth/login]
+    R3[GET /auth/verify]
+    R4[POST /auth/forgot-password]
+    R5[POST /auth/reset-password]
+    R6[GET /me]
+    R7[POST /chat]
   end
-
-  subgraph src [Inside the building]
-    S[The front desk · server.ts]
-    RA[Papers · routes]
-    A[The bouncer · requireAuth]
-    DB[The filing cabinet · db.ts]
-    M[The post tray · mail.ts]
-  end
-
-  routes --> S
-  S --> RA
-  RA --> A
-  RA --> DB
-  RA --> M
 ```
 
-When we open the laptop later, this is the map — not a dump of filenames for its own sake:
+How I keep it in my head:
 
 ```text
 club-portal-backend/
-├── prisma/          the shape of member + token rows
-├── src/server.ts    the one process we start
-├── src/db.ts        one shared database client
-├── src/mail.ts      every outbound letter
-├── src/middleware/  "show me your ticket"
-├── src/routes/      join, me, chat
-└── .env             secrets — never git
+├── prisma/            tables
+├── src/server.ts      the process we start
+├── src/db.ts          one Prisma client, shared
+├── src/mail.ts        every email goes through here
+├── src/middleware/    "got a token?"
+├── src/routes/        the seven URLs
+└── .env               secrets. not git. ever.
 ```
 
-If you can point at a box and say it in one sentence, you're ready. Next we get Node and a machine identity on AWS — so later the same keys send mail.
+If you can point at a folder and say what it does in one breath, you're good.

@@ -1,27 +1,27 @@
 ---
-title: "2. The browser is not the bouncer"
+title: "2. The browser is a gossip"
 order: 2
 ---
 
-# The browser is not the bouncer
+# The browser is a gossip
 
-If the lobby could walk into the back office and read every member file, anyone with DevTools would own the club.
+If the website could talk to the database directly, anyone who opens DevTools owns every member. I've seen people try. Don't.
 
-So we put a bouncer in the way. The browser only speaks HTTP. The bouncer (Express) checks the story, talks to Postgres and mail, and sends JSON back.
+So the browser only talks HTTP. Express sits in the middle, checks stuff, hits Postgres and mail, sends JSON back.
 
 ```mermaid
 flowchart LR
-  C[Phone / laptop] -->|please let me in| E[Express]
-  E --> D[(Member files)]
+  C[Phone] -->|hey| E[Express]
+  E --> D[(Postgres)]
   E --> S[Mail]
-  E --> R[Later: RAG]
-  E -->|yes / no / here's your ticket| C
+  E --> R[RAG later]
+  E -->|ok / nope| C
 ```
 
-Three rules for the whole day:
+Three things I will be annoying about all day:
 
-1. **Passwords never sit as text** — we store a hash.
-2. **Mail is how we prove you own the inbox** — not a checkbox on the form.
-3. **Chat is a privilege** — no ticket, no room.
+1. We hash passwords. Always.
+2. A checkbox is not "I own this email." Mail is.
+3. Chat is for people who logged in. Period.
 
-If it has to survive closing the laptop, it lives behind this door. Next we sketch the tiny set of URLs the frontend will ever call.
+If it has to still be there after you slam the laptop, it lives on our side. Not in React state.

@@ -1,18 +1,18 @@
 ---
-title: "31. The clock in my head"
+title: "31. Timebox or die"
 order: 31
 ---
 
-# The clock in my head
+# Timebox or die
 
-Steal this. Talk to the diagram, paste the block, run the command, move on. Don't narrate every line of TypeScript.
+Paste the block. Run it. Move. Don't read TypeScript line by line. People will fall asleep.
 
-| Beat | Min |
+| | Min |
 | --- | ---: |
-| Why a door exists | 3 |
-| Heartbeat + Neon + Prisma | 6 |
-| Join → letter → login → who am I | 6 |
-| SES sandbox + reset | 4 |
-| Members room | 2 |
-| Git → Ubuntu → Nginx (public IP is enough) | 6 |
-| Pitch + teardown | 4 |
+| Why this exists | 3 |
+| Health + Neon + Prisma | 6 |
+| Register → mail → login → /me | 6 |
+| SES sandbox + spam folder | 4 |
+| Chat gate | 2 |
+| Git + EC2 + Nginx (manual clone, no Actions) | 6 |
+| Pitch + kill the box | 4 |
