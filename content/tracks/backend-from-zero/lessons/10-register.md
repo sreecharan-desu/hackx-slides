@@ -66,4 +66,4 @@ export default router;
 
 Walk the room through the happy path once, then show what a duplicate email returns.
 
-In the SES **sandbox** the `to` address must already be a verified identity. Register as `sreecharan309@gmail.com` first. Other inboxes: verify them (slide 12) or wait for production access.
+In the SES **sandbox** the `to` address must already be a verified **email** identity (no domain). Register as `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`. Anyone else's inbox: they verify that address the same way (slide 12).

@@ -36,7 +36,7 @@ MAIL_FROM=sreecharan309@gmail.com
 DATABASE_URL=
 ```
 
-Do not put access keys in this file. SES uses `~/.aws/credentials`. `MAIL_FROM` is filled after you verify that Gmail (slide 12).
+Do not put access keys in this file. SES uses `~/.aws/credentials`. `MAIL_FROM` is the **email identity** you verify on slide 12 (Gmail or college mail — not a domain).
 
 `src/server.ts`
 

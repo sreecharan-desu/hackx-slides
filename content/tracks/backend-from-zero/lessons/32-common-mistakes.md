@@ -21,7 +21,9 @@ Live demos almost never die on clever algorithms. They die on config. Here's the
 | Plaintext passwords | bcrypt. always. |
 | Bound to `127.0.0.1` | listen on `0.0.0.0` |
 | 250 OK but empty Gmail | you used Mail Manager SMTP ingress. Leave `SMTP_HOST` unset; `mail.ts` uses SES SendEmail |
-| SES sandbox / MessageRejected | **To** isn't verified. Register `sreecharan309@gmail.com`, or `aws sesv2 create-email-identity` for that address |
+| Mail in Spam + “might be dangerous” | expected in sandbox. Copy `token=` from body; curl `/auth/verify` locally |
+| Clicked localhost link in webmail, nothing loads | webmail runs in the browser — it cannot reach your laptop's `:4000` |
+| SES sandbox / MessageRejected | **To** isn't verified. Register `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`, or verify that attendee's email (not a domain) |
 | CredentialsProviderError on send | `aws configure` missing; SDK does not read keys from `.env` |
 | SES From unverified | verify an **email** identity in **ap-south-1**. `MAIL_FROM` must match it |
 | Idle EC2 + Elastic IP | teardown before you leave the room |

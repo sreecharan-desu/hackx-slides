@@ -57,4 +57,4 @@ export async function sendMail(opts: { to: string; subject: string; text: string
 export default sendMail;
 ```
 
-`MAIL_FROM` is the Gmail you verify in the next slide. Call sites stay `sendMail({ to, subject, text })`.
+`MAIL_FROM` is the verified **email** identity from the next slide (no domain). Call sites stay `sendMail({ to, subject, text })`.

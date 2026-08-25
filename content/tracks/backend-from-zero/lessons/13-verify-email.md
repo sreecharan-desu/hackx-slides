@@ -37,4 +37,4 @@ router.get("/verify", async (req, res) => {
 });
 ```
 
-Demo tip: open Gmail (check Spam), click the link, then try logging in.
+Demo tip: open the inbox you registered — **check Spam first**. Subject: **Verify your account**. From: your `MAIL_FROM` **via** `amazonses.com`. Copy the `token=` from the link and curl verify (slide 20) — do not rely on clicking `localhost` from a webmail tab.

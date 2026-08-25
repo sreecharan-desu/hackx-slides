@@ -7,6 +7,8 @@ order: 12
 
 SES is the post office. The IAM user from slide 4 (`club-portal-cli` + access keys + `aws configure`) is what Node uses. Stay in **ap-south-1**.
 
+**Webinar day: verify an email address. Nobody in the room needs a domain.** Gmail, Outlook, or college mail all work. Domain identities are a later production step — skip them today.
+
 ```mermaid
 flowchart LR
   API[Express] --> SES[SES SendEmail]
@@ -19,9 +21,16 @@ You **cannot** email arbitrary people yet. Sandbox rules:
 
 | | Allowed |
 | --- | --- |
-| From | a **verified** identity |
-| To | a **verified** identity (usually the same Gmail) |
+| From | a **verified email identity** |
+| To | a **verified email identity** |
 | Volume | 200 / day |
+
+This account's verified identities (both `SUCCESS`):
+
+| Identity | Use |
+| --- | --- |
+| `sreecharan309@gmail.com` | `MAIL_FROM` (sender) and a register demo |
+| `o210008@rguktong.ac.in` | second inbox — register as this to prove To ≠ From |
 
 Check:
 
@@ -35,28 +44,30 @@ aws sesv2 get-account --query ProductionAccessEnabled
 aws sesv2 list-email-identities
 ```
 
-## 2. Verify your Gmail (required)
+## 2. Verify *your* inbox (required — not a domain)
+
+Every attendee does this with **the mail they can actually open**.
 
 1. Console: [SES Identities · ap-south-1](https://ap-south-1.console.aws.amazon.com/ses/home?region=ap-south-1#/identities)
-2. **Create identity** → **Email address** (not Domain)
-3. Paste `sreecharan309@gmail.com` → create → click the AWS link in that inbox
-4. Status **Verified** / `SUCCESS`
+2. **Create identity** → **Email address** — not Domain
+3. Paste your address (example: `you@gmail.com` or `you@rguktong.ac.in`) → create
+4. Open **that** inbox, click the AWS link. Status **Verified** / `SUCCESS`
 
-`MAIL_FROM` must be that exact address.
+If AWS says the identity already exists, you're done. Don't recreate it.
 
-## 3. How to email someone else (testing)
+`MAIL_FROM` must be **one of your verified addresses**. You cannot From: `club@madeup-domain.com`.
 
-Pick one. Do not skip this or register will return 500 (`MessageRejected`).
+## 3. Second inbox (optional, same trick)
 
-**A — stay in sandbox (today's path).** Verify each recipient the same way, or:
+Still sandbox: verify the other address the same way, or:
 
 ```bash
-aws sesv2 create-email-identity --email-identity friend@college.edu
+aws sesv2 create-email-identity --email-identity o210008@rguktong.ac.in
 ```
 
-They click the AWS verify link. Then you can `To:` them. Demo register as yourself first.
+They click the AWS link. Then register can `To:` that mailbox while `MAIL_FROM` stays Gmail.
 
-**B — send to anyone.** SES → Account dashboard → **Request production access**. Use case: transactional (verify + password reset). That review can take hours to days — not required for this class.
+**Send to anyone** (not today): SES → Account dashboard → **Request production access**. Hours to days. Skip for the webinar.
 
 ## 4. `.env`
 
@@ -69,13 +80,35 @@ MAIL_FROM=sreecharan309@gmail.com
 
 Leave `SMTP_HOST` unset so `mail.ts` uses SES.
 
-Never use a host like `….mail-manager-smtp.amazonaws.com`. That is Mail Manager **ingress**: SMTP can return 250 and Gmail still never arrives.
+Never use a host like `….mail-manager-smtp.amazonaws.com`. That is Mail Manager **ingress**: SMTP can return 250 and mail still never arrives.
 
-Gmail-as-From can land in **Spam**. Check there.
+Gmail/college mail often lands in **Spam**. That is normal in sandbox — the pipe worked.
+
+## 5. What the verify email looks like (expect this)
+
+After register, open **Spam** on the recipient inbox (example: `o210008@rguktong.ac.in`).
+
+![Verify email in Spam — External badge, via amazonses.com, localhost link](/lessons/ses-verify-spam-inbox.png)
+
+| What you see | Why |
+| --- | --- |
+| **External** / **Spam** badges | Gmail does not trust `@gmail.com` sent **via** `amazonses.com` yet (no domain DKIM) |
+| Red “might be dangerous” banner | Plain link + `localhost` in the body looks like phishing to filters |
+| `sreecharan309@gmail.com` **via** `amazonses.com` | SES sent it — that is correct for this workshop |
+| Body is only `http://localhost:4000/auth/verify?token=…` | `APP_URL` in `.env` is local. Fine for today |
+
+**For the demo:** copy the `token=` value from that link (or curl verify with it). Do **not** click the link in the browser on event day unless the API is on your laptop — college mail web on another machine cannot reach your `localhost`.
+
+```bash
+# paste the token from the email body
+curl -s "http://localhost:4000/auth/verify?token=PASTE_TOKEN_HERE"
+```
+
+Production fixes this later: real `APP_URL`, HTML template, verified domain + DKIM. Today we only prove SES → inbox → token → login.
 
 | If you see this | It usually means |
 | --- | --- |
 | MessageRejected / not authorized to send | **To** is not a verified identity (sandbox) |
-| MessageRejected on From | `MAIL_FROM` isn't the verified address, or wrong region |
+| MessageRejected on From | `MAIL_FROM` isn't a verified address, or wrong region |
 | CredentialsProviderError | `aws configure` never saved the access keys |
-| Empty inbox, no API error | check Spam; confirm `ProductionAccessEnabled` and identities in **ap-south-1** |
+| Empty inbox, no API error | check Spam; identities must be in **ap-south-1** |
