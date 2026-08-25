@@ -17,10 +17,13 @@ touch src/server.ts .env .gitignore
 ```text
 node_modules/
 .env
+.env.*
 dist/
+/src/generated/prisma
+.DS_Store
 ```
 
-Prisma will later write `src/generated/` — leave that folder in git or ignore it, but never hand-edit it.
+Prisma writes `src/generated/prisma` — ignore it, never hand-edit it, regenerate after clone with `npx prisma generate`.
 
 `.env` for now (Neon comes next):
 
@@ -28,8 +31,12 @@ Prisma will later write `src/generated/` — leave that folder in git or ignore 
 PORT=4000
 JWT_SECRET=replace-with-long-random
 APP_URL=http://localhost:4000
+AWS_REGION=ap-south-1
+MAIL_FROM=sreecharan309@gmail.com
 DATABASE_URL=
 ```
+
+Do not put access keys in this file. SES uses `~/.aws/credentials`. `MAIL_FROM` is filled after you verify that Gmail (slide 12).
 
 `src/server.ts`
 

@@ -13,8 +13,8 @@ Someone signs up → we hash the password → save the user → email a verify l
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import prisma from "../db.js";
-import { sendMail } from "../mail.js";
+import prisma from "../db.ts";
+import { sendMail } from "../mail.ts";
 
 const router = Router();
 
@@ -65,3 +65,5 @@ export default router;
 ```
 
 Walk the room through the happy path once, then show what a duplicate email returns.
+
+In the SES **sandbox** the `to` address must already be a verified identity. Register as `sreecharan309@gmail.com` first. Other inboxes: verify them (slide 12) or wait for production access.

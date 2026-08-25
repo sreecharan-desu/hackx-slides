@@ -11,7 +11,7 @@ After login, the UI needs one simple question answered: "who am I right now?"
 
 ```ts
 import { Router } from "express";
-import { requireAuth, type AuthedRequest } from "../middleware/auth.js";
+import { requireAuth, type AuthedRequest } from "../middleware/auth.ts";
 
 const router = Router();
 

@@ -11,7 +11,7 @@ Chat is for logged-in members only. RAG can come later — today we own the gate
 
 ```ts
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.js";
+import { requireAuth } from "../middleware/auth.ts";
 
 const router = Router();
 
@@ -26,4 +26,4 @@ router.post("/chat", requireAuth, async (req, res) => {
 export default router;
 ```
 
-On event day you'll also expose `POST /ask` on `0.0.0.0:8080` with top-level `answer` and `sources`. Same idea, stricter contract.
+On event day the RAG contract is `POST /ask` with top-level `answer` and `sources`. This app mounts that stub on the **same** process as `/chat` (slide 19) — port 4000, not a second listener on 8080.

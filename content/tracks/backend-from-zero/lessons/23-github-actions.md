@@ -34,7 +34,7 @@ jobs:
             cd /var/www/club-portal-backend
             git pull origin main
             npm ci
-            npx prisma generate --config src/prisma.config.ts
+            npx prisma generate
             pm2 restart club-api || pm2 start "npx tsx src/server.ts" --name club-api
 ```
 

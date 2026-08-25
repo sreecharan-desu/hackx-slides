@@ -33,11 +33,11 @@ model EmailToken {
 ```
 
 ```bash
-npx prisma db push --config src/prisma.config.ts
-npx prisma generate --config src/prisma.config.ts
+npx prisma db push
+npx prisma generate
 ```
 
-Or `npm run db:push`. Prisma looks for config at the repo root by default — after the move, pass `--config src/prisma.config.ts` every time.
+Or `npm run db:push`. Run from the repo root, **no** `--config`. Prisma loads `prisma/schema.prisma` on its own.
 
 `db push` creates the tables on Neon. `generate` writes the client under `src/generated/prisma/`.
 
@@ -69,10 +69,12 @@ export default prisma;
 | Not `@prisma/client` | output is `src/generated`, so we import the generated file |
 | Not `../../generated/...` | that is two folders **above** `src/` |
 
-Default export. In routes use the **`.js`** specifier — not `.ts`, not extensionless:
+Default export. In **your** files use the **`.ts`** specifier:
 
 ```ts
-import prisma from "../db.js";
+import prisma from "../db.ts";
 ```
+
+Leave the generated Prisma import as **`.js`** (`./generated/prisma/client.js`). Mixing `prisma@6` with `@prisma/client@7` is what produced `Cannot find module '@prisma/client/runtime/library'` — keep both at 6.12.0, then `npx prisma generate`.
 
 One shared client for the whole app. Don't open a fresh connection every request.

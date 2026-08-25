@@ -45,6 +45,9 @@ club-portal-backend/
 │   ├── mail.ts
 │   ├── middleware/auth.ts
 │   └── routes/
+│       ├── auth.ts
+│       ├── me.ts
+│       └── chat.ts
 ├── .env
 ├── package.json
 └── tsconfig.json

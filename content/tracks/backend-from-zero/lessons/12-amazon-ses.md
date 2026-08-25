@@ -5,58 +5,77 @@ order: 12
 
 # Amazon SES
 
-Nodemailer is our postman. SES is the real post office — and it's what you mention in the AWS pitch.
-
-You do **not** need a custom domain. Most of this room is on Gmail. SES can verify a **single email address**. That's the path we use today.
+SES is the post office. The IAM user from slide 4 (`club-portal-cli` + access keys + `aws configure`) is what Node uses. Stay in **ap-south-1**.
 
 ```mermaid
 flowchart LR
-  API[Express] --> NM[Nodemailer]
-  NM --> SMTP[SES SMTP]
-  SMTP --> IN[(Inbox)]
+  API[Express] --> SES[SES SendEmail]
+  SES --> IN[Verified inbox]
 ```
 
-## 1. Verify an email identity (no domain)
+## 1. New accounts are in the sandbox
 
-Stay in **ap-south-1** (Mumbai) — same region as `aws configure`.
+You **cannot** email arbitrary people yet. Sandbox rules:
 
-1. Open **Amazon SES** → **Get set up** (or **Configuration → Identities**)
-2. On **Verify sending domain**, click **Create identity** — ignore that it says "domain". Next screen lets you pick the type.
-3. Identity type: **Email address** — not Domain
-4. Paste the Gmail (or college mail) you can actually open
-5. **Create identity**
-6. Open that inbox. Click the AWS verification link. Status should go **Verified**.
+| | Allowed |
+| --- | --- |
+| From | a **verified** identity |
+| To | a **verified** identity (usually the same Gmail) |
+| Volume | 200 / day |
 
-![SES Get set up — Create identity](/lessons/ses-get-set-up.png)
-
-![Create identity — pick Email address](/lessons/ses-email-identity.png)
-
-If AWS says the identity already exists, you're done — it's already in Identities. Don't recreate it.
-
-`MAIL_FROM` must be **that exact verified address**. You cannot From: `club@madeup-domain.com` until a domain is verified.
-
-Gmail-as-From can land in spam (DMARC). For a workshop that's fine. We're proving the pipe, not winning inboxes.
-
-## 2. SMTP credentials
-
-SES → **SMTP settings** → create SMTP credentials. Save the user and password **once** — you won't see the password again.
-
-## 3. `.env`
+Check:
 
 ```bash
-SMTP_HOST=email-smtp.ap-south-1.amazonaws.com
-SMTP_PORT=587
-SMTP_USER=…
-SMTP_PASS=…
-MAIL_FROM="Club Portal <you@gmail.com>"
+aws sts get-caller-identity
+# Arn should end with user/club-portal-cli
+
+aws sesv2 get-account --query ProductionAccessEnabled
+# false = sandbox
+
+aws sesv2 list-email-identities
 ```
 
-Host must match the region (`ap-south-1`). Wrong region = auth errors.
+## 2. Verify your Gmail (required)
+
+1. Console: [SES Identities · ap-south-1](https://ap-south-1.console.aws.amazon.com/ses/home?region=ap-south-1#/identities)
+2. **Create identity** → **Email address** (not Domain)
+3. Paste `sreecharan309@gmail.com` → create → click the AWS link in that inbox
+4. Status **Verified** / `SUCCESS`
+
+`MAIL_FROM` must be that exact address.
+
+## 3. How to email someone else (testing)
+
+Pick one. Do not skip this or register will return 500 (`MessageRejected`).
+
+**A — stay in sandbox (today's path).** Verify each recipient the same way, or:
+
+```bash
+aws sesv2 create-email-identity --email-identity friend@college.edu
+```
+
+They click the AWS verify link. Then you can `To:` them. Demo register as yourself first.
+
+**B — send to anyone.** SES → Account dashboard → **Request production access**. Use case: transactional (verify + password reset). That review can take hours to days — not required for this class.
+
+## 4. `.env`
+
+Do **not** put `AWS_ACCESS_KEY_ID` in `.env`. The SDK reads `~/.aws/credentials` from `aws configure`.
+
+```bash
+AWS_REGION=ap-south-1
+MAIL_FROM=sreecharan309@gmail.com
+```
+
+Leave `SMTP_HOST` unset so `mail.ts` uses SES.
+
+Never use a host like `….mail-manager-smtp.amazonaws.com`. That is Mail Manager **ingress**: SMTP can return 250 and Gmail still never arrives.
+
+Gmail-as-From can land in **Spam**. Check there.
 
 | If you see this | It usually means |
 | --- | --- |
-| MessageRejected | From isn't the verified email |
-| Sandbox block | **To** isn't verified yet — sandbox only delivers to verified identities. Verify the recipient the same way, or send to yourself. |
-| Auth error | Wrong SMTP secret or `SMTP_HOST` region doesn't match the console |
-
-New accounts start in **sandbox** (200 mail / day). Production access wants a domain later — skip that for class.
+| MessageRejected / not authorized to send | **To** is not a verified identity (sandbox) |
+| MessageRejected on From | `MAIL_FROM` isn't the verified address, or wrong region |
+| CredentialsProviderError | `aws configure` never saved the access keys |
+| Empty inbox, no API error | check Spam; confirm `ProductionAccessEnabled` and identities in **ap-south-1** |

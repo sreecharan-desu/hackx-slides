@@ -5,22 +5,24 @@ order: 20
 
 # Verification script
 
-Run this live with the room. If `/me` comes back with the user, auth is done — that's the milestone.
+Run this live with the room. Use the **verified SES identity** as the account — sandbox will not deliver to random inboxes.
+
+If `/me` comes back with the user, auth is done — that's the milestone.
 
 ```bash
 curl -s http://localhost:4000/health
 
 curl -s -X POST http://localhost:4000/auth/register \
   -H 'Content-Type: application/json' \
-  -d '{"email":"you@example.com","password":"password123","name":"You"}'
+  -d '{"email":"sreecharan309@gmail.com","password":"password123","name":"Sreecharan"}'
 
-# grab the verify token from MailDev / SES
+# open Gmail (and Spam) for "Verify your account" — copy the token from the link
 
 curl -s "http://localhost:4000/auth/verify?token=TOKEN"
 
 TOKEN=$(curl -s -X POST http://localhost:4000/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"email":"you@example.com","password":"password123"}' | jq -r .token)
+  -d '{"email":"sreecharan309@gmail.com","password":"password123"}' | jq -r .token)
 
 curl -s http://localhost:4000/me -H "Authorization: Bearer $TOKEN"
 ```

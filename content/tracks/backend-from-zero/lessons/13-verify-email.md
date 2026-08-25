@@ -37,4 +37,4 @@ router.get("/verify", async (req, res) => {
 });
 ```
 
-Demo tip: open MailDev, click the link, then try logging in.
+Demo tip: open Gmail (check Spam), click the link, then try logging in.

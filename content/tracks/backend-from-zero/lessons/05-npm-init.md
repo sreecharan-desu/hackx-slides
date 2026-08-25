@@ -10,19 +10,23 @@ We're going TypeScript from the first command. `tsx` lets us run `.ts` files wit
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
 npm init -y
-npm install express cors dotenv bcrypt jsonwebtoken nodemailer @prisma/client
-npm install -D typescript tsx prisma @types/express @types/cors @types/bcrypt @types/jsonwebtoken @types/node nodemon
+npm pkg set type=module
+npm install express cors dotenv bcrypt jsonwebtoken nodemailer @aws-sdk/client-sesv2 @prisma/client@6.12.0
+npm install -D typescript tsx prisma@6.12.0 @types/express @types/cors @types/bcrypt @types/jsonwebtoken @types/nodemailer @types/node nodemon
 npx tsc --init
 ```
 
-Open `tsconfig.json` and turn these on. Prisma's generated client is `.js`. Without this, `import prisma from "../db.ts"` type-errors — use `import prisma from "../db.js"` instead. The file on disk is still `db.ts`; the `.js` in the import is the emit name.
+Pin **the same** Prisma version on `prisma` and `@prisma/client` (6.12.0). A 7.x client with a 6.x CLI generates code that imports `@prisma/client/runtime/library` — that file is gone in 7, and `tsx` dies with `ERR_MODULE_NOT_FOUND`.
 
-`rootDir` is `src`. If `prisma.config.ts` stays at the repo root, `tsc` errors: **file is not under rootDir**. Put the Prisma config **inside** `src/` (slide 7).
+Open `tsconfig.json` and turn these on. Local files import with a **`.ts`** specifier (`import prisma from "../db.ts"`). `tsx` + `allowImportingTsExtensions` is what makes that legal. The generated Prisma client is the exception: import `./generated/prisma/client.js`.
+
+`rootDir` is `src`. Move `prisma.config.ts` **inside** `src/` (slide 7) so `tsc` does not complain that the file is outside `rootDir`.
 
 ```json
 {
   "compilerOptions": {
     "rootDir": "./src",
+    "module": "nodenext",
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true,
     "noEmit": true
@@ -37,8 +41,9 @@ Open `tsconfig.json` and turn these on. Prisma's generated client is `.js`. With
 | --- | --- |
 | express | Speaks HTTP |
 | prisma / `@prisma/client` | Schema + typed queries (client is generated into `src/generated`) |
+| `@aws-sdk/client-sesv2` | `SendEmail` using `aws configure` keys |
 | bcrypt / jsonwebtoken | Passwords + login tickets |
-| nodemailer | Sends mail |
+| nodemailer | MailDev fallback only (`SMTP_HOST=localhost`) |
 | tsx | Runs TypeScript live |
 
 Drop these scripts into `package.json` so the room can follow along:
@@ -48,8 +53,10 @@ Drop these scripts into `package.json` so the room can follow along:
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
-    "db:push": "prisma db push --config src/prisma.config.ts",
-    "db:studio": "prisma studio --config src/prisma.config.ts"
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   }
 }
 ```
+
+Run those from the **repo root**. Prisma finds `prisma/schema.prisma` by itself. Do **not** add `--config src/prisma.config.ts` — that config's paths are written from the repo root, so `--config` looks for `src/prisma/schema.prisma` and fails.
