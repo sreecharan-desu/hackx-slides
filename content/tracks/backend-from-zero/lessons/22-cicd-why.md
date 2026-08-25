@@ -1,17 +1,17 @@
 ---
-title: "22. Delivery pipeline"
+title: "22. A robot ships while we sleep"
 order: 22
 ---
 
-# Delivery pipeline
+# A robot ships while we sleep
 
-We don't want to SSH and copy-paste forever. Push to `main`, let a robot check it, then update the box.
+We don't want to SSH and paste forever. Push to `main`. A robot checks the types. Then it updates the box.
 
 ```mermaid
 flowchart LR
-  P[git push main] --> A[GitHub Actions]
-  A --> S[SSH]
-  S --> H[EC2 pull + pm2 restart]
+  P[You push] --> A[GitHub Actions]
+  A --> S[SSH to Ubuntu]
+  S --> H[Pull, generate Prisma, restart]
 ```
 
-CI says "it still boots." CD says "and now the server has it."
+CI means "it still boots." CD means "and the live door has it." Next: the YAML that does that.

@@ -1,21 +1,28 @@
 ---
-title: "9. Auth model"
+title: "9. A member's day"
 order: 9
 ---
 
-# Auth model
+# A member's day
 
-The brief says email + password is enough. So that's what we're building — no Google login rabbit hole.
+The brief said email + password. So we don't detour into Google login. Watch one person walk through the club:
+
+They **join**. We hash the password. We email a proof link. They **click** (or we curl the token). Only then can they **come back** and get a **ticket**. The ticket is how they ask "who am I?" and how they enter chat.
 
 ```mermaid
 flowchart TB
-  R[Register] --> H[bcrypt hash]
-  H --> U[(Postgres · User)]
-  U --> M[SES verify mail]
-  M --> V[Verify token]
-  V --> L[Login]
-  L --> J[JWT]
-  J --> ME[GET /me]
+  R[Join the club] --> H[We hash, we never store the password]
+  H --> U[(A row in Postgres)]
+  U --> M[A letter via SES]
+  M --> V[They prove they own the inbox]
+  V --> L[They come back]
+  L --> J[We hand a JWT ticket]
+  J --> ME[Who am I?]
 ```
 
-Quick vocab while we're here: **authentication** is "who are you?", **authorization** is "are you allowed?" Chat is the second one.
+Two words for the rest of the day:
+
+- **Authentication** — who are you?
+- **Authorization** — are you allowed in this room?
+
+Chat is the second one. Next we write join.

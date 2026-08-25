@@ -1,13 +1,13 @@
 ---
-title: "10. Register"
+title: "10. Someone wants in"
 order: 10
 ---
 
-# Register
+# Someone wants in
 
-Someone signs up → we hash the password → save the user → email a verify link. Plaintext passwords never hit the database. Ever.
+A new member types an email and a password. We do not trust the password as text. We hash it, we save the person as **unverified**, we mint a one-time token, we send a letter.
 
-`src/routes/auth.ts` (register)
+`src/routes/auth.ts` — the join scene:
 
 ```ts
 import { Router } from "express";
@@ -64,6 +64,6 @@ router.post("/register", async (req, res) => {
 export default router;
 ```
 
-Walk the room through the happy path once, then show what a duplicate email returns.
+Walk the happy path once. Then show a duplicate email — the club already knows that person.
 
-In the SES **sandbox** the `to` address must already be a verified **email** identity (no domain). Register as `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`. Anyone else's inbox: they verify that address the same way (slide 12).
+**Sandbox:** the `to` address must already be a verified **email** identity. Register as `sreecharan309@gmail.com` or `o210008@rguktong.ac.in`. Anyone else: they verify that inbox first (slide 12). Next: one helper for every letter.

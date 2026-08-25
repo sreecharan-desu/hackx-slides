@@ -1,11 +1,11 @@
 ---
-title: "25. Host setup"
+title: "25. The door on Ubuntu"
 order: 25
 ---
 
-# Host setup
+# The door on Ubuntu
 
-You're on the box now. Clone the repo, install, generate Prisma, drop in your production `.env`.
+You're on the box. Give the `ubuntu` user a home for the app, clone the **public** repo, install, generate Prisma, drop in production `.env` (same Neon URL is fine).
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
@@ -15,11 +15,13 @@ sudo apt-get install -y nodejs git
 ```bash
 sudo mkdir -p /var/www && sudo chown ubuntu:ubuntu /var/www
 cd /var/www
-git clone https://github.com/YOU/club-portal-backend.git
+git clone https://github.com/sreecharan-desu/club-portal-backend.git
 cd club-portal-backend
 npm ci
 npx prisma generate
 ```
+
+If Git asks for a **username**, the repo is still private. Public clones do not log in.
 
 ```bash
 sudo npm i -g pm2
@@ -28,4 +30,4 @@ pm2 save && pm2 startup
 curl http://127.0.0.1:4000/health
 ```
 
-Same Neon `DATABASE_URL` as local is fine. Tables already exist from `prisma db push` — nothing Postgres-related to install here.
+`{ ok: true }` on the box. The internet still shouldn't hit `:4000`. Next: Nginx — the front door on 80.

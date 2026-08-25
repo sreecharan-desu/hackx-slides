@@ -1,13 +1,13 @@
 ---
-title: "8. Schema + client"
+title: "8. Two kinds of paper"
 order: 8
 ---
 
-# Schema + client
+# Two kinds of paper
 
-Auth only needs two models: people, and the short-lived tokens we email them.
+Auth is not a dozen tables. It's **people**, and **tokens we mailed them** (verify, reset). That's the whole filing cabinet for today.
 
-Add these **below** the generator / datasource block in `prisma/schema.prisma`:
+Add these **below** the generator block in `prisma/schema.prisma`:
 
 ```prisma
 model User {
@@ -32,28 +32,26 @@ model EmailToken {
 }
 ```
 
+Push the shape to Neon, then generate the TypeScript client. From the **repo root**, no `--config`:
+
 ```bash
 npx prisma db push
 npx prisma generate
 ```
 
-Or `npm run db:push`. Run from the repo root, **no** `--config`. Prisma loads `prisma/schema.prisma` on its own.
+Or `npm run db:push`.
 
-`db push` creates the tables on Neon. `generate` writes the client under `src/generated/prisma/`.
+`src/db.ts` sits **next to** `src/generated/`. One extra `../` and TypeScript looks outside the project.
 
-## Import from `src/`, not from the repo root
-
-`src/db.ts` lives **next to** `src/generated/`. One `../` too many and TypeScript looks **outside** the project.
-
-Wrong (red squiggle on the path):
+Wrong:
 
 ```ts
 import { PrismaClient } from "../../generated/prisma/client.mjs";
 ```
 
-![Wrong Prisma import: ../../generated from src/db.ts](/lessons/prisma-wrong-import.png)
+![Wrong Prisma import](/lessons/prisma-wrong-import.png)
 
-This is the whole `src/db.ts` file — copy it as-is:
+The whole file — one shared client for the whole club, not a new connection per request:
 
 ```ts
 import { PrismaClient } from "./generated/prisma/client.js";
@@ -63,18 +61,4 @@ const prisma = new PrismaClient();
 export default prisma;
 ```
 
-| From | Path |
-| --- | --- |
-| `src/db.ts` | `./generated/prisma/client.js` |
-| Not `@prisma/client` | output is `src/generated`, so we import the generated file |
-| Not `../../generated/...` | that is two folders **above** `src/` |
-
-Default export. In **your** files use the **`.ts`** specifier:
-
-```ts
-import prisma from "../db.ts";
-```
-
-Leave the generated Prisma import as **`.js`** (`./generated/prisma/client.js`). Mixing `prisma@6` with `@prisma/client@7` is what produced `Cannot find module '@prisma/client/runtime/library'` — keep both at 6.12.0, then `npx prisma generate`.
-
-One shared client for the whole app. Don't open a fresh connection every request.
+Your routes import `../db.ts`. Generated Prisma stays `.js`. Next: the human journey — join, mail, ticket, "who am I?"

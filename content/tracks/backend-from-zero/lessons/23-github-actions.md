@@ -1,11 +1,11 @@
 ---
-title: "23. GitHub Actions"
+title: "23. The robot's script"
 order: 23
 ---
 
-# GitHub Actions
+# The robot's script
 
-Install deps, make sure TypeScript is happy, SSH in, pull, regenerate Prisma, restart PM2. Secrets live in the repo settings — not in the YAML.
+Install, typecheck, SSH in, pull, regenerate Prisma, restart PM2. Secrets live in GitHub Settings — not in the YAML.
 
 `.github/workflows/deploy.yml`
 
@@ -38,4 +38,4 @@ jobs:
             pm2 restart club-api || pm2 start "npx tsx src/server.ts" --name club-api
 ```
 
-Add `EC2_HOST`, `EC2_USER`, and `EC2_SSH_KEY` under Settings → Secrets. Then push once and watch the run.
+Add `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY` under Settings → Secrets. Push once and watch the run. Next: we actually rent the Ubuntu machine.

@@ -1,11 +1,11 @@
 ---
-title: "5. Bootstrap"
+title: "5. Empty folder, first guests"
 order: 5
 ---
 
-# Bootstrap
+# Empty folder, first guests
 
-We're going TypeScript from the first command. `tsx` lets us run `.ts` files without a separate build step while we're teaching.
+A club backend starts as a folder and a guest list. TypeScript from minute one — `tsx` runs `.ts` files live so we don't babysit a `dist/` during class.
 
 ```bash
 mkdir club-portal-backend && cd club-portal-backend
@@ -16,11 +16,20 @@ npm install -D typescript tsx prisma@6.12.0 @types/express @types/cors @types/bc
 npx tsc --init
 ```
 
-Pin **the same** Prisma version on `prisma` and `@prisma/client` (6.12.0). A 7.x client with a 6.x CLI generates code that imports `@prisma/client/runtime/library` — that file is gone in 7, and `tsx` dies with `ERR_MODULE_NOT_FOUND`.
+**Same Prisma version on both packages (6.12.0).** Mix 6 and 7 and the generated client looks for a runtime file that no longer exists. The process dies before anyone can join the club.
 
-Open `tsconfig.json` and turn these on. Local files import with a **`.ts`** specifier (`import prisma from "../db.ts"`). `tsx` + `allowImportingTsExtensions` is what makes that legal. The generated Prisma client is the exception: import `./generated/prisma/client.js`.
+Who's on the guest list:
 
-`rootDir` is `src`. Move `prisma.config.ts` **inside** `src/` (slide 7) so `tsc` does not complain that the file is outside `rootDir`.
+| Guest | Job in the story |
+| --- | --- |
+| Express | Speaks HTTP at the door |
+| Prisma | Typed questions to Postgres |
+| SES SDK | Sends letters with the CLI keys |
+| bcrypt / jwt | Hash passwords, hand out tickets |
+| nodemailer | Only if we dump mail into MailDev locally |
+| tsx | Keep TypeScript running while we teach |
+
+Open `tsconfig.json`. Our own files import **`.ts`**. Generated Prisma is the exception: **`.js`**. `rootDir` is `src` — later we move Prisma's config *into* `src` so TypeScript doesn't complain.
 
 ```json
 {
@@ -35,18 +44,9 @@ Open `tsconfig.json` and turn these on. Local files import with a **`.ts`** spec
 }
 ```
 
-`allowImportingTsExtensions` requires `noEmit` **or** `emitDeclarationOnly`. Do not set both — `tsc` will reject that pair. We use `noEmit` because `tsx` runs the `.ts` files; we are not emitting a `dist/`.
+`noEmit` only — not together with `emitDeclarationOnly`. We are not compiling to disk; `tsx` is the runner.
 
-| Package | Why we care |
-| --- | --- |
-| express | Speaks HTTP |
-| prisma / `@prisma/client` | Schema + typed queries (client is generated into `src/generated`) |
-| `@aws-sdk/client-sesv2` | `SendEmail` using `aws configure` keys |
-| bcrypt / jsonwebtoken | Passwords + login tickets |
-| nodemailer | MailDev fallback only (`SMTP_HOST=localhost`) |
-| tsx | Runs TypeScript live |
-
-Drop these scripts into `package.json` so the room can follow along:
+Scripts from the **repo root**:
 
 ```json
 {
@@ -59,4 +59,4 @@ Drop these scripts into `package.json` so the room can follow along:
 }
 ```
 
-Run those from the **repo root**. Prisma finds `prisma/schema.prisma` by itself. Do **not** add `--config src/prisma.config.ts` — that config's paths are written from the repo root, so `--config` looks for `src/prisma/schema.prisma` and fails.
+Do **not** pass `--config src/prisma.config.ts`. Those paths are written from the project root. Next: a process that answers hello.

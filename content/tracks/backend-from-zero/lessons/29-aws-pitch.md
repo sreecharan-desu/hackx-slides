@@ -1,25 +1,25 @@
 ---
-title: "29. AWS narrative"
+title: "29. What we ran vs what we pitch"
 order: 29
 ---
 
-# AWS narrative
+# What we ran vs what we pitch
 
-Judges are fine with a local demo. They still want to hear how this would look on AWS. So we tell the truth about what we run today, then the managed upgrade.
+Judges accept a local demo. They still want to hear how this grows on AWS. Tell the truth: what we touched today, then the managed upgrade.
 
 ```mermaid
 flowchart TB
   U[Members] --> EDGE[DNS / TLS]
   EDGE --> NGX[Nginx on EC2]
-  NGX --> API[Express API]
-  API --> NEON[(Neon Postgres)]
-  API --> SES[Amazon SES]
-  API --> RAG[RAG service]
+  NGX --> API[Express]
+  API --> NEON[(Neon)]
+  API --> SES[SES]
+  API --> RAG[RAG]
 
-  subgraph pitch [Managed upgrades to pitch]
-    RDS[Amazon RDS]
+  subgraph pitch [Sentences for later]
+    RDS[RDS]
     COG[Cognito]
-    S3[S3 docs]
+    S3[S3]
     CW[CloudWatch]
   end
 
@@ -29,13 +29,13 @@ flowchart TB
   API -. later .-> CW
 ```
 
-| What we actually run | What we'd say in the pitch |
+| What we actually ran | The grown-up sentence |
 | --- | --- |
 | Express on EC2 | EC2 / ECS |
-| Neon Postgres | Amazon RDS |
+| Neon | Amazon RDS |
 | JWT in our API | Cognito |
-| Nodemailer → SES | SES |
-| Document pack | S3 |
+| SES SendEmail | SES |
+| Docs pack | S3 |
 | pm2 logs | CloudWatch |
 
-You're not inventing SES and EC2 — you already touched them. Neon is the workshop DB; RDS is the production sentence.
+You're not inventing SES and EC2 — you used them. Neon was the workshop memory; RDS is the production sentence. Next: tick the brief.

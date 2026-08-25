@@ -1,11 +1,11 @@
 ---
-title: "18. Protected chat"
+title: "18. The members room"
 order: 18
 ---
 
-# Protected chat
+# The members room
 
-Chat is for logged-in members only. RAG can come later — today we own the gate.
+Chat is for people with a ticket. RAG can arrive later — today we own the **gate**. No ticket, 401. Empty question, 400. Otherwise a honest stub: we haven't wired the librarian yet.
 
 `src/routes/chat.ts`
 
@@ -26,4 +26,4 @@ router.post("/chat", requireAuth, async (req, res) => {
 export default router;
 ```
 
-On event day the RAG contract is `POST /ask` with top-level `answer` and `sources`. This app mounts that stub on the **same** process as `/chat` (slide 19) — port 4000, not a second listener on 8080.
+Event-day RAG contract is `POST /ask` with top-level `answer` and `sources`. We mount that stub on the **same** process in the next slide — port 4000, not a second listener on 8080. Next: we actually start the building.

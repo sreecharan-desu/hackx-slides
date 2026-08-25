@@ -1,15 +1,13 @@
 ---
-title: "11. Outbound mail"
+title: "11. One tray for every letter"
 order: 11
 ---
 
-# Outbound mail
+# One tray for every letter
 
-One helper. Every register / verify / reset call goes through it.
+Join, verify, reset — three scenes, **one** `sendMail`. If we scatter Nodemailer in every route, flipping to SES later becomes a treasure hunt.
 
-This workshop sends with **SES `SendEmail`** using the same IAM access keys as `aws configure`. Do not paste those keys into `.env`. Do not use Mail Manager SMTP.
-
-`SMTP_HOST=localhost` is optional (MailDev on :1025). If that variable is unset, we talk to SES.
+Default story: letters go through **SES SendEmail** using the same IAM keys as `aws configure`. MailDev (`SMTP_HOST=localhost`) is the optional local dump.
 
 ```bash
 npm install @aws-sdk/client-sesv2
@@ -57,4 +55,4 @@ export async function sendMail(opts: { to: string; subject: string; text: string
 export default sendMail;
 ```
 
-`MAIL_FROM` is the verified **email** identity from the next slide (no domain). Call sites stay `sendMail({ to, subject, text })`.
+`MAIL_FROM` is a verified **email** — no domain required. Call sites stay `sendMail({ to, subject, text })`. Next: how SES sandbox actually works on webinar day.

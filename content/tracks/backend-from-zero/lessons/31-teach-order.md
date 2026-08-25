@@ -1,20 +1,18 @@
 ---
-title: "31. Run of show"
+title: "31. The clock in my head"
 order: 31
 ---
 
-# Run of show
+# The clock in my head
 
-This is the clock I keep in my head. Steal it.
+Steal this. Talk to the diagram, paste the block, run the command, move on. Don't narrate every line of TypeScript.
 
-| Block | Min |
+| Beat | Min |
 | --- | ---: |
-| Model + architecture | 3 |
-| Boot Express + Neon + Prisma | 6 |
-| Register → verify → login → `/me` | 6 |
-| SES + reset | 4 |
-| Chat gate | 2 |
-| Actions → EC2 → domain → TLS | 6 |
-| AWS map · teardown | 4 |
-
-Talk to the diagram, paste the block, run the command, move on. Don't narrate every line of TypeScript.
+| Why a door exists | 3 |
+| Heartbeat + Neon + Prisma | 6 |
+| Join → letter → login → who am I | 6 |
+| SES sandbox + reset | 4 |
+| Members room | 2 |
+| Git → Ubuntu → Nginx (public IP is enough) | 6 |
+| Pitch + teardown | 4 |

@@ -1,19 +1,23 @@
 ---
-title: "1. Scope"
+title: "1. The club needs a door"
 order: 1
 ---
 
-# Scope
+# The club needs a door
 
-Alright — today we're only building the **API**. Auth, who's logged in, email, and getting it onto a server. That's our lane.
+Imagine a campus club. People want in. Someone has to check who they are, send a mail, remember them next week, and keep the chat for members only.
+
+That someone is not the pretty website. The website is the lobby. **We are the door.**
+
+Today we build only the API — the thing that says yes or no, and never forgets a password in plaintext.
 
 ```mermaid
 flowchart TB
-  FE[Frontend]
-  API[Express API · this session]
-  DB[(Postgres · Neon)]
-  SES[Amazon SES]
-  RAG[RAG service]
+  FE[The lobby · frontend]
+  API[The door · this room]
+  DB[(Memory · Neon Postgres)]
+  SES[The post office · SES]
+  RAG[The librarian · RAG later]
 
   FE --> API
   API --> DB
@@ -21,14 +25,16 @@ flowchart TB
   API --> RAG
 ```
 
-| Portal needs this | We build it as |
-| --- | --- |
-| Sign up / login | Auth routes |
-| Forgot password | Token + SES |
-| Members-only chat | Auth middleware |
-| Who is logged in | `GET /me` |
+What a member actually wants, and what we name it:
 
-| What judges accept | What we're still doing |
+| They want | We ship |
 | --- | --- |
-| Local demo | Totally fine for the brief |
-| Live AWS | Bonus — we're shipping EC2 + a domain so the story feels real |
+| Join the club | Register + verify mail |
+| Come back tomorrow | Login + a ticket (JWT) |
+| "Who am I?" | `GET /me` |
+| Forgot the password | A reset mail, then a new hash |
+| Talk in the members room | Chat, but only with a ticket |
+
+A local demo already satisfies the brief. Putting it on Ubuntu behind Nginx is the extra chapter — **the public IP is enough**. A domain is a bonus if someone in the room already owns one.
+
+Next: why the browser is not allowed to touch the database.

@@ -1,5 +1,5 @@
 {
   "id": "backend-from-zero",
   "title": "Backend From Zero",
-  "description": "Express + TypeScript, Prisma on Neon, SES, EC2 — screen-share deck."
+  "description": "A club needs a door: sign up, mail, login, then a real box on AWS — told as one story."
 }

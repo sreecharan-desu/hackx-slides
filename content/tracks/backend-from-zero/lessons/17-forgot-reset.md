@@ -1,20 +1,22 @@
 ---
-title: "17. Password reset"
+title: "17. They lost the password"
 order: 17
 ---
 
-# Password reset
+# They lost the password
 
-The brief requires this. Flow is simple: email a short-lived token, let them set a new password, kill the token.
+The brief requires this. Same pattern as verify: a short-lived token in Postgres, a letter, a new hash, burn the token.
+
+On **forgot**, we always say "if the account exists…" — we don't confirm emails to strangers.
 
 ```mermaid
 flowchart TB
-  F[forgot-password] --> T[token in Postgres]
-  T --> S[SES mail]
-  S --> R[reset-password]
-  R --> H[bcrypt new hash]
-  H --> U[update user]
-  U --> X[mark token used]
+  F[I forgot] --> T[Token in Postgres]
+  T --> S[Letter via SES]
+  S --> R[They set a new password]
+  R --> H[New bcrypt hash]
+  H --> U[Update the member]
+  U --> X[Burn the token]
 ```
 
 ```ts
@@ -73,4 +75,4 @@ router.post("/reset-password", async (req, res) => {
 });
 ```
 
-We always return the same "if it exists…" message on forgot — no email fishing.
+Next: the members room — even if RAG isn't wired yet.

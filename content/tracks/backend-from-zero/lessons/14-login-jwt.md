@@ -1,11 +1,13 @@
 ---
-title: "14. Login"
+title: "14. Come back tomorrow"
 order: 14
 ---
 
-# Login
+# Come back tomorrow
 
-Find the user, compare the hash, make sure they're verified, then hand them a JWT. That ticket rides along on later requests.
+They return with email and password. We find the person, we compare hashes, we refuse if they never proved the inbox, then we hand a **JWT** — a ticket that rides on later requests.
+
+Same lie for bad email and bad password. We don't help attackers guess which one failed.
 
 ```ts
 import jwt from "jsonwebtoken";
@@ -39,4 +41,4 @@ router.post("/login", async (req, res) => {
 });
 ```
 
-Same error for bad email and bad password — we don't tell attackers which one failed.
+The ticket is not magic. Next we hire a bouncer who actually checks it.

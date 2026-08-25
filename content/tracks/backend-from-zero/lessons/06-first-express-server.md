@@ -1,18 +1,18 @@
 ---
-title: "6. First process"
+title: "6. First heartbeat"
 order: 6
 ---
 
-# First process
+# First heartbeat
 
-First win of the day: get a process listening. Auth can wait until `/health` says hello.
+Before members, before mail: prove a process is alive. If `/health` doesn't answer, nothing else in the story matters.
 
 ```bash
 mkdir -p src
 touch src/server.ts .env .gitignore
 ```
 
-`.gitignore` — keep secrets and junk out of git from minute one:
+`.gitignore` is the "don't leak the club secrets" list:
 
 ```text
 node_modules/
@@ -23,9 +23,9 @@ dist/
 .DS_Store
 ```
 
-Prisma writes `src/generated/prisma` — ignore it, never hand-edit it, regenerate after clone with `npx prisma generate`.
+Prisma will later write generated code. Ignore it. Never edit it by hand.
 
-`.env` for now (Neon comes next):
+`.env` is the back office. Access keys stay in `~/.aws` — not here.
 
 ```bash
 PORT=4000
@@ -36,9 +36,9 @@ MAIL_FROM=sreecharan309@gmail.com
 DATABASE_URL=
 ```
 
-Do not put access keys in this file. SES uses `~/.aws/credentials`. `MAIL_FROM` is the **email identity** you verify on slide 12 (Gmail or college mail — not a domain).
+`MAIL_FROM` is the **email identity** we verify later (Gmail or college mail — nobody needs a domain today).
 
-`src/server.ts`
+The smallest possible door:
 
 ```ts
 import "dotenv/config";
@@ -64,4 +64,4 @@ npm run dev
 curl http://localhost:4000/health
 ```
 
-If that curls back `{ ok: true }`, the room is ready.
+`{ ok: true }` means the room is breathing. Next we rent a database in the cloud — still no Postgres on the laptop.

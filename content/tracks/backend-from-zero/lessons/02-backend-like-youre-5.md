@@ -1,19 +1,27 @@
 ---
-title: "2. What a backend is"
+title: "2. The browser is not the bouncer"
 order: 2
 ---
 
-# What a backend is
+# The browser is not the bouncer
 
-Think of it this way: the browser should never poke the database directly. Your API is the only door.
+If the lobby could walk into the back office and read every member file, anyone with DevTools would own the club.
+
+So we put a bouncer in the way. The browser only speaks HTTP. The bouncer (Express) checks the story, talks to Postgres and mail, and sends JSON back.
 
 ```mermaid
 flowchart LR
-  C[Client] -->|request| E[Express]
-  E --> D[(Postgres)]
-  E --> S[SES]
-  E --> R[RAG]
-  E -->|response| C
+  C[Phone / laptop] -->|please let me in| E[Express]
+  E --> D[(Member files)]
+  E --> S[Mail]
+  E --> R[Later: RAG]
+  E -->|yes / no / here's your ticket| C
 ```
 
-Request comes in, we apply rules, JSON goes back out. Anything that needs to survive a restart lives behind that door.
+Three rules for the whole day:
+
+1. **Passwords never sit as text** — we store a hash.
+2. **Mail is how we prove you own the inbox** — not a checkbox on the form.
+3. **Chat is a privilege** — no ticket, no room.
+
+If it has to survive closing the laptop, it lives behind this door. Next we sketch the tiny set of URLs the frontend will ever call.

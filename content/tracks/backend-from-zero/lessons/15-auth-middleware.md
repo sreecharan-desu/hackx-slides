@@ -1,17 +1,17 @@
 ---
-title: "15. Auth middleware"
+title: "15. The bouncer"
 order: 15
 ---
 
-# Auth middleware
+# The bouncer
 
-This is the bouncer. Members-only routes don't even run until the ticket checks out.
+Members-only rooms don't even start until the ticket checks out. The bouncer reads `Authorization: Bearer …`, verifies the JWT, loads the person from Postgres, and stamps `req.user`.
 
 ```mermaid
 flowchart LR
-  REQ[Request] --> MW[requireAuth]
-  MW -->|Bearer JWT| DB[(Postgres)]
-  MW --> H[Route handler]
+  REQ[A request] --> MW[requireAuth]
+  MW -->|ticket ok| DB[(Still them?)]
+  MW --> H[The room]
 ```
 
 `src/middleware/auth.ts`
@@ -49,4 +49,4 @@ export async function requireAuth(req: AuthedRequest, res: Response, next: NextF
 }
 ```
 
-Hang this on chat (and anything else that shouldn't be public).
+Hang this on chat — and on anything else that shouldn't be public. Next: the simplest private question, "who am I?"

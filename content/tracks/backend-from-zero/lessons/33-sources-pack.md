@@ -1,23 +1,22 @@
 ---
-title: "33. References"
+title: "33. After the session"
 order: 33
 ---
 
-# References
+# After the session
 
-Drop these in the chat after the session — not mid-sentence while people are typing along.
+Drop these in the chat when people are packing laptops — not mid-sentence while they're typing.
 
 | Area | Link |
 | --- | --- |
 | Prisma | https://www.prisma.io/docs |
 | Neon | https://neon.tech/docs |
 | Express | https://expressjs.com |
-| SES SMTP | https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html |
+| SES | https://docs.aws.amazon.com/ses/latest/dg/send-email.html |
 | JWT | https://jwt.io/introduction |
 | OWASP Auth | https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html |
 | PM2 | https://pm2.keymetrics.io/docs/usage/quick-start/ |
-| Nginx reverse proxy | https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/ |
+| Nginx proxy | https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/ |
 | Certbot | https://certbot.eff.org/instructions |
-| GitHub Actions | https://docs.github.com/en/actions |
-| EC2 User Guide | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html |
-| Builder Center | https://builder.aws.com |
+| Actions | https://docs.github.com/en/actions |
+| EC2 | https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html |

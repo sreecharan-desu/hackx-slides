@@ -1,22 +1,24 @@
 ---
-title: "30. Against the brief"
+title: "30. Did we keep the promise?"
 order: 30
 ---
 
-# Against the brief
+# Did we keep the promise?
 
-Before we wrap, line every portal requirement up against something you can literally demo.
+Before we wrap, line the portal brief against something you can **show**.
 
-| 70% asks for | You show |
+| The 70% asked | You demo |
 | --- | --- |
-| Sign up / login | auth routes + Prisma |
+| Sign up / login | Auth routes + Prisma |
 | Who's logged in | `GET /me` |
-| Forgot password | SES + token row |
-| Members-only chat | `requireAuth` |
-| No secret logging | you just… don't |
+| Forgot password | SES + a token row |
+| Members-only chat | The bouncer |
+| No secret logging | You just don't |
 
-| 30% coordination | Remember |
+| Coordination | Remember |
 | --- | --- |
-| `POST /ask` | top-level `answer` + `sources` |
-| Port `8080` | bind `0.0.0.0` |
-| Grounding | RAG owns that text |
+| `POST /ask` | `answer` + `sources` |
+| Bind `0.0.0.0` | We already listen on all interfaces |
+| Grounding | RAG owns the sentences |
+
+Next: the clock I keep in my head.

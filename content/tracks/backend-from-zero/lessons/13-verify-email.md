@@ -1,11 +1,11 @@
 ---
-title: "13. Email verification"
+title: "13. They prove they own the inbox"
 order: 13
 ---
 
-# Email verification
+# They prove they own the inbox
 
-That link in the email? It's a one-time token. We check it, flip `isVerified`, and burn the token so nobody reuses it.
+The letter is not the membership card. The **token** is. We look it up, we check it isn't used or expired, we flip `isVerified`, we burn the token so nobody replays the link.
 
 ```ts
 router.get("/verify", async (req, res) => {
@@ -37,4 +37,4 @@ router.get("/verify", async (req, res) => {
 });
 ```
 
-Demo tip: open the inbox you registered — **check Spam first**. Subject: **Verify your account**. From: your `MAIL_FROM` **via** `amazonses.com`. Copy the `token=` from the link and curl verify (slide 20) — do not rely on clicking `localhost` from a webmail tab.
+Open the inbox you registered — **Spam first**. Subject: **Verify your account**. From: `MAIL_FROM` **via** `amazonses.com`. Copy `token=` and curl (next beats) — don't rely on clicking localhost in webmail. Then they can try login.
