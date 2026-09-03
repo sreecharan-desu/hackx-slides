@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export function ZoomableImage({ src, alt }: { src?: string; alt?: string }) {
   const [open, setOpen] = useState(false);
+  const [natural, setNatural] = useState<{ w: number; h: number } | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -21,17 +22,34 @@ export function ZoomableImage({ src, alt }: { src?: string; alt?: string }) {
 
   if (!src) return null;
 
+  // Prefer full pixel width so UI screenshots stay readable; never smaller than ~720px on phones
+  const lightboxWidth = natural
+    ? Math.max(natural.w, 720)
+    : undefined;
+
   return (
     <>
-      <figure className="diagram-figure">
+      <figure className="lesson-image">
         <button
           type="button"
-          className="image-zoom-trigger"
+          className="lesson-image-trigger"
           onClick={() => setOpen(true)}
-          aria-label={alt ? `Enlarge: ${alt}` : "Enlarge diagram"}
+          aria-label={alt ? `Enlarge: ${alt}` : "Enlarge image"}
         >
-          <img src={src} alt={alt ?? ""} className="diagram-preview" />
-          <span className="diagram-zoom-badge" aria-hidden>
+          <img
+            src={src}
+            alt={alt ?? ""}
+            className="lesson-image-preview"
+            loading="lazy"
+            decoding="async"
+            onLoad={(e) => {
+              const img = e.currentTarget;
+              if (img.naturalWidth > 0) {
+                setNatural({ w: img.naturalWidth, h: img.naturalHeight });
+              }
+            }}
+          />
+          <span className="lesson-image-badge" aria-hidden>
             Tap to enlarge
           </span>
         </button>
@@ -41,17 +59,30 @@ export function ZoomableImage({ src, alt }: { src?: string; alt?: string }) {
           className="image-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={alt || "Enlarged diagram"}
+          aria-label={alt || "Enlarged image"}
           onClick={() => setOpen(false)}
         >
+          <button
+            type="button"
+            className="image-lightbox-close"
+            aria-label="Close"
+            onClick={() => setOpen(false)}
+          >
+            Close
+          </button>
           <div
             className="image-lightbox-scroll"
             onClick={(e) => e.stopPropagation()}
           >
-            <img src={src} alt={alt ?? ""} className="diagram-full" />
+            <img
+              src={src}
+              alt={alt ?? ""}
+              className="lesson-image-full"
+              style={lightboxWidth ? { width: lightboxWidth } : undefined}
+            />
           </div>
           <p className="image-lightbox-hint">
-            Scroll to pan · tap outside or Esc to close
+            Scroll to pan · tap outside or Close
           </p>
         </div>
       ) : null}
