@@ -105,17 +105,26 @@ html:not(.dark) .hljs-literal {
 }
 
 .classic-prose h1 {
-  font-size: 1.85rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.22;
   margin: 0 0 1.1rem;
   letter-spacing: -0.03em;
   color: var(--foreground);
+  text-wrap: balance;
 }
 
 @media (min-width: 640px) {
   .classic-prose h1 {
-    font-size: 2.05rem;
+    font-size: 2.35rem;
+    line-height: 1.18;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .classic-prose h1 {
+    font-size: 2.65rem;
   }
 }
 
