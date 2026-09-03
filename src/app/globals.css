@@ -221,9 +221,53 @@ html:not(.dark) .hljs-literal {
   display: block;
 }
 
+.classic-prose .diagram-figure {
+  margin: 1.5rem 0;
+}
+
+/* On phones: keep diagrams readable — pan sideways instead of crushing text */
+.classic-prose .diagram-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  /* bleed to the screen edges for more width */
+  margin-inline: -1.25rem;
+  padding-inline: 0.75rem;
+  padding-block: 0.75rem;
+  max-width: none;
+  width: calc(100% + 2.5rem);
+}
+
+@media (min-width: 640px) {
+  .classic-prose .diagram-scroll {
+    margin-inline: 0;
+    padding: 1rem;
+    width: 100%;
+  }
+}
+
+.classic-prose .diagram-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .classic-prose .diagram-hint {
+    display: none;
+  }
+}
+
 .classic-prose .image-zoom-trigger {
   display: block;
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   padding: 0;
   margin: 0;
   border: 0;
@@ -233,7 +277,25 @@ html:not(.dark) .hljs-literal {
 }
 
 .classic-prose .image-zoom-trigger img {
-  margin: 1.5rem 0;
+  /* keep labels readable on narrow screens; user pans or taps to enlarge */
+  width: max(100%, 42rem);
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 8px;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .classic-prose .image-zoom-trigger {
+    width: 100%;
+  }
+
+  .classic-prose .image-zoom-trigger img {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .image-lightbox {
@@ -241,23 +303,56 @@ html:not(.dark) .hljs-literal {
   inset: 0;
   z-index: 80;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
-  padding: 1.5rem;
-  background: rgba(12, 14, 16, 0.88);
+  padding: 0.75rem;
+  background: rgba(12, 14, 16, 0.92);
   cursor: zoom-out;
 }
 
+.image-lightbox-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: default;
+}
+
 .image-lightbox img {
-  max-width: min(96vw, 1400px);
-  max-height: 92vh;
-  width: auto;
+  display: block;
+  /* Prefer readable size over fitting the whole diagram on a phone */
+  width: max(100%, 56rem);
+  max-width: none;
   height: auto;
   margin: 0;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 0;
+  border-radius: 0;
   background: var(--surface);
-  cursor: default;
+}
+
+@media (min-width: 900px) {
+  .image-lightbox {
+    padding: 1.5rem;
+  }
+
+  .image-lightbox img {
+    width: auto;
+    max-width: min(1400px, 96vw);
+    margin: 0 auto;
+  }
+}
+
+.image-lightbox-hint {
+  flex-shrink: 0;
+  margin: 0.65rem 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, white 70%, transparent);
 }
 
 .classic-prose .table-wrap {
@@ -313,17 +408,22 @@ html:not(.dark) .hljs-literal {
 }
 
 .classic-prose .mermaid-diagram {
-  margin: 1.6rem 0;
-  padding: 1.25rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
+  margin: 0;
 }
 
 .classic-prose .mermaid-diagram svg {
   display: block;
-  margin: 0 auto;
-  max-width: 100%;
+  width: max(100%, 36rem);
+  max-width: none;
+  height: auto;
+}
+
+@media (min-width: 640px) {
+  .classic-prose .mermaid-diagram svg {
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
 
 .classic-prose .code-panel {

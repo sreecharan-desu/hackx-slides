@@ -52,9 +52,12 @@ export function MermaidDiagram({ chart }: { chart: string }) {
   }
 
   return (
-    <div
-      className="mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface p-5 shadow-[inset_3px_0_0_0_var(--code-accent)] [&_svg]:mx-auto [&_svg]:max-w-full"
-      dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
-    />
+    <figure className="diagram-figure">
+      <div
+        className="mermaid-diagram diagram-scroll"
+        dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
+      />
+      <figcaption className="diagram-hint">Swipe to pan</figcaption>
+    </figure>
   );
 }

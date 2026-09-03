@@ -23,9 +23,21 @@ export function ZoomableImage({ src, alt }: { src?: string; alt?: string }) {
 
   return (
     <>
-      <button type="button" className="image-zoom-trigger" onClick={() => setOpen(true)}>
-        <img src={src} alt={alt ?? ""} />
-      </button>
+      <figure className="diagram-figure">
+        <div className="diagram-scroll">
+          <button
+            type="button"
+            className="image-zoom-trigger"
+            onClick={() => setOpen(true)}
+            aria-label={alt ? `Enlarge: ${alt}` : "Enlarge image"}
+          >
+            <img src={src} alt={alt ?? ""} />
+          </button>
+        </div>
+        <figcaption className="diagram-hint">
+          Swipe to pan · tap to enlarge
+        </figcaption>
+      </figure>
       {open ? (
         <div
           className="image-lightbox"
@@ -34,7 +46,10 @@ export function ZoomableImage({ src, alt }: { src?: string; alt?: string }) {
           aria-label={alt || "Enlarged image"}
           onClick={() => setOpen(false)}
         >
-          <img src={src} alt={alt ?? ""} onClick={(e) => e.stopPropagation()} />
+          <div className="image-lightbox-scroll" onClick={(e) => e.stopPropagation()}>
+            <img src={src} alt={alt ?? ""} />
+          </div>
+          <p className="image-lightbox-hint">Tap outside or press Esc to close</p>
         </div>
       ) : null}
     </>
