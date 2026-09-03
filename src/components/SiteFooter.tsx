@@ -1,6 +1,6 @@
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/70">
+    <footer>
       <div className="flex justify-end px-4 py-4 sm:px-6 sm:py-5">
         <p className="flex items-center gap-1 text-[11px] leading-none text-muted sm:text-xs">
           <span>Made with</span>
