@@ -24,32 +24,35 @@ export function ZoomableImage({ src, alt }: { src?: string; alt?: string }) {
   return (
     <>
       <figure className="diagram-figure">
-        <div className="diagram-scroll">
-          <button
-            type="button"
-            className="image-zoom-trigger"
-            onClick={() => setOpen(true)}
-            aria-label={alt ? `Enlarge: ${alt}` : "Enlarge image"}
-          >
-            <img src={src} alt={alt ?? ""} />
-          </button>
-        </div>
-        <figcaption className="diagram-hint">
-          Swipe to pan · tap to enlarge
-        </figcaption>
+        <button
+          type="button"
+          className="image-zoom-trigger"
+          onClick={() => setOpen(true)}
+          aria-label={alt ? `Enlarge: ${alt}` : "Enlarge diagram"}
+        >
+          <img src={src} alt={alt ?? ""} className="diagram-preview" />
+          <span className="diagram-zoom-badge" aria-hidden>
+            Tap to enlarge
+          </span>
+        </button>
       </figure>
       {open ? (
         <div
           className="image-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={alt || "Enlarged image"}
+          aria-label={alt || "Enlarged diagram"}
           onClick={() => setOpen(false)}
         >
-          <div className="image-lightbox-scroll" onClick={(e) => e.stopPropagation()}>
-            <img src={src} alt={alt ?? ""} />
+          <div
+            className="image-lightbox-scroll"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img src={src} alt={alt ?? ""} className="diagram-full" />
           </div>
-          <p className="image-lightbox-hint">Tap outside or press Esc to close</p>
+          <p className="image-lightbox-hint">
+            Scroll to pan · tap outside or Esc to close
+          </p>
         </div>
       ) : null}
     </>

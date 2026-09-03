@@ -1,4 +1,6 @@
-import { isValidElement } from "react";
+"use client";
+
+import { Children, isValidElement } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -13,8 +15,28 @@ export function MarkdownContent({ content }: { content: string }) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
         components={{
+          // Images render as <figure>; don't wrap them in <p> (invalid HTML → hydration #418)
+          p({ children }) {
+            const kids = Children.toArray(children).filter((child) => {
+              if (typeof child === "string") return child.trim().length > 0;
+              return true;
+            });
+            if (
+              kids.length === 1 &&
+              isValidElement(kids[0]) &&
+              kids[0].type === ZoomableImage
+            ) {
+              return kids[0];
+            }
+            return <p>{children}</p>;
+          },
           img({ src, alt }) {
-            return <ZoomableImage src={typeof src === "string" ? src : undefined} alt={alt} />;
+            return (
+              <ZoomableImage
+                src={typeof src === "string" ? src : undefined}
+                alt={alt}
+              />
+            );
           },
           table({ children }) {
             return (
