@@ -1,7 +1,7 @@
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/70">
-      <div className="flex justify-center px-4 py-5 sm:py-6">
+      <div className="flex justify-end px-4 py-4 sm:px-6 sm:py-5">
         <p className="flex items-center gap-1 text-[11px] leading-none text-muted sm:text-xs">
           <span>Made with</span>
           <span className="text-[0.85em] text-[var(--brand-coral)]" aria-hidden>
