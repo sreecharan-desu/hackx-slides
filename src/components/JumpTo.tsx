@@ -42,8 +42,9 @@ export function JumpTo({
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-9 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm hover:bg-surface"
+        className="inline-flex size-9 items-center justify-center rounded-md border border-border text-sm hover:bg-surface sm:w-auto sm:gap-1.5 sm:px-2.5"
         aria-expanded={open}
+        aria-label="Jump to lesson"
       >
         <ExternalLink className="h-3.5 w-3.5" />
         <span className="hidden sm:inline">Jump To</span>

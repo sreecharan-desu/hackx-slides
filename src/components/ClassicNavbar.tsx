@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ExternalLink,
+  List,
   Moon,
   Sun,
 } from "lucide-react";
@@ -67,7 +68,6 @@ export function ClassicNavbar({
       }
 
       const withMod = e.metaKey || e.ctrlKey;
-      // ← / → and ⌘/Ctrl + ← / →
       if (e.key === "ArrowLeft" || (withMod && e.key === "ArrowLeft")) {
         if (!prevHref) return;
         e.preventDefault();
@@ -87,40 +87,55 @@ export function ClassicNavbar({
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-nav/90 backdrop-blur-md">
-      <div className="grid h-14 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6">
-        <Link href="/" className="flex h-9 min-w-0 items-center gap-2 justify-self-start">
+      <div className="mx-auto flex h-14 max-w-[1100px] items-center gap-2 px-3 sm:gap-3 sm:px-5">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
           <Image
             src="/hackx-logo.png"
             alt="hackx"
             width={32}
             height={32}
-            className="block size-8 shrink-0 rounded-sm object-contain"
+            className="block size-8 rounded-sm object-contain"
             priority
           />
-          <span className="hidden text-base font-semibold tracking-tight sm:inline">
+          <span className="hidden text-base font-semibold tracking-tight md:inline">
             hackx
           </span>
         </Link>
 
-        <p className="whitespace-nowrap justify-self-center px-1 text-center text-sm font-medium leading-none text-foreground sm:text-[15px]">
-          {trackTitle}
-          <span className="font-normal text-muted">
-            {" "}
-            ({currentIndex + 1} / {total})
-          </span>
-        </p>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-medium leading-tight text-foreground sm:text-[15px]">
+            {trackTitle}
+          </p>
+          <p className="text-[11px] leading-none text-muted tabular-nums sm:text-xs">
+            {currentIndex + 1} / {total}
+          </p>
+        </div>
 
-        <div className="flex h-9 items-center justify-end gap-1.5 justify-self-end sm:gap-2">
-          <JumpTo trackId={trackId} lessons={lessons} currentId={lessons[currentIndex]?.id} />
+        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
+          <JumpTo
+            trackId={trackId}
+            lessons={lessons}
+            currentId={lessons[currentIndex]?.id}
+          />
 
-          <NavButton href={prevHref} disabled={!prevHref} label="Prev" icon={<ChevronLeft className="h-4 w-4" />} />
-          <NavButton href={nextHref} disabled={!nextHref} label="Next" icon={<ChevronRight className="h-4 w-4" />} reverse />
+          <NavIcon
+            href={prevHref}
+            disabled={!prevHref}
+            label="Previous slide"
+            icon={<ChevronLeft className="h-4 w-4" />}
+          />
+          <NavIcon
+            href={nextHref}
+            disabled={!nextHref}
+            label="Next slide"
+            icon={<ChevronRight className="h-4 w-4" />}
+          />
 
           <button
             type="button"
             aria-label="Toggle theme"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-foreground hover:bg-surface"
+            className="inline-flex size-9 items-center justify-center rounded-md border border-border text-foreground hover:bg-surface"
           >
             {mounted && theme === "light" ? (
               <Moon className="h-4 w-4" />
@@ -131,11 +146,13 @@ export function ClassicNavbar({
 
           <Link
             href={`/tracks/${trackId}`}
-            className="hidden h-9 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm hover:bg-surface sm:inline-flex"
+            className="inline-flex size-9 items-center justify-center rounded-md border border-border text-foreground hover:bg-surface sm:w-auto sm:gap-1.5 sm:px-2.5"
             title="Track outline"
+            aria-label="Track outline"
           >
-            <ExternalLink className="h-3.5 w-3.5" />
-            Outline
+            <List className="h-4 w-4 sm:hidden" />
+            <ExternalLink className="hidden h-3.5 w-3.5 sm:block" />
+            <span className="hidden text-sm sm:inline">Outline</span>
           </Link>
         </div>
       </div>
@@ -143,48 +160,32 @@ export function ClassicNavbar({
   );
 }
 
-function NavButton({
+function NavIcon({
   href,
   disabled,
   label,
   icon,
-  reverse,
 }: {
   href?: string;
   disabled?: boolean;
   label: string;
   icon: React.ReactNode;
-  reverse?: boolean;
 }) {
-  const className = `inline-flex h-9 items-center gap-1 rounded-md border border-border px-2 text-sm ${
-    disabled
-      ? "cursor-not-allowed opacity-40"
-      : "hover:bg-surface"
+  const className = `inline-flex size-9 items-center justify-center rounded-md border border-border ${
+    disabled ? "cursor-not-allowed opacity-40" : "hover:bg-surface"
   }`;
-
-  const content = reverse ? (
-    <>
-      <span className="hidden sm:inline">{label}</span>
-      {icon}
-    </>
-  ) : (
-    <>
-      {icon}
-      <span className="hidden sm:inline">{label}</span>
-    </>
-  );
 
   if (disabled || !href) {
     return (
-      <span className={className} aria-disabled>
-        {content}
+      <span className={className} aria-disabled aria-label={label}>
+        {icon}
       </span>
     );
   }
 
   return (
-    <Link href={href} prefetch className={className}>
-      {content}
+    <Link href={href} prefetch className={className} aria-label={label}>
+      {icon}
     </Link>
   );
 }
