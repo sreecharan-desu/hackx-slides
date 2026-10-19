@@ -1,21 +1,23 @@
-# hackx
+# hackx-slides
 
-Classic, readable learning tracks — inspired by DailyCode’s old UI.
+readable markdown learning tracks for hackx.
 
-## Run
+## features
+
+- tracks under `content/tracks/<track-id>/` with `meta.json` (title, description) and `lessons/*.md` (frontmatter: `title`, `order`)
+- markdown rendered with inline code chips and clean code blocks
+
+## stack
+
+next.js 16 · react 19 · tailwind css 4 · typescript
+
+## run locally
 
 ```bash
 npm install
-npm run dev
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## env
 
-## Content
-
-No tracks yet. Add them under `content/tracks/<track-id>/`:
-
-- `meta.json` — title + description
-- `lessons/*.md` — markdown with frontmatter (`title`, `order`)
-
-No Notion. Markdown is rendered to match the classic Notion-like look (inline code chips, blue-accent code blocks, clean typography).
+none.
